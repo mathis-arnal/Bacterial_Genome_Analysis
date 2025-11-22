@@ -33,13 +33,13 @@ Hikichi, M., M. Nagao, K. Murase, C. Aikawa, T. Nozawa et al., 2019 Complete Gen
 Methicillin-resistant Staphylococcus aureus (MRSA) is a major pathogen causing nosocomial infections, and the clinical manifestations of MRSA range from asymptomatic colonization of the nasal mucosa to soft tissue infection to fulminant invasive disease. Here, we zill analyze one of the eight MRSA strains isolated from patients in Japan : **DRR187559**.
 
 
-!!! question Exercise ?: Library & read length
+!!! question "Exercise ?: Library & read length"
     Read the referenced paper (https://journals.asm.org/doi/10.1128/mra.01212-19) and answer the following:
 
     1. Which library preparation kit, sequencing reagent kit, and sequencing platform were used for these data? Provide the exact phrasing from the paper that supports your answer.
     2. Based on the reagent kit and platform, what is the maximum theoretical read length per read, and what is the read layout (single‑end or paired‑end)?
 
-    ??? Solution
+    ??? "Solution"
         1. Evidence from the paper: "An Illumina short-read library was prepared using a Nextera DNA library prep kit, and paired-end reads were generated using a MiSeq reagent kit (v3-600) on the MiSeq platform (Illumina)."
         2. The MiSeq v3-600 reagent kit corresponds to paired‑end 2x300 bp sequencing, so the maximum theoretical read length is 300 bp per read and the layout is paired‑end.
 
@@ -56,25 +56,23 @@ When working with high-throughput sequencing data, the raw reads you get off the
 through several different tools to generate your final desired output. The execution of this set of
 tools in a specified order is commonly referred to as a *workflow* or a *pipeline*. 
 
-An example of the workflow we will be using for our analysis is provided below:
+An example of a bacterial genome analysis workflow is provided below:
 
 
- <a href=".../../fig/bact/02-fastq-desc/bact_analysis_workflow.png">
-  <img src="../../fig/bact/02-fastq-desc/bact_analysis_workflow.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
-</a>
+![bact_analysis_workflow](../../fig/bact/02-fastq-desc/bact_analysis_workflow.png)
 
+
+For this workshop, we will only do a subset of this workflow : 
 
 1. Quality control - Assessing quality using FastQC and Trimming and/or filtering reads.
-2. Assembly of bacterial genome
-3. Multi Locus Sequence Typing (MLST) and Anti-Microbial Resistance (AMR)
-4. Genome Annotation
+2. Assembly of bacterial genome and Quality Checking of the Assembly
+3. Bacterial Characterization: Multi Locus Sequence Typing (MLST) and Anti-Microbial Resistance (AMR) Genome Annotation
 
 These workflows in bioinformatics adopt a plug-and-play approach in that the output of one tool can be easily
 used as input to another tool without any extensive configuration. Having standards for data formats is what 
 makes this feasible. Standards ensure that data is stored in a way that is generally accepted and agreed upon 
-within the community. Therefore, the tools used to analyze data at different workflow stages are  
-built, assuming that the data will be provided in a specific format. Throughout the workshop we will encounter many data file formats.
-The first one is the *FASTQ Format*. 
+within the community. Therefore, the tools used to analyze data at different workflow stages are built, assuming that the data will be provided in a specific format. 
+Throughout the workshop we will encounter many data file formats. The first one is the *FASTQ Format*. 
 
 
 ## Details on the FASTQ format

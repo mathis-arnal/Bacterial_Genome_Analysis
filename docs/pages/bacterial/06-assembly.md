@@ -65,8 +65,8 @@ The figure below shows the hierarchy:
 
 There are several strategies to assemble genomes. Most modern short-read assemblers use **De Bruijn Graphs**, but it is useful to know all three families of algorithms.
 
-<a href="../../fig/bact/assembly_algorithms.png">
-  <img src="../../fig/assembly_algorithms.png" width="868" height="777" alt="Assembly algorithms: Greedy, OLC, De Bruijn Graphs" />
+<a href="../../fig/bact/06-assembly/assembly_algorithms.png">
+  <img src="../../fig/06-assembly/assembly_algorithms.png" width="868" height="777" alt="Assembly algorithms: Greedy, OLC, De Bruijn Graphs" />
 </a>
 
 ### **1. Greedy Extension**
@@ -163,78 +163,57 @@ Choose:
 - Ensure the correct R1/R2 files are selected.
 
 ### 2. Options to select  
-- **Enable careful mode** (optional, reduces mismatches)  
+
+- in **Operation mode**, select : **Assembly and error correction**.
+SPAdes performs BayesHammer/Hammer error correction on the raw reads before doing the assembly.
+(fixes substitutions & small indels, removes low-quality kmers), which improve assembly quality but takes longer.
+
+- in **Pipeline Options**:
+      tick **Careful: ties to reduce the number of mismatches and short indels. Only recommended for small genomes (--careful)**
+      Enable careful mode reduce mismatches.
+
 - **Select additional outputs**:  
   - Contigs  
   - Scaffolds  
-  - Assembly graph (optional but useful)
+  - Assembly graph with scaffolds
+  - Log 
 
-### 3. Run
-Click **Run Tool**.
+- **Select k-mer detection option**: Select "21, 33, 55, 77, 99, 127", commonly used for ILLUMINA for max length 300pb.
+
+- Click **Run Tool**.
 
 Assembly usually takes a few minutes depending on coverage and read depth.
 
----
+## Galaxy Outputs 
+
+SPAdes generates several output files with different assembly representations:
+
+Main assembly files:
+
+**SPAdes on data X and data X: Contigs**
+Basic contigs without scaffolding
+No gaps (N's)
+Most conservative assembly
+
+
+**SPAdes on data X and data X: Contigs**
+Contigs linked together using paired-end information
+Contains gaps represented as N's where SPAdes inferred connections
+Longer sequences, but includes uncertainties
+
+**SPAdes on data 2 and data 1: Assembly graph** and **SPAdes on data 2 and data 1: Assembly graph with scaffolds**
+Used for visualization (Bandage) and understanding assembly structure
+The difference between "Assembly graph" vs "Assembly graph with scaffolds":
+Assembly graph: The basic de Bruijn graph structure
+Assembly graph with scaffolds: Graph that includes scaffolding information (how contigs connect)
+
 
 # Quality Control: QUAST
-
-Once your assembly is ready, we use **QUAST**:  
-**QU**ality **A**ssessment **S**oftware **T**ool.
-
-It evaluates:
-
-- Number of contigs  
-- Total assembly length  
-- N50 / L50  
-- GC content  
-- Mismatches / indels  
-- Graphical reports  
-
-!!! example "Run QUAST"
-    1. Search for **QUAST** in the Galaxy Tools panel.  
-    2. Select **contigs.fasta** from the SPAdes output.  
-    3. (Optional) Add a reference genome to improve metrics.  
-    4. Run the tool.  
-
-QUAST produces a summary table and plots showing the assembly quality.
-
----
-
-# Interpreting Key Assembly Metrics
-
-| Metric | Meaning | Good Sign |
-|-------|---------|-----------|
-| **Contigs** | Number of fragments | Lower is better |
-| **Largest contig** | The length of the largest contig in the assembly | Larger suggests better assembly |
-| **Total length** | The total number of bases in the assembly | Should match expected species size |
-| **N50** | Length of contig where half the genome is in longer contigs | Higher is better |
-| **GC%** | GC content | Should match expected species |
-
-
----
-
-# Common Pitfalls in Bacterial Assembly
-
-### 1. Low coverage
-Below 20–30× makes assemblies fragmented.
-
-### 2. Contamination
-Foreign reads produce extra contigs.
-
-### 3. Repeats and mobile elements
-Plasmids and insertion sequences cause breaks in contigs.
-
-### 4. Mixed strains
-Can result in chimeric contigs.
-
-### 5. Untrimmed adapters
-Lead to errors in graph construction.
-
----
 
 # Assembly Metrics using QUAST
 
 Once your assembly is complete, it is essential to evaluate its quality before proceeding to downstream analyses. This is where **QUAST** (QUality ASsessment Tool) comes in.
+
 
 **Why is assessing assembly quality important?**
 
@@ -250,7 +229,17 @@ Once your assembly is complete, it is essential to evaluate its quality before p
 - **GC content:** Helps detect contamination or unusual biases.  
 - **Misassemblies and mismatches:** Identify errors or inconsistencies in the assembly.  
 
-By reviewing these metrics, you can objectively assess your assembly’s completeness and accuracy, which is crucial for reliable downstream analyses like annotation or variant calling.
+By reviewing these metrics, you can objectively assess your assembly’s completeness and accuracy, which is crucial for reliable downstream analyses.
+
+!!! example "Run QUAST"
+    1. Search for **QUAST** in the Galaxy Tools panel.  
+    2. Select **contigs.fasta** from the SPAdes output. 
+    In **Assembly Mode**: Select **Individual assembly (1 contig file per sample)**.
+    In **Contigs/scaffolds file**, select **SPAdes on data X and data X: Scaffolds**
+    In **Estimated reference genome size (in bp) for computing NGx statistics**, select : 2800000
+    4. Run the tool.  
+
+QUAST produces a summary table and plots showing the assembly quality.
 
 ## Example of Good Assembly Metrics (QUAST)
 
@@ -265,7 +254,36 @@ By reviewing these metrics, you can objectively assess your assembly’s complet
 
 **Note:** These values depend on the species and data quality. For bacteria, a near-complete genome with a few large contigs is ideal.
 
----
+!!! Question "Assembly Evaluation"
+    Open the file **Quast on data X: HTML report**
+    - How many contigs is there?
+    - What is the total length of all contigs?
+    - What is you GC content?
+
+    ??? "Answer"
+    - 31 contigs, meaning the chromosome is separated over multiple contigs. These contigs can also contain (parts of) plasmids.
+    - 2904652 (Total length (>= 0 bp)). Not far from the estimated genome size found in paper, which is 2.8 Mb.
+    - The GC content for our assembly was 32.76%. For comparison, in the paper GC% is  around 32.89%.
+    - Conclusion: The total length and the GC content of the assembly are coherent with expectations.
+
+
+# Common Pitfalls in Bacterial Assembly
+
+### 1. Low coverage
+Below 20–30× makes assemblies fragmented.
+
+### 2. Contamination
+Foreign reads produce extra contigs. In this workshop
+
+### 3. Repeats and mobile elements
+Plasmids and insertion sequences cause breaks in contigs.
+
+### 4. Mixed strains
+Can result in chimeric contigs.
+
+### 5. Untrimmed adapters
+Lead to errors in graph construction.
+
 
 # Assembly Viewer using Bandage
 
@@ -296,6 +314,23 @@ Bandage allows you to:
 - **Circular structures (if expected):** Closed loops may represent plasmids or circular chromosomes.  
 - **No excessive disconnected components:** Indicates little fragmentation or contamination.
 
+## Bandage in Galaxy 
+
+In **Tool**, select **Bandage Image, visualize de novo assembly graphs**.
+In **Graphical Fragment Assembly**, select :
+**SPAdes on data X and data X: Assembly graph with scaffolds**
+
+!!! Question "How is the assembly ?"
+
+    First read [this page in the Bandage wiki](https://github.com/rrwick/Bandage/wiki/Simple-example) to help understand what the graph means.
+    Look at this Examples of Bandage:
+    [Bandage  Vizualisation Example](../../fig/bact/06-assembly/bandage_viz_ex.png) 
+    What do you think of the assembly of our sample, **DRR187559** ? Is it useful? Is it good enough?
+
+    ???  "Answer"
+        
+      This is a very messy assembly, with a lot of potential paths through the sequence. We cannot feel confident in the output FASTA file (as it is much smaller than the expected 2.9Mbp). In real life we might consider doing a hybrid assembly with Nanopore or other long read data to help resolve these issues.
+
 ### Example interpretations:
 
 | Graph Feature               | Meaning                                          |
@@ -308,7 +343,20 @@ Bandage allows you to:
 Visualizing the assembly graph with Bandage helps confirm that your assembly structure matches biological expectations and guides troubleshooting if unusual features are seen.
 
 
----
+## Conclusion
+In this tutorial, we prepared short reads, assembled them, and inspect the produced assembly for its quality. The assembly, even if uncomplete, is reasonable good to be used in downstream analysis, like MLST or AMR.
+
+# Summary
+
+!!! success "Key Points"
+    - Genome assembly reconstructs bacterial genomes from sequencing reads.  
+    - Reads → Contigs → Scaffolds → Genome.  
+    - De Bruijn Graphs (k-mers) are the foundation of short-read assembly.  
+    - SPAdes is the standard tool for bacterial genome assembly.  
+    - Assemblers take FASTQ reads as input and output contigs/scaffolds in FASTA format.  
+    - Assembly quality should be evaluated using QUAST.
+
+## BONUS: EXTRA STEPS FOR ASSEMBLY QUALITY ASSESSMENT
 
 ## BUSCO: Assessing Genome Completeness
 
@@ -353,15 +401,3 @@ Despite BUSCO being robust for species that have been widely studied, it can be 
 - **Identifies contamination:** Off-diagonal or scattered alignments can reveal foreign sequences.  
 - **Useful even for draft assemblies:** Helps determine whether scaffolding or polishing is needed.
 
-
-# Summary
-
-!!! success "Key Points"
-    - Genome assembly reconstructs bacterial genomes from sequencing reads.  
-    - Reads → Contigs → Scaffolds → Genome.  
-    - De Bruijn Graphs (k-mers) are the foundation of short-read assembly.  
-    - SPAdes is the standard tool for bacterial genome assembly.  
-    - Assemblers take FASTQ reads as input and output contigs/scaffolds in FASTA format.  
-    - Assembly quality should be evaluated using QUAST.
-
----

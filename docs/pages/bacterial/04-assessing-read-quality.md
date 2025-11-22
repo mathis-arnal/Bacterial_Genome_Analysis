@@ -166,6 +166,21 @@ We first have a fastqc summary :
 ![fastqc-summary]( ../../fig/bact/04-read-QC/fastqc-summary.png) 
 
 
+!!! question "Exercise X: Compute the coverage"
+
+    Another Important Metric is the coverage.
+    How many times on average each base of the genome is covered?
+    This helps you understand if you have enough data to assemble confdently.
+
+    Discuss your results with a neighbor. 
+ 
+    ??? "Solution"
+        You look at the Total Bases in **Basic Statistics**, and you divide it by the expected genome size.
+        Based on [this paper] (https://journals.asm.org/doi/10.1128/genomea.00800-15), S. aureus has a genome size of approximately 2.8 Mb.
+        86.2 Mb / 2.8Mb = 30,78.
+        A coverage of 30x is good for assembly.
+
+
 And then, the "Per Base Quality graph": 
 
 ![fastqc output]( ../../fig/bact/04-read-QC/fastqc-out.png) 
@@ -180,7 +195,7 @@ And then, the "Per Base Quality graph":
     - What is a common trend among the 2 reads ?
  
     ??? "Solution"
-        Common trend: The quality decreases toward the end of the reads. For Illumina data it is normal that the first few bases are of some lower quality and how longer the reads get the worse the quality becomes. This is often due to signal decay or phasing during the sequencing run.
+        Common trend: The quality decreases toward the end of the reads. For Illumina data it is normal that the first few bases are of some lower quality and how longer the reads get the worse the quality becomes. This is often due to signal decay or phasing during the sequencing run.      
     
 ## Decoding the other FastQC outputs
 We've now looked at quite a few "Per base sequence quality" FastQC graphs, but there are nine other graphs that we haven't talked about! Below we have provided a brief overview of interpretations for each plot. For more information, please see the FastQC documentation [here](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) 
@@ -196,6 +211,9 @@ We've now looked at quite a few "Per base sequence quality" FastQC graphs, but t
 + [**Adapter Content**](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/10%20Adapter%20Content.html): a graph indicating where adapter sequences occur in the reads.
 + [**K-mer Content**](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/11%20Kmer%20Content.html): a graph showing any sequences which may show a positional bias within the reads.
 
+
+
+	
 
 ## Quality of multiple samples, using MultiQC
 

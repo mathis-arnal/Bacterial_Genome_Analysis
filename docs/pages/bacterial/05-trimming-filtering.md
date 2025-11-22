@@ -28,17 +28,9 @@ keypoints:
 
 ## Why Should I clean reads ? 
 
-In the last episode, we took a high-level look at the quality
-of each of our samples using `FastQC`. We visualized per-base quality
-graphs showing the distribution of the quality at each base across
-all the reads from our sample. This information helps us to determine 
-the quality threshold we will accept, and thus, we saw information about
-which samples fail which quality checks. Some of our samples failed 
-quite a few quality metrics used by FastQC. However, this does not mean
-that our samples should be thrown out! It is common to have some 
-quality metrics fail, which may or may not be a problem for your 
-downstream application. For our workflow, we will remove some low-quality sequences to reduce our false-positive rate due to 
-sequencing errors.
+In the last episode, we took a high-level look at the quality of each of our samples using `FastQC`. We visualized per-base quality graphs showing the distribution of the quality at each base across all the reads from our sample. This information helps us to determine 
+the quality threshold we will accept, and thus, we saw information about which samples fail which quality checks. Some of our samples failed quite a few quality metrics used by FastQC. However, this does not mean that our samples should be thrown out! 
+It is common to have some quality metrics fail, which may or may not be a problem for your downstream application. For our workflow, we  will remove some low-quality sequences to reduce our false-positive rate due to sequencing errors.
 
 Illumina sequencing data can contain:
 
@@ -70,8 +62,8 @@ clean your data is essential. We will use only a few options and trimming steps 
 analysis. For more information about the Trimmomatic arguments
 and options, see [the Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
 
-<a href="../fig/03-03-01.png">
-  <img src="../fig/03-03-01.png" alt="Diagram showing the parts of the sequence that are reviewed by each parameter and the parts that are maintained or discarded at the end of the process. The Illuminaclip parameter removes the adapters, and the SlidingWindow scans the read by sections and removes a part of the read below the quality threshold. We remain with a trimmed read that has a valid quality." />
+<a href="../../fig/bact/05-trimmingtrimming_diagram.png">
+  <img src="../../fig/bact/05-trimmingtrimming_diagram.png" alt="Diagram showing the parts of the sequence that are reviewed by each parameter and the parts that are maintained or discarded at the end of the process. The Illuminaclip parameter removes the adapters, and the SlidingWindow scans the read by sections and removes a part of the read below the quality threshold. We remain with a trimmed read that has a valid quality." />
 </a>
 
 ## 1. Remove adapters
@@ -136,7 +128,7 @@ We are going to run Trimmomatic on our collection **CCB_Study**
 ### Create a new history 
 First, let's create a new history, and name it "Trimming and Filtering"
 
-![new-history-trimmomatic]( ../fig/galaxy/new-history-trimmomatic.png)
+![new-history-trimmomatic]( ../../fig/bact/05-trimming/new-history-trimmomatic.png)
 
 Then using the History Multiview, we can move the collection from the previous analysis (FastQC) to the new history (CCB_Study).
 
@@ -144,14 +136,14 @@ Then using the History Multiview, we can move the collection from the previous a
 ### Run Trimmomatic
 
 Then, we can type "Trimmomatic" inside the "Tools" .  
-While using FastQC, we saw that Universal adapters were present 
-in our samples.
+While using FastQC, we saw that Universal adapters were present in our samples.
 
 #### STEP 1: Choose the Adapter sequences to use
 
+When you prepare an Illumina library using the Nextera DNA library prep kit, the adapters used are *Nextera adapters*.
 As we said earlier, we have used TruSeq3 adapters during our library.  
 First, click **Yes** for **Perform initial ILLUMINACLIP step?**.  
-In our case, for **Adapter sequences to use** we will choose **TruSeq3 (paired-ended, for MiSeq and HiSeq)** .  
+In our case, for **Adapter sequences to use** we will choose **Nextera (paired end)** .  
 Keep the default parameters  for the adapters trimming (2:30:10).
 
 #### STEP 2: Remove bad-quality bases at the ends
@@ -176,7 +168,9 @@ Keep the default parameters :
 - Number of bases to average across : 4
 - Average quality required : 20
 
-#### STEP 4: Choose the trimming sliding window
+#### STEP 4: Choose the minimun length of READS
+
+MINLEN:100 is a good tradeoff: long enough for SPAdes, not too strict to keep most of the reads.
 
 Click again on the button **Insert Trimmomatic Operation**.  
 It will add a window named **4: Trimmomatic Operation**.  
@@ -185,7 +179,8 @@ Set  **Minimum length of reads to be kept** to **100**.
 
 #### Keep the log 
 
-For the button **Output trimlog file?**, type **yes**.
+For the button **Output trimmomatic log messages?**, type **yes**.
+
 
 It is a useful step, as we are going to look at this log to see the results of the process.
 
@@ -193,10 +188,18 @@ It is a useful step, as we are going to look at this log to see the results of t
 
 Once you have selected all the good parameters, you can click on "Run".
 This command will take a few minutes to run, and you will see the ouput in your history.
+It has created 3 files :
 
-## Results
+- Trimmomatic on collection X: paired 
+- Trimmomatic on collection X: unpaired 
+- Trimmomatic on collection X (log file)
 
-Some of the output files are also FASTQ files.
+# Results
+
+## Log File
+First, Open the file **Trimmomatic on collection X (log file)**
+
+
 
 !!! question "Exercise  1: Should the output fastqfile file be smaller or bigger than the input file ?"
     ??? success "Answer"
@@ -220,10 +223,33 @@ Some of the output files are also FASTQ files.
     quality encoding of our sample (phred33). It is always a good idea to
     double-check this or manually enter the quality encoding.
 
-# TO DO ( SPEAK ABOUT OUTPUTS)
-You should have data named "FASTQ    
+  
+
+## FASTQ FILE OUTPUTS
+
+Now let's have a look at the 2 other outputs :
+- Trimmomatic on collection X: paired 
+- Trimmomatic on collection X: unpaired 
+
+## What the two Trimmomatic outputs are
+paired: Contains reads where both mates survived trimming.
+Usually a paired dataset/collection with two files per sample: forward_paired and reverse_paired.
+Use these for any downstream tool that expects paired‑end input (mappers, pair‑aware assemblers).
+Order is preserved so mate 1 and mate 2 still correspond.
+
+unpaired: Contains reads whose mate was discarded but the read itself passed trimming.
+Typically a single‑end dataset/collection (one file per sample) holding these leftover reads.
+These reads cannot be used as mates but can be used as single‑end input (e.g., single‑end mapping or as extra reads in assemblers).
+Why reads go to each output
+
+## Why reads go to each output
+If both R1 and R2 pass filters → both go to paired.
+If one mate is discarded (too short/too low quality) but the other passes → the passing mate goes to unpaired and its partner (failed) is not kept.
+If both mates are discarded → neither appears in outputs.  
+
 
 We have just successfully run Trimmomatic on our data collection !
+From now on, we will only keep the paired collection.
 
 We have completed the trimming and filtering steps of our quality
 control process! 
@@ -233,6 +259,7 @@ control process!
     Now that our samples have gone through quality control, they should perform
     better on the quality tests run by FastQC. 
     **Rerun the FastQC Analysis on the trimmed sequences** to check if our sequences have been succesfully filtered and trimmed.
+    What is the new coverage after trimming ?
 
     ??? succes "Answer"
         After trimming and filtering, our overall quality is much higher, 
@@ -241,8 +268,9 @@ control process!
         programs are better at removing some sequences than others. Trimmomatic 
         did pretty well, though, and its performance is good enough for our workflow.
 
+        Coverage: You look at the Total Bases in **Basic Statistics**, and you divide it by the expected genome size.
+        The results is: TO DO 
 
-Now that the Quality Control Process step is done, we can move on to the **Taxoxomic assignement of our samples**.   
 
 
 !!! Success "Key Points"

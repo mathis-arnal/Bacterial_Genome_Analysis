@@ -19,6 +19,7 @@
 ## Introduction to Next-Generation Sequencing
 
 Next‑Generation Sequencing (NGS) describes high‑throughput technologies that perform massively parallel sequencing, producing millions to billions of short reads per run. Compared with Sanger sequencing, NGS dramatically reduced cost and time per base, enabling population-scale, clinical, and environmental genomics.
+Sequencing (determining of DNA/RNA nucleotide sequence) is used all over the world for all kinds of analysis. The product of these sequencers are reads, which are sequences of detected nucleotides. Depending on the technique these have specific lengths (30-500bp) or using Oxford Nanopore Technologies sequencing have much longer variable lengths.
 
 Key concepts:
 - Sequencing libraries: DNA or cDNA is fragmented and adapters are ligated so fragments can be amplified and read by the sequencer.
