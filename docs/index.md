@@ -8,6 +8,10 @@ This course will present the fundamentals of bacterial genome analysis.
 We mainly based on this [workflow](https://github.com/aatxaerandio/Galaxy_Workflow_for_Genomic_Analysis)
 All the information are found in [Tutorial](pages/metagenomic/00-meta_introduction.md).
 
+
+https://training.galaxyproject.org/training-material/topics/assembly/tutorials/mrsa-illumina/tutorial.html
+https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html
+
 # Setup 
 
 The data used in this workshop are available on Zenodo. Please read the Zenodo page linked below for information about the data and access to the data files. Because this workshop works with real data, be aware that file sizes for the data are large. (1 Gb)

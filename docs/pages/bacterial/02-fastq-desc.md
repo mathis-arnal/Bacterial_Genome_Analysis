@@ -59,8 +59,8 @@ tools in a specified order is commonly referred to as a *workflow* or a *pipelin
 An example of the workflow we will be using for our analysis is provided below:
 
 
- <a href="../fig/03-02-01.png">
-  <img src="../fig/03-02-01.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
+ <a href=".../../fig/bact/02-fastq-desc/bact_analysis_workflow.png">
+  <img src="../../fig/bact/02-fastq-desc/bact_analysis_workflow.png" alt="Flow diagram that shows the steps: Sequence reads, Quality control, Assembly, Binning and Taxonomy" />
 </a>
 
 
