@@ -60,12 +60,12 @@ Usually we recognize these two files which belong to one sample by the name whic
 ## Upload the reads
 
 We will now assess the quality of the reads that we downloaded.
-In the previous tutorial, we have uploaded the forward reads from **JC1A**, but we also need to upload the reverse reads from JC1A, aswell and the forward and reverse reads from **JP4D**.
+In the previous tutorial, we have uploaded the forward reads from **DRR187559**, but we also need to upload the reverse reads from DRR187559.
 
 !!! example "Upload a file from URL"
     1. At the top of the **Activity Bar**, click the  **Upload** activity
 
-        ![upload data button shown in the galaxy interface]( ../fig/galaxy/upload-data.png)
+        ![upload data button shown in the galaxy interface]( ../../fig/bact/04-read-QC/upload-data.png)
 
         This brings up a box:
 
@@ -88,7 +88,7 @@ By group all of our data into one collection, we will have a distinct result for
 
       1) Click on  **Select Items** at the top of the history panel
 
-      ![select-items]( ../fig/galaxy/select-items.png)
+      ![select-items]( ../../fig/bact/04-read-QC/select-items.png)
 
       2) Check all the datasets in your history you would like to include. In our case : 
 
@@ -97,29 +97,19 @@ By group all of our data into one collection, we will have a distinct result for
 
       3) Click n of N selected and choose **Advanced Build List**
 
-      ![select-advanced-build]( ../fig/galaxy/select-advanced-build.png)
+      ![select-advanced-build]( ../../fig/bact/04-read-QC/select-advanced-build.png)
 
-      4) You are in collection building wizard. Choose List of Paired Datasets and click ‘Next’ button at the right bottom corner:
+      4) You are in collection building wizard. Choose **List of Paired Datasets** and click ‘Next’ button at the right bottom corner:
       
-      ![choose-list-builder]( ../fig/galaxy/choose-list-builder.png)
+      ![choose-list-builder]( ../../fig/bact/04-read-QC/choose-list-builder.png)
 
       5) Check and configure auto-pairing. In our case, reads have suffix  _1 and _2. Click on ‘Next’ at the bottom.
 
-      6) Check the result of the auto-pairing, and enter a nae for the collection (**DRR187559**)
+      6) Check the result of the auto-pairing, and enter a name for the collection (**DRR187559**) 
+      ![pair-name]( ../../fig/bact/04-read-QC/pair-name.png)
 
       7) Your collection should now appear on the side !
 
-## Run the  FASTQC tool
-
-1. Type **FastQC** in the tools panel search box (top)
-2. Click the tool (**FASTQC** visualize fastqfiles with emoji's)
-![fastqc click on the tool]( ../fig/galaxy/fastqc-click.png)
-The tool will be displayed in the central Galaxy panel.
-
-3. Select the following parameters:
-    -  *"Raw read data from your current history"*: click on "dataset collection" ; the collection "DRR187559" should appear.
-    - No change in the other parameters
-4. Click **Run Tool**
 
 ## Assessing quality using FastQC
 
@@ -128,9 +118,7 @@ data may have, so you can consider these issues before moving forward with your
 analyses. Rather than looking at quality scores for each read, FastQC looks at
 quality collectively across all reads within a sample. The image below shows one FastQC-generated plot that indicates a very high-quality sample:
 
- <a href="../fig/03-02-03.png">
-  <img src="../fig/03-02-03.png" alt="Quality graph showing a boxplot for each sequence position in the x-axis, and the Phred score in the y-axis. The background is colored red for the Phred scores 0 to 20, yellow for the scores 20 to 28, and green for the scores 28 to 38. All of the boxes for each position are in the green area." />
-</a>
+![good fastqc plot](../../fig/bact/04-read-QC/good-fastqc.png)
 
 The x-axis displays the base position in the read, and the y-axis shows quality scores. In this 
 example, the sample contains reads that are 40 bp long. This length is much shorter than the reads we 
@@ -146,11 +134,25 @@ acceptable (yellow) and bad (red) quality scores.
 
 Now let's look at a quality plot on the other end of the spectrum. 
 
- <a href="../fig/03-02-04.png">
-  <img src="../fig/03-02-04.png" alt="Graphic of boxplots, where the first ones are in the good range of scores of the y-axis and extend to the acceptable and bad ranges of scores toward the right of the x-axis" />
-</a>
+![bad fastqc plot](../../fig/bact/04-read-QC/bad-fastqc.png)
+
 
 The FastQC tool produces several other diagnostic plots to assess sample quality and the one plotted above. Here, we see positions within the read in which the boxes span a much more comprehensive range. Also, quality scores drop pretty low into the "bad" range, particularly on the tail end of the reads. 
+
+
+## Run the  FASTQC tool
+
+1. Type **FastQC** in the tools panel search box (top)
+2. Click the tool (**FASTQC** Read Quality Reports).  
+
+![fastqc click on the tool]( ../../fig/bact/04-read-QC/fastqc-click.png) 
+
+The tool will be displayed in the central Galaxy panel.
+
+3. Select the following parameters:
+    -  *"Raw read data from your current history"*: click on "dataset collection" ; the collection **DRR187559** should appear.
+    - No change in the other parameters
+4. Click **Run Tool**
 
 
 ## Viewing the FastQC results
@@ -159,9 +161,17 @@ In your history, Click on the galaxy file **FastQC on collection 1: Webpage**.
 Now we can open the 2 HTML files for the sample **DRR187559**.
 Click on **DRR187559**, then **forward**.
 
+We first have a fastqc summary :
+
+![fastqc-summary]( ../../fig/bact/04-read-QC/fastqc-summary.png) 
 
 
-!!! question Exercise 5: Discuss the quality of sequencing files
+And then, the "Per Base Quality graph": 
+
+![fastqc output]( ../../fig/bact/04-read-QC/fastqc-out.png) 
+
+
+!!! question "Exercise 5: Discuss the quality of sequencing files"
 
     Open the 2 HTML files. 
     For each, look at the "Per base sequence quality" graph.
@@ -169,7 +179,7 @@ Click on **DRR187559**, then **forward**.
     
     - What is a common trend among the 2 reads ?
  
-    ??? Solution
+    ??? "Solution"
         Common trend: The quality decreases toward the end of the reads. For Illumina data it is normal that the first few bases are of some lower quality and how longer the reads get the worse the quality becomes. This is often due to signal decay or phasing during the sequencing run.
     
 ## Decoding the other FastQC outputs
