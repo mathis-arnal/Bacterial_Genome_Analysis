@@ -1,11 +1,11 @@
 # Project information
-site_name: 'Metagenomics Workshop, using Galaxy'
+site_name: 'Bacterial Genome Analysis Workshop, using Galaxy'
 site_author: 'Mathis Arnal'
-site_url: 'https://mathis-arnal.github.io/Metagenomic_Training/'
+site_url: 'https://mathis-arnal.github.io/Bacterial_Genome_Analysis/'
 site_description: Workshop on Metagenomic
 # Repository
-repo_name: 'mathis-arnal/Metagenomic_Training'
-repo_url: 'https://github.com/mathis-arnal/Metagenomic_Training.git'
+repo_name: 'mathis-arnal/Bacterial_Genome_Analysis'
+repo_url: 'https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git'
 edit_uri: edit/main/docs/ # Allow to replace edit/master/docs use by default
 
 # Configuration
@@ -87,24 +87,22 @@ extra:
   repo: https://github.com/Juke34/workshop-reproducible-research
   color_table_header: "#333a99"
 
-# page tree
 nav:
-    - Home: index.md
-    - Schedule: pages/course-information/schedule.md
-        # - Lectures: pages/course-information/lectures.md
-        # - Setup: pages/course-information/pre-course-setup.md
-    - Tutorials:
-        - Metagenomic :
-          #- Introduction: pages/metagenomic/00-meta_introduction.md
-          
-          - Starting a metagenomic project: pages/metagenomic/01-background-metadata.md
-          - What is a fastq file ?: pages/metagenomic/02-fastq-desc.md
-          - Short intro to Galaxy: pages/metagenomic/03-short_intro_galaxy.md
-          - Assessing Read Quality:   pages/metagenomic/04-assessing-read-quality.md
-          - Trimming and Filtering: pages/metagenomic/05-trimming-filtering.md
-          - Taxonomy Profiling:  pages/metagenomic/06-taxonomic.md
-          - Taxonomic Diversity: pages/metagenomic/07-diversity.md
-          - Assembly: pages/metagenomic/08-assembly.md
+  - Home: index.md
+  - Schedule: pages/course-information/schedule.md
+  # - Lectures: pages/course-information/lectures.md
+  # - Setup: pages/course-information/pre-course-setup.md
+  - Bacterial Genome Analysis:
+      - What is Next Generation Sequencing ?: pages/bacterial/01-intro-ngs.md
+      - What is a fastq file ?: pages/bacterial/02-fastq-desc.md
+      - Short intro to Galaxy: pages/bacterial/03-short_intro_galaxy.md
+      - Assessing Read Quality: pages/bacterial/04-assessing-read-quality.md
+      - Trimming and Filtering: pages/bacterial/05-trimming-filtering.md
+      - Assembly: pages/bacterial/06-assembly.md
+      - Multi Locus Sequence typing: pages/bacterial/07-mlst.md
+      - Identification of AMR genes: pages/bacterial/08-amr-genes.md
+      - Genome Annotation: pages/bacterial/09-genome-annotation.md
+
         # - Galaxy:
         #   - Short intro to Galaxy: pages/galaxy/00-short_intro_galaxy.md
           # - Taxonomic profiling: pages/galaxy/02-taxonomy-galaxy.md          

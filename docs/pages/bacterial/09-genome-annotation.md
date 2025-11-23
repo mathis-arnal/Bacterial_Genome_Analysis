@@ -20,6 +20,9 @@
 
 # Introduction
 
+In addition to the AMR and plasmid genes, it would be good to have extra information about other genes on the contigs. Several tools exists to do that: Prokka (Seemann 2014), Bakta (Schwengers et al. 2021), etc. Here, we use Bakta as recommended by Torsten Seeman as the successor of Prokka.
+
+
 **Genome annotation** is the process of identifying genes and other functional elements within a genome sequence, and assigning biological information to them.
 
 After assembling your bacterial genome, the raw sequence (FASTA) only contains the DNA letters A, T, C, and G.  
@@ -31,7 +34,6 @@ Annotation adds biological context, including:
 - **Functional descriptions and gene names**  
 - **Protein family domains**  
 - **Gene Ontology (GO) terms**  
-- **Antimicrobial resistance genes and virulence factors (sometimes)**  
 
 This annotation is essential for interpreting the biology of the organism.
 
@@ -115,41 +117,29 @@ GFF3 files are widely used for genome visualization, feature parsing, and downst
 
 ---
 
-# Exercise: Genome Annotation with Bakta on Galaxy
+# Genome Annotation with Bakta on Galaxy
 
-## Goal
 
 Annotate a bacterial genome assembly using Bakta in Galaxy and explore the annotation results.
 
----
+## Create A new history
 
-## Prerequisites
+Let's create a new history to do the annotation.
 
-- You have an assembled bacterial genome FASTA file (e.g., `contigs.fasta` from SPAdes).  
-- You have access to a public Galaxy server (e.g., usegalaxy.org or your institution’s Galaxy).
+!!! example "New history"
+    1. Create a new history
+    2. Rename it, e.g., **Bakta Annotation**
+    3. In **History Multiview**, drag and drop the assembly scaffolds: **SPAdes on data 2 and data 1: Contigs** from the history **Abricate AMR Detection** to our empty history **Bakta Annotation**.
 
----
-
-## Steps
-
-### 1. Upload your assembled genome
-
-1. Open Galaxy and create a new history named **Bakta Annotation**.  
-2. Click the **Upload Data** button (top toolbar).  
-3. Upload your assembled genome FASTA file (`contigs.fasta`).  
-4. Once uploaded, verify the dataset has the correct FASTA datatype.
-
----
-
-### 2. Launch Bakta
+## 2. Launch Bakta
 
 1. In the **Tools** panel, search for **Bakta**.  
 2. Select **Bakta - Bacterial genome annotation**.  
-3. For **FASTA file**, select your uploaded assembled genome.  
+3. For **FASTA file**, select your uploaded assembled genome (**SPAdes on data 2 and data 1: Contigs**) 
 4. Leave other parameters as default.  
 5. Click **Run**.
 
----
+Bakta might take a while to process 
 
 On the analysis summary output ...
 

@@ -29,13 +29,6 @@ MLST provides:
 - A stable, evolutionary signal (housekeeping genes evolve slowly)  
 - Epidemiological and phylogenetic insight  
 
-MLST is widely used for pathogens such as:
-
-- *Staphylococcus aureus*  
-- *Escherichia coli*  
-- *Klebsiella pneumoniae*  
-- *Campylobacter*, *Neisseria*, *Listeria*, etc.
-
 Once the genes are sequenced, each unique allele is assigned a number.  
 The combination of allele numbers defines the **Sequence Type (ST)**.
 

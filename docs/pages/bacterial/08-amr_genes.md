@@ -38,7 +38,7 @@ Detecting AMR genes in bacterial genomes helps:
 - Takes genome assemblies (FASTA) as input.  
 - Compares sequences against AMR gene databases using BLAST or similar.  
 - Reports hits with identity, coverage, and gene annotations.  
-- Supports multiple databases like **ResFinder**, **CARD**, **NCBI AMRFinder**, **ARG-ANNOT**, **VFDB** (virulence), and **PlasmidFinder**.
+- Supports multiple databases like **ResFinder**, **CARD**,**NCBI AMRFinder**,**VFDB** (virulence), and **PlasmidFinder** (Plasmid).
 
 ---
 
@@ -121,18 +121,76 @@ Detect antimicrobial resistance genes in a bacterial genome assembly using Abric
   - Identify AMR genes detected, their location, and quality metrics.  
   - Look for genes conferring resistance to major antibiotic classes.
     Open the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19).
-    Look at the Table 1.
-    Compare with the results from the Paper (In table 1). Is there any differences ?
+    Look at the Table 1, they have tested antibiotics and have established Antibiotic resistance (MIC [μg/ml]).
+    Compare with the Antibiotic Resistance for the sample **KUN1163**.
+    Does this results correlates with our fundings from **ResFinder** ?
+    Discuss with your neighbor.
+    
 
     ??? "Answer"
-        HEYY HERE I ANSWER TO DO 
+        Phenotypic antimicrobial susceptibility testing revealed resistance to 7 antibiotic classes: **CEZ (≥64), IPM (≥32), LVFX (≥16), GM (≥32), EM (≥16), CLDM (≥16), MPIPC (≥16)**.
 
-### 3. Examine output
+        We look at the **RESISTANCE** column from the ResFinder output.
 
-- View the tabular results.  
-- Identify AMR genes detected, their location, and quality metrics.  
-- Look for genes conferring resistance to major antibiotic classes.
+        **β-lactam resistance** ( Imipenem(IPM)) was conferred by *mecA* (99.85% identity) located 
+        on a mobile SCCmec element (NODE_23, 18× coverage).
 
+        **Macrolide-lincosamide resistance** (erythromycin (EM), clindamycin(CLDM) 
+        ) was mediated by *erm(A)* (100% identity) on a high-copy plasmid 
+        (NODE_24, 30× coverage).
+
+        **Aminoglycoside resistance** (gentamicin(GM)) resulted from a 
+        bifunctional enzyme *aac(6')-aph(2'')* (100% identity) on a very high-copy 
+        plasmid (NODE_27, 134× coverage).
+
+        Discussion: There are 3 Antibiotics NOT Found in ResFinder: CEZ (Cefazolin), MPIPC (Oxacillin) and LVFX (Levofloxacin).
+        **Why only 4/7 antibiotics are explicitly listed:**
+        **1. mecA Limitation (CEZ, MPIPC missing):**
+        - mecA confers resistance to ALL β-lactams
+        - ResFinder lists representative examples: "Imipenem, Cefoxitin, Cefepime..."
+        - **CEZ (cefazolin)** and **MPIPC (oxacillin)** are omitted from the text list
+        - This does NOT mean susceptibility - it's a database annotation limitation
+        - **Interpretation:** mecA present → assume ALL β-lactams resistant, including CEZ and MPIPC.
+        
+        **2. LVFX (Levofloxacin) - Different mechanism:**
+        - ResFinder found NO plasmid-mediated quinolone resistance genes (qnr, aac(6')-Ib-cr)
+        - Fluoroquinolone resistance in S. aureus is usually from:
+          a) **Chromosomal point mutations** in gyrA/parC (NOT detected by gene-based tools)
+          b) **Intrinsic efflux pumps** like norA (excluded from ResFinder)
+        - ResFinder only detects acquired GENES, not mutations or intrinsic mechanisms
+
+
+## Can We Predict Untested Antibiotics?
+
+**YES! Genomic analysis predicts resistance far beyond what was tested.**
+
+### The Numbers:
+- **Phenotypic testing**: 7 antibiotics tested resistant
+- **Genomic ResFinder prediction**: 50+ antibiotics predicted resistant
+
+### Why WGS is More Comprehensive:
+
+1. **Mechanism-based prediction**: 
+   - mecA doesn't just predict "oxacillin resistant"
+   - It predicts resistance to ALL β-lactams (~25 drugs)
+
+2. **Detects untested classes**:
+   - tetM, tet(38) genes → tetracycline resistance
+   - But NO tetracyclines were tested phenotypically
+   - WGS reveals hidden resistance
+
+3. **Identifies transferable resistance**:
+   - High-copy plasmids (134×) = easy horizontal transfer
+   - Predicts risk to OTHER bacteria in patient/environment
+
+**Lab report says**: "Tested 7 drugs resistant"
+
+**But genomic analysis reveals**:
+- Amoxicillin-clavulanate → **Will FAIL** (mecA present)
+- Azithromycin → **Will FAIL** (erm(A) present)
+- Doxycycline → **Will FAIL** (tetM present)
+
+###  How confident are we with genotype prediction ? 
 
 
 # Let's try with other databases
@@ -144,14 +202,93 @@ The results we have found earlier are only with **ResFinder**, let's try with an
 - Search for **Abricate** in Galaxy Tools.
 - Select **Abricate - AMR gene detection**.
 - Choose your uploaded FASTA as input.
-- Run Abricate multiple times, each time selecting a different database (e.g., **resfinder**, **card**, **ncbi**, **arg-annot**).
-- Keep default identity and coverage thresholds or adjust as needed (e.g., min 90%).
+- Run Abricate multiple times, each time selecting a different database (**Plasmid Finder**, **CARD**).
 
 #### 3. Compare results
 
-- Download the tabular output files for each database.
-- Compare the detected genes, their coverage, and identity across databases.
-- Identify similarities and differences in the results.
+#### Plasmid Finder
+
+**Plasmid Finder** looks for Plasmid replication genes (rep genes)
+Open the output from Abricate with **Plasmid Finder**.
+Discuss with your neighbour about the information present in this file.
+Combining with the results from **ResFinder**, what can you say ? 
+
+??? "Discussion"
+    5 plasmid replication genes in your assembly, on 3 contigs : 
+    - 3 replication genes in NODE_21_length_27407_cov_110.440469	
+    - 1 replication gene in NODE_23_length_17578_cov_18.436938
+    - 1 replication gene inNODE_2_length_382439_cov_15.798832
+
+    2. High coverage on plasmid contigs:
+
+    NODE_21: Coverage = 110× (vs genome avg ~15-20×), size = 27kb (plasmid size)
+    NODE_23: Coverage = 18×, size = 17kb (reasonable plasmid size)
+    NODE_2: Coverage = 15.8×, size = 382 kb (likely chromosomal with integrated plasmid)
+
+    What This Means:
+    **NODE_21 is definitely a plasmid**
+    3 different rep genes on the same 27 Kbp contig
+    Coverage 110× = 5-7× higher than chromosome
+    This indicates high copy number plasmid (multiple copies per cell), of size 27.4 Kbp
+    Size: 27.4 Kbp - typical for staphylococcal plasmids
+
+    **NODE_23**:  When looking at the accession **AF503772** of the replicon gene, Tetracycline resistance protein found in **Streptococcus faecalis**. It might come from horizontal transfer from Streptococcus faecalis on a plasmid of Staphylococcus aureus.
+
+    Combining with the results of **ResFinder**, we are able to create this table: 
+
+    | Contig   | Size     | Coverage | PlasmidFinder         | ResFinder                   | Interpretation                           |
+    |----------|----------|----------|------------------------|-----------------------------|-------------------------------------------|
+    | NODE_21  | 27.4 Kb  | 110×     | ✅ 3 rep genes         | ❌ No resistance            | “Empty” plasmid (backbone only)           |
+    | NODE_23  | 17.6 Kb  | 18×      | ✅ rep22_1b            | ✅ mecA, aadD               | SCCmec element (complete picture)         |
+    | NODE_24  | 6.7 Kb   | 30×      | ❌ No rep              | ✅ erm(A), ant(9)-Ia        | Resistance plasmid (rep not detected)     |
+    | NODE_27  | 1.9 Kb   | 134×     | ❌ No rep              | ✅ aac(6')-aph(2'')         | Resistance plasmid (rep not detected)     |
+    | NODE_2   | 382 Kb   | 15.8×    | ✅ repUS43_1           | ✅ tet(M)                   | Chromosomal integration (large size)      |
+
+    PlasmidFinder did not find any known plasmid replication genes in its database on the 24 and 27, but that doesn't mean that Replication genes are absent, or that it is not a plasmid, they might just be absent from the database.
+
+#### CARD    
+
+
+Open the output from Abricate with **CARD**.
+
+!!! question "Comparing AMR Databases"
+    Compare the CARD and ResFinder results:
+    
+    1. How many resistance genes did each database identify?
+       - CARD: ____ genes
+       - ResFinder: ____ genes
+    
+    2. Which genes were found in BOTH databases?
+    
+    3. Which genes were ONLY in CARD? Why might ResFinder have excluded them?
+    
+    4. ResFinder identified **ant(9)-Ia** that CARD missed. What does this gene confer resistance to?
+    
+    5. For clinical reporting, which database results would you prioritize? Why?
+
+    ??? success "Answer"
+        **Gene Counts:**
+        - CARD: 16 genes (includes efflux pumps and regulators)
+        - ResFinder: 6 genes (acquired resistance only)
+        
+        **Found in BOTH:**
+        - mecA, erm(A), tet(M), aac(6')-aph(2'')
+        
+        **Only in CARD:**
+        - Efflux pumps: norA, mepA, tet(38), LmrS
+        - Regulators: arlR/S, mepR, mgrA
+        - Intrinsic: FosB
+        
+        These are **chromosomal/intrinsic** genes, not acquired through horizontal transfer.
+        
+        **Only in ResFinder:**
+        - ant(9)-Ia: confers **spectinomycin** resistance
+        - aadD: better annotated nomenclature
+        
+        **Clinical Reporting:**
+        Prioritize **ResFinder** for phenotype prediction, but include **CARD** 
+        to explain unexpected treatment failures (e.g., fluoroquinolone resistance 
+        via efflux despite no qnr genes).
 
 #### 4. Analyze the impact of database choice
 
@@ -167,8 +304,7 @@ The results we have found earlier are only with **ResFinder**, let's try with an
 !!! success "Key Points"
     - AMR gene detection is crucial for understanding bacterial resistance.  
     - Abricate screens genome assemblies against multiple curated AMR gene databases.  
-    - It outputs tabular reports with gene location and identity.  
-    - Galaxy provides an easy interface to run Abricate and explore results.
+    - It outputs tabular reports with gene location and identity. 
 
 
 

@@ -227,27 +227,27 @@ First, Open the file **Trimmomatic on collection X (log file)**
 
 ## FASTQ FILE OUTPUTS
 
-Now let's have a look at the 2 other outputs :
-- Trimmomatic on collection X: paired 
-- Trimmomatic on collection X: unpaired 
+Now let's have a look at the 2 other outputs : 
+- Trimmomatic on collection X: paired  
+- Trimmomatic on collection X: unpaired  
 
 ## What the two Trimmomatic outputs are
-paired: Contains reads where both mates survived trimming.
-Usually a paired dataset/collection with two files per sample: forward_paired and reverse_paired.
-Use these for any downstream tool that expects paired‑end input (mappers, pair‑aware assemblers).
-Order is preserved so mate 1 and mate 2 still correspond.
+paired: Contains reads where both mates survived trimming. 
+Usually a paired dataset/collection with two files per sample: forward_paired and reverse_paired. 
+Use these for any downstream tool that expects paired‑end input (mappers, pair‑aware assemblers). 
+Order is preserved so mate 1 and mate 2 still correspond. 
 
-unpaired: Contains reads whose mate was discarded but the read itself passed trimming.
-Typically a single‑end dataset/collection (one file per sample) holding these leftover reads.
-These reads cannot be used as mates but can be used as single‑end input (e.g., single‑end mapping or as extra reads in assemblers).
-Why reads go to each output
+unpaired: Contains reads whose mate was discarded but the read itself passed trimming. 
+Typically a single‑end dataset/collection (one file per sample) holding these leftover reads. 
+These reads cannot be used as mates but can be used as single‑end input (e.g., single‑end mapping or as extra reads in assemblers). 
+
 
 ## Why reads go to each output
-If both R1 and R2 pass filters → both go to paired.
-If one mate is discarded (too short/too low quality) but the other passes → the passing mate goes to unpaired and its partner (failed) is not kept.
-If both mates are discarded → neither appears in outputs.  
+If both R1 and R2 pass filters → both go to paired. 
+If one mate is discarded (too short/too low quality) but the other passes → the passing mate goes to unpaired and its partner (failed) is not kept. 
+If both mates are discarded → neither appears in outputs.   
 
-
+## Conclusion 
 We have just successfully run Trimmomatic on our data collection !
 From now on, we will only keep the paired collection.
 
