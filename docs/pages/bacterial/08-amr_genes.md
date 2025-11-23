@@ -74,7 +74,8 @@ Detecting AMR genes in bacterial genomes helps:
   - `GENE`: gene name  
   - `%COVERAGE`: percent of gene covered by alignment  
   - `%IDENTITY`: percent identity of match  
-  - `DATABASE`: database used  
+  - `DATABASE`: database used 
+  -  `PRODUCT`: 
 - The report can be visualized in Galaxy or downloaded for further analysis.
 
 ---
@@ -86,15 +87,7 @@ Detecting AMR genes in bacterial genomes helps:
 - Some genes may confer resistance to multiple antibiotic classes.  
 - Negative results don’t guarantee susceptibility — some resistance mechanisms are unknown.
 
----
-
-!!! success "Key Points"
-    - AMR gene detection is crucial for understanding bacterial resistance.  
-    - Abricate screens genome assemblies against multiple curated AMR gene databases.  
-    - It outputs tabular reports with gene location and identity.  
-    - Galaxy provides an easy interface to run Abricate and explore results.
-
-# Exercise: AMR Gene Detection with Abricate in Galaxy
+# AMR Gene Detection with Abricate in Galaxy
 
 ## Goal
 
@@ -105,21 +98,34 @@ Detect antimicrobial resistance genes in a bacterial genome assembly using Abric
 - An assembled bacterial genome FASTA file (`contigs.fasta`).  
 - Access to a Galaxy server with Abricate installed.
 
-## Steps
 
-### 1. Upload assembled genome
+## Create a new history
 
 - Create a new Galaxy history called **Abricate AMR Detection**.  
-- Upload your assembled genome FASTA file.
+- Upload your assembled genome FASTA file (contigs from SPADES)
+
 
 ### 2. Run Abricate
 
 - Search for **Abricate** in Galaxy Tools.  
 - Select **Abricate - AMR gene detection**.  
 - Choose your uploaded FASTA as input.  
-- Select the database, e.g., **resfinder**.  
+- Select the database, e.g., **RESFINDER**.  
 - Keep default identity and coverage thresholds or adjust (e.g., min 90%).  
 - Run the tool.
+- Rename the file **ABRicate on data 1 report file** TO **ABRicate RESFINDER**
+
+!!! "Question"
+    Open the file **ABRicate RESFINDER**.
+    - View the tabular results.  
+  - Identify AMR genes detected, their location, and quality metrics.  
+  - Look for genes conferring resistance to major antibiotic classes.
+    Open the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19).
+    Look at the Table 1.
+    Compare with the results from the Paper (In table 1). Is there any differences ?
+
+    ??? "Answer"
+        HEYY HERE I ANSWER TO DO 
 
 ### 3. Examine output
 
@@ -127,25 +133,11 @@ Detect antimicrobial resistance genes in a bacterial genome assembly using Abric
 - Identify AMR genes detected, their location, and quality metrics.  
 - Look for genes conferring resistance to major antibiotic classes.
 
-Compare with the results from the Paper (In table 1). Is there any differences ?
 
-## Exercise: Exploring AMR Gene Databases
 
-### Goal
+# Let's try with other databases
 
-Understand the differences between various AMR gene databases and their impact on detection results.
-
-### Prerequisites
-
-- An assembled bacterial genome FASTA file (`contigs.fasta`).
-- Access to a Galaxy server with Abricate installed.
-
-### Steps
-
-#### 1. Upload the genome assembly
-
-- Create a new Galaxy history called **AMR Database Comparison**.
-- Upload your assembled genome FASTA file.
+The results we have found earlier are only with **ResFinder**, let's try with another database !
 
 #### 2. Run Abricate with different databases
 
@@ -171,3 +163,13 @@ Understand the differences between various AMR gene databases and their impact o
 
 - Discuss how the choice of database can influence AMR gene detection.
 - Consider the importance of using multiple databases for comprehensive analysis.
+
+!!! success "Key Points"
+    - AMR gene detection is crucial for understanding bacterial resistance.  
+    - Abricate screens genome assemblies against multiple curated AMR gene databases.  
+    - It outputs tabular reports with gene location and identity.  
+    - Galaxy provides an easy interface to run Abricate and explore results.
+
+
+
+#

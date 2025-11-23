@@ -34,7 +34,7 @@ Methicillin-resistant Staphylococcus aureus (MRSA) is a major pathogen causing n
 
 
 !!! question "Exercise ?: Library & read length"
-    Read the referenced paper (https://journals.asm.org/doi/10.1128/mra.01212-19) and answer the following:
+    Read the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19) and answer the following:
 
     1. Which library preparation kit, sequencing reagent kit, and sequencing platform were used for these data? Provide the exact phrasing from the paper that supports your answer.
     2. Based on the reagent kit and platform, what is the maximum theoretical read length per read, and what is the read layout (single‑end or paired‑end)?

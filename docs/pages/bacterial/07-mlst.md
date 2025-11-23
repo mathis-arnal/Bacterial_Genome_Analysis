@@ -98,15 +98,9 @@ If the allele combination is new, it may be assigned a **new ST**.
 
 # MLST from WGS data
 
-MLST can be performed on:
+MLST is mainly performed on contigs.
 
-- Raw reads  
-- Contigs (recommended for short-read data)  
-- Complete genomes  
-
-Modern tools such as **mlst**, **ARIBA**, and **chewBBACA** search for known alleles in your genome assembly.
-
-In this tutorial, we use Galaxy’s MLST tool (wrapper of the **Tseemann MLST software**).
+Modern tools such as **mlst** search for known alleles in your genome assembly.
 
 ---
 
@@ -116,14 +110,23 @@ In this tutorial, we use Galaxy’s MLST tool (wrapper of the **Tseemann MLST so
 
 You need:
 
-- Your **assembled genome** (e.g. `contigs.fasta` from SPAdes)
+- Your **assembled genome**, the contigs assembled with SPAdes (**SPAdes on data 2 and data 1: Contigs**)
 
 ---
+
+## Create A new history
+
+Let's create a new history to do the MLST 
+
+!!! example "New history"
+    1. Create a new history
+    2. Rename it, e.g., **MLST**
+    3. In **History Multiview**, drag and drop  the assembly scaffolds: **SPAdes on data 2 and data 1: Contigs** from the history **Assembly** to our empty history **MLST**.
 
 ## Open the MLST tool
 
 1. In Galaxy, search for **mlst** in the tool panel.  
-2. Click **"mlst – Scan contig files against PubMLST typing schemes"**.
+2. Click **"MLST – Scan contig files against PubMLST typing schemes"**.
 
 <a href="../fig/galaxy/mlst_tool.png">
   <img src="../fig/galaxy/mlst_tool.png" width="650px" alt="MLST tool in Galaxy" />
@@ -148,11 +151,14 @@ You need:
 
 # Understanding the MLST Output
 
-You will get a table similar to this:
+!!! "Question"
+    Open the file **MLST on data X: report.tsv**
+    What is the sequence type of the sample ?
+    ??? "Answer"
+      The Sequence type of this sample is 764.
+      It actually makes sense, because this sample has already been reported in [PubMLST](https://pubmlst.org/bigsdb?page=info&db=pubmlst_saureus_isolates&set_id=1&id=44585), and attributed a ST.
 
-| FILE | SCHEME | ST | arcC | aroE | glpF | gmk | pta | tpi | yqiL |
-|------|--------|----|------|------|------|-----|-----|-----|------|
-| contigs.fasta | saureus | 5 | 3 | 2 | 1 | 4 | 3 | 1 | 2 |
+
 
 ### The important columns:
 
@@ -176,24 +182,12 @@ then:
 
 # Why Is MLST Useful?
 
-### Epidemiology
-- Track lineages across space and time  
-- Identify clonal complexes (e.g., CC30 in *S. aureus*)
-
-### Outbreak investigation
-- Rapid comparison between isolates across hospitals or regions  
-
-### Population genetics
-- Understand long-term evolutionary relationships  
-
-### Standard reporting
 MLST gives stable identifiers used in:
 
 - Publications  
 - Surveillance reports  
 - Databases  
 
----
 
 # Limitations of MLST
 
