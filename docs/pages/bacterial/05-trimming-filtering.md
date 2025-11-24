@@ -62,9 +62,7 @@ clean your data is essential. We will use only a few options and trimming steps 
 analysis. For more information about the Trimmomatic arguments
 and options, see [the Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
 
-<a href="../../fig/bact/05-trimmingtrimming_diagram.png">
-  <img src="../../fig/bact/05-trimmingtrimming_diagram.png" alt="Diagram showing the parts of the sequence that are reviewed by each parameter and the parts that are maintained or discarded at the end of the process. The Illuminaclip parameter removes the adapters, and the SlidingWindow scans the read by sections and removes a part of the read below the quality threshold. We remain with a trimmed read that has a valid quality." />
-</a>
+![trimming-diagram](../../fig/bact/05-trimming/trimming_diagram.png)
 
 ## 1. Remove adapters
 
@@ -214,8 +212,9 @@ First, Open the file **Trimmomatic on collection X (log file)**
     2) What percent of reads did we keep both pairs?
 
     ??? Solution
-        1) TO DO    
-        2) TO DO
+        1) If we consider single reads aswell, only 5.43% were dropped. 
+            
+        2) 73.52 % of paired reads have been kept after trimming
 
 !!! info "Quality Encoding"
 
@@ -231,7 +230,7 @@ Now let's have a look at the 2 other outputs :
 - Trimmomatic on collection X: paired  
 - Trimmomatic on collection X: unpaired  
 
-## What the two Trimmomatic outputs are
+### What the two Trimmomatic outputs are
 paired: Contains reads where both mates survived trimming. 
 Usually a paired dataset/collection with two files per sample: forward_paired and reverse_paired. 
 Use these for any downstream tool that expects paired‑end input (mappers, pair‑aware assemblers). 
@@ -242,17 +241,16 @@ Typically a single‑end dataset/collection (one file per sample) holding these 
 These reads cannot be used as mates but can be used as single‑end input (e.g., single‑end mapping or as extra reads in assemblers). 
 
 
-## Why reads go to each output
+### Why reads go to each output
 If both R1 and R2 pass filters → both go to paired. 
 If one mate is discarded (too short/too low quality) but the other passes → the passing mate goes to unpaired and its partner (failed) is not kept. 
 If both mates are discarded → neither appears in outputs.   
 
 ## Conclusion 
 We have just successfully run Trimmomatic on our data collection !
-From now on, we will only keep the paired collection.
-
-We have completed the trimming and filtering steps of our quality
-control process! 
+From now on, we will only keep the paired collection  **Trimmomatic on collection X: paired**.
+Hence, we dropped 24% (100% - 73.52%) of the reads. 
+Rename it **Trimmed DRR187559**.
 
 !!! question "Bonus Exercise: Quality test after trimming"
 

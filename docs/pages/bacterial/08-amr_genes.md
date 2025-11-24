@@ -29,7 +29,7 @@ Detecting AMR genes in bacterial genomes helps:
 - Guide treatment decisions  
 - Support surveillance programs  
 
-**Abricate** is a popular bioinformatics tool that screens genome assemblies for known AMR, virulence, and plasmid genes using curated databases.
+[**Abricate**](https://github.com/tseemann/abricate) is a popular bioinformatics tool that screens genome assemblies for known AMR, virulence, and plasmid genes using curated databases, using **BLAST**. 
 
 ---
 

@@ -1,17 +1,3 @@
----
-title: "Assessing Read Quality"
-teaching: 30
-exercises: 20
-questions:
-- "How can I describe the quality of my data?"
-objectives:
-- "Explain how a FASTQ file encodes per-base quality scores."
-- "Interpret a FastQC plot summarizing per-base quality across all reads."
-- "Use `for` loops to automate operations on multiple files."
-keypoints:
-- "It is important to know the quality of our data to make decisions in the subsequent steps."
-- "FastQC is a program that allows us to know the quality of FASTQ files."
-- "`for` loops let you perform the same operations on multiple files with a single command."
 
 ---
 !!! info "Lesson overview"
@@ -23,6 +9,13 @@ keypoints:
 
     **Objectives**
     - Explain how a FASTQ file encodes per-base quality scores.
+
+## What is the output of Next Generation Sequencing ?
+
+The primary output of Next Generation Sequencing is a **FASTQ file**, which contains both the DNA sequences (reads) and their associated quality scores. This format is the universal standard for storing raw sequencing data **across all NGS platforms**.
+
+**WARNING**: even if it's the same format doesn't mean that the downstream analyses will be the same.
+Long read and Short reads have specific bioinformatic tools due to their specificity (short vs long reads, paired vs single reads)
 
 
 ## Data Used 
@@ -48,32 +41,15 @@ Here is the link to download the Reverse and Forward reads from Illumina Sequenc
 https://zenodo.org/record/10669812/files/DRR187559_1.fastqsanger.bz2
 https://zenodo.org/record/10669812/files/DRR187559_2.fastqsanger.bz2
 
+The terminology **.fastqsanger** is used only to indicate Phred+33 coding, which is crucial for the subsequent steps (trimming, alignment, assembly).
 
 
-## Bioinformatic workflows
+### Key characteristics of NGS output:
 
-When working with high-throughput sequencing data, the raw reads you get off the sequencer must pass
-through several different tools to generate your final desired output. The execution of this set of
-tools in a specified order is commonly referred to as a *workflow* or a *pipeline*. 
-
-An example of a bacterial genome analysis workflow is provided below:
-
-
-![bact_analysis_workflow](../../fig/bact/02-fastq-desc/bact_analysis_workflow.png)
-
-
-For this workshop, we will only do a subset of this workflow : 
-
-1. Quality control - Assessing quality using FastQC and Trimming and/or filtering reads.
-2. Assembly of bacterial genome and Quality Checking of the Assembly
-3. Bacterial Characterization: Multi Locus Sequence Typing (MLST) and Anti-Microbial Resistance (AMR) Genome Annotation
-
-These workflows in bioinformatics adopt a plug-and-play approach in that the output of one tool can be easily
-used as input to another tool without any extensive configuration. Having standards for data formats is what 
-makes this feasible. Standards ensure that data is stored in a way that is generally accepted and agreed upon 
-within the community. Therefore, the tools used to analyze data at different workflow stages are built, assuming that the data will be provided in a specific format. 
-Throughout the workshop we will encounter many data file formats. The first one is the *FASTQ Format*. 
-
+- **Millions of reads**: A single sequencing run generates millions to billions of short DNA sequences
+- **Paired-end files**: For paired-end sequencing, data comes in two files (R1/R2 or _1/_2), representing forward and reverse reads from the same DNA fragment
+- **Large file sizes**: FASTQ files are typically compressed (.gz, .bz2) due to their size
+- **Quality information**: Each base includes a confidence score
 
 ## Details on the FASTQ format
 
@@ -98,17 +74,37 @@ A>>1AFC>DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHH
 ~~~
 {: .output}
 
-Line 4 shows the quality of each nucleotide in the read. Quality is interpreted as the 
-probability of an incorrect base call (e.g., 1 in 10) or, equivalently, the base call 
-accuracy (e.g., 90%). Each nucleotide's numerical score's value is converted into a character code where every single character 
-represents a quality score for an individual nucleotide. This conversion allows the alignment of each individual nucleotide with its quality
-score. For example, in the line
-above, the quality score line is: 
+
+### Line 1: @ header: 
+
+The first line contains important metadata:
+- Instrument name
+- Run ID
+- Flowcell coordinates
+- Read number (1 or 2 for paired-end)
+- Filter flag (Y/N)
+- Index/barcode sequence
+
+
+### Understanding Quality Scores (Phred scores):
+
+
+Line 4 shows the quality of each nucleotide in the read. Quality is interpreted as the probability of an incorrect base call (e.g., 1 in 10) or, equivalently, the base call accuracy (e.g., 90%). Each nucleotide's numerical score's value is converted into a character code where every single character represents a quality score for an individual nucleotide. This conversion allows the alignment of each individual nucleotide with its quality score. For example, in the line above, the quality score line is: 
 
 ~~~
 A>>1AFC>DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHHGGHHHHGGGGGGGGGGGGGGGGHHHHHHHGGGGGGGGHGGHHHHHHHHGFHHFFGHHHHHGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFFFFFFFFFFFFFFFFFFFFBFFFF@F@FFFFFFFFFFBBFF?@;@#################################### 
 ~~~
-{: .output}
+
+Quality scores represent the probability that a base call is incorrect:
+
+- **Q10**: 90% accuracy (1 in 10 chance of error)
+- **Q20**: 99% accuracy (1 in 100 chance of error)  
+- **Q30**: 99.9% accuracy (1 in 1,000 chance of error)
+- **Q40**: 99.99% accuracy (1 in 10,000 chance of error)
+
+The quality score Q relates to error probability P by: **Q = -10 × log₁₀(P)**
+
+Most analyses require Q20 or Q30 minimum quality.
 
 The numerical value assigned to each character depends on the 
 sequencing platform that generated the reads. The sequencing machine used to generate our data 
@@ -144,7 +140,7 @@ A>>1AFC>DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHH
 We can now see that there is a range of quality scores but that the end of the sequence is
 very poor (`#` = a quality score of 2). 
 
-!!! "question" Extract the fastq file 
+!!! question "Extract the fastq file" 
 
     1. Click right on **DRR187559_1.fastq.bz2** and click extract.
     2. Click on the folder DRR187559_2.fastq. 
@@ -153,10 +149,35 @@ very poor (`#` = a quality score of 2).
     What is the name of the first read ? What is the length of the first read
     How many raw reads are in the file ? 451782
 
-    ??? Answer 
+    ??? "Answer" 
         The name of the first read is @DRR187559.1. The length is this read is 85.
 
         There are **451782** raw reads in this file. 
+
+
+## Bioinformatic workflows
+
+When working with high-throughput sequencing data, the **fastq** reads you get off the sequencer must pass
+through several different tools to generate your final desired output. The execution of this set of
+tools in a specified order is commonly referred to as a **workflow** or a **pipeline**. 
+
+An example of a ILLUMINA bacterial genome analysis workflow is provided below:
+
+
+![bact_analysis_workflow](../../fig/bact/02-fastq-desc/bact_analysis_workflow.png)
+
+
+For this workshop, we will only do a subset of this workflow : 
+
+1. Quality control - Assessing quality using FastQC and Trimming and/or filtering reads.
+2. Assembly of bacterial genome and Quality Checking of the Assembly
+3. Bacterial Characterization: Multi Locus Sequence Typing (MLST) and Anti-Microbial Resistance (AMR) Genome Annotation
+
+These workflows in bioinformatics adopt a **plug-and-play approach** in that the output of one tool can be easily
+used as input to another tool without any extensive configuration. Having standards for data formats is what 
+makes this feasible. Standards ensure that data is stored in a way that is generally accepted and agreed upon 
+within the community. Therefore, the tools used to analyze data at different workflow stages are built, assuming that the data will be provided in a specific format. 
+Throughout the workshop we will encounter many data file formats. The first one is the *FASTQ Format*.         
 
 
 ## Assessing read quality using FASTqe
@@ -164,7 +185,7 @@ very poor (`#` = a quality score of 2).
  This symbol can be hard to interpret, that's why we are going to use our first tool to have a better understanding of the data: *FastQE*.
  FastQE turns ASCII characters into emojis that are easy to interpret.
 
- PICTURE OF FASTQE EXAMPLE.
+![fastqe-overview](../../fig/bact/02-fastq-desc/fastqe-overview.png)
 
  We are going to use a Bioinformatic tool named **Galaxy**.
 

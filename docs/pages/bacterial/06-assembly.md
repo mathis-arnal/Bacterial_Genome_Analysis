@@ -65,9 +65,8 @@ The figure below shows the hierarchy:
 
 There are several strategies to assemble genomes. Most modern short-read assemblers use **De Bruijn Graphs**, but it is useful to know all three families of algorithms.
 
-<a href="../../fig/bact/06-assembly/assembly_algorithms.png">
-  <img src="../../fig/06-assembly/assembly_algorithms.png" width="868" height="777" alt="Assembly algorithms: Greedy, OLC, De Bruijn Graphs" />
-</a>
+![assembly-algorithms](../../fig/bact/06-assembly/assembly_algorithms.png")
+
 
 ### **1. Greedy Extension**
 - Start from a read, extend it by finding the next read with the highest overlap.  
