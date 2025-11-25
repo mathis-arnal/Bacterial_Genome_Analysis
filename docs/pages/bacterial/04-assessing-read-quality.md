@@ -14,9 +14,6 @@ keypoints:
 ---
 
 !!! info "Lesson overview"
-    **Teaching:** 30 min  
-    **Exercises:** 20 min  
-
     **Questions**
     - "How can I describe the quality of my data?"
 

@@ -1,9 +1,6 @@
 # Introduction to Next Generation Sequencing
 
 !!! info "Lesson overview"
-    **Teaching:** 15 min  
-    **Exercises:** 15 min  
-
     **Questions**
 
     - How do you plan a metagenomics experiment?
@@ -57,10 +54,9 @@ During sequencing, nucleotides with a unique fluorescent label are added, incorp
 
 ![illumina-sequencers](../../fig/bact/01-intro-ngs/illumina-sequencers.png)
 
-![illumina-steps](../../fig/bact/01-intro-ngs/illumina-steps.png)
 
 ## Steps/Process of Illumina Sequencing
-
+![illumina-steps](../../fig/bact/01-intro-ngs/illumina-steps.png)
 ### 0. Nucleic Acid Extraction
 
 The first step in Illumina sequencing is isolating the genetic material from samples of interest. The extraction process is important because the quality of the nucleic acids extracted will directly affect the sequencing results. After extraction, a quality control check is usually performed to ensure the nucleic acids are pure and accurately quantified. UV spectrophotometry is typically used to check the purity, while fluorometric methods are preferred for measuring nucleic acid concentration.

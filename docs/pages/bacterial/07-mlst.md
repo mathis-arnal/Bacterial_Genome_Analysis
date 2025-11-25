@@ -1,9 +1,6 @@
 # Multi Locus Sequence Typing (MLST)
 
 !!! info "Lesson overview"
-    **Teaching:** 15 min  
-    **Exercises:** 20 min  
-
     **Questions**
     - What is MLST?
     - Why do we use MLST for bacterial typing?

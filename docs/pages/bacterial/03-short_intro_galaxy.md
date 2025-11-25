@@ -32,9 +32,6 @@ priority: 2
 ---
 
 !!! info "Lesson overview"
-    **Teaching:** 30 min  
-    **Exercises:** 10 min  
-
     **Questions**
     - How to get started in Galaxy ?
 
@@ -47,7 +44,6 @@ priority: 2
     - Learn how to share a history
 
 # Overview
-
 * This is a short introduction to the Galaxy user interface - the web page that you interact with.
 * We will cover key tasks in Galaxy: uploading files, using tools, viewing histories, and running workflows.
 
@@ -99,9 +95,12 @@ Your "History" is in the panel at the right. It is a record of the actions you h
     !!! comment "Renaming not an option?"
         If renaming does not work, it is possible you aren't logged in, so try logging in to Galaxy first. Anonymous users are only permitted to have one history, and they cannot rename it.
 
-## Upload a file
+## Upload the data 
 
-!!! example "Upload a file from URL"
+### Upload the files locally
+With your reads, you will want to upload them locally (from your computer).
+
+!!! example "Upload a file"
     1. At the top of the **Activity Bar**, click the  **Upload** activity
 
         ![upload data button shown in the galaxy interface]( ../../fig/bact/03-intro-galaxy/upload-data.png)
@@ -109,33 +108,101 @@ Your "History" is in the panel at the right. It is a record of the actions you h
         This brings up a box:
 
     3. Click **Choose Local File** or Drop the files 
-    4. Paste in the  forward read fastq.bz2 file from the DRR187559 sample:
-
-    ```
-    DRR187559_1.fastq.bz2
-    ```
-
     5. Click **Start**
     6. Click **Close**
 
+### Upload the files from SRA
+
+In our case, it is different ! 
+The raw reads we are interested in are available in the SRA.
+the raw reads sample **KUN1163**  is available in the run [DRR187559]
+
+There are tools that allows to upload directly sequences using the accession number !
+
+1. Type **fastq sra** in the tools panel search box (top)
+2. Click the tool (**Faster Download and Extract Reads in FASTQ**
+format from NCBI SRA)
+
+![fastq SRA click on the tool]( ../../fig/bact/03-intro-galaxy/fastqsra-click.png)
+
+The tool will be displayed in the central Galaxy panel.
+
+3. Select the following parameters:
+    -  *select input type*: SRR accession
+    - **Accession** : **DRR187559**
+    - In **Advanced Options**, define format specification for sequence, type:
+        '''
+        @$ac.$sn/$ri length=$rl
+        '''
+    - No change in the other parameters
+4. Click **Run Tool**
+
+The parameter **@$ac.$sn/$ri length=$rl**  will produce headers like:
+@DRR187559.1/1 length=164
+@DRR187559.2/1 length=70
+Where:
+$ac = accession (DRR187559)
+$sn = spot number (read number)
+$ri = read index (1 for forward, 2 for reverse)
+$rl = read length
+
+This tool will run and 4 new output datasets will appear at the top of your history panel :
+- Pair-end data (fasterq-dump)
+- Single-end data (fasterq-dump)
+- Other data (fasterq-dump)
+- fasterq-dump log
+
+## OUTPUT 
 Your uploaded file is now in your current history.
 When the file has uploaded to Galaxy, it will turn green.
 
 After this you will see your first history item (called a "dataset") in Galaxy's right panel. It will go through
 the gray (preparing/queued) and yellow (running) states to become green (success).
 
-## What is this file?
+### LOG FILE 
 
-!!! example "View dataset contents"
-    1. Click the 👁️ (eye) icon next to the dataset name, to look at the file content
+First, we wil look at the **fasterq-dump log** file. 
 
-    ![galaxy history view showing a single dataset DRR187559_1.fastq.bz2. Display link is being hovered.]( ../../fig/bact/03-intro-galaxy/eye-icon.png)
+!!! question "Excercise: View log contents"
+    1. Click the 👁️ (eye) icon next to the file **fasterq-dump log**, to look at the file content.
+    The contents of the file will be displayed in the central Galaxy panel. 
+    - How many spots have been read ? 
+    - How many reads have been read ? 
+    - How can you explain the difference between the number of spots and reads ?
+    - Look at the [metadata from the run](https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&page_size=10&acc=DRR187559&display=metadata). Compare the number of spots to make sure we have retrieved all the data. 
+
+
+    ??? "Answer"
+    - spots read      : 451,782 
+    - reads read      : 903,564 
+    We have paired reads, so this run has two reads per spot, hence : **N reads = 2* N spots**. 
+    - We have 451.8k spots in the metadata, same as in the log file, Good News !
+
+### Reads retrieved from NCBI 
+
+Our **Single-end data (fasterq-dump)** file and **Other data (fasterq-dump)** file should be empty, as there is only pair-end data in this run. 
+You can delete them by click on the 🗑️ (bin) icon.
+We will only use **Pair-end data (fasterq-dump)**.
+
+
+!!! question "View forward reads"
+    Next to the **Pair-end data (fasterq-dump)** in the history : 
+    1. click the ✏️ (pencil) icon to rename the file to **DRR187559**. Click **Save**.
+    2. Click on the file, inside you have a pair with 2 datasets, click on it. 
+    3. Click the 👁️ (eye) icon next forward, to look at the file content.
 
 The contents of the file will be displayed in the central Galaxy panel. If the dataset is large, you will see a warning message which explains that only the first megabyte is shown.
 
 This file contains DNA sequencing reads from a bacteria, in FASTQ format:
 
-![preview of a fastq file showing the 4 line structure described in fig caption. 3 reads are shown.]( ../../fig/bact/03-intro-galaxy/fastq.png "A FastQ file has four lines per record: the record identifier (`@mutant-no_snps.gff-24960/`), the sequence (`AATG…`), the plus character (`+`), and then the quality scores for the sequence (`5??A…`)."){:width="620px"}
+![preview of a fastq file showing the 4 line structure described in fig caption. 3 reads are shown.]( ../../fig/bact/03-intro-galaxy/fastq-ncbi.png "A FastQ file has four lines per record: the record identifier (`@mutant-no_snps.gff-24960/`), the sequence (`AATG…`), the plus character (`+`), and then the quality scores for the sequence (`5??A…`)."){:width="620px"}
+
+!!! question "Extract the fastq file" 
+
+    What is the name of the first read ? What is the length of the first read ?
+
+    ??? "Answer" 
+        The name of the first read is **@DRR187559.1/1**. The length is this read is **164**.
 
 ## Use a tool
 
@@ -148,11 +215,30 @@ Let's look at the quality of the reads in this file.
 
 The tool will be displayed in the central Galaxy panel.
 
-3. Select the following parameters:
-    -  *"Raw read data from your current history"*: the FASTQ dataset that we uploaded (should be already selected)
-    - No change in the other parameters
-4. Click **Run Tool**
+What is happening in **"Raw read data from your current history"** ?
 
+We cannot use our dataset as there it is in the wrong format !
+First, we need to Flatten the collection.  
+
+1. Type **Flatten Collection** in the tools panel search box (top)
+2. Click the tool (**Flatten Collection**)  
+3. Read the description :
+    "This tool takes nested collections such as a list of lists or a list of dataset pairs and produces a flat list from the inputs. It effectively "flattens" the hierarchy"
+4. Select **DRR187559** *Input Collection*. 
+5. Click *Run Tool*
+6. Rename **data 13 and data 12 (flattened)** to **flattened DRR187559**. 
+
+!!! question "Try FastQE again !" 
+    1. Type **FastQE** in the tools panel search box (top)
+    2. Click the tool (**FASTQE** visualize fastqfiles with emoji's)
+    3. Select the following parameters:
+    -  *FastQ data*: Select the format *Dataset Collection*, and selectt **flattened DRR187559** 
+    - No change in the other parameters
+    4. Click **Run Tool**
+
+
+
+Let's look at the quality of the reads in this file.
 This tool will run and two one new output datasets will appear at the top of your history panel.
 
 ![fastqe sucess]( ../../fig/bact/03-intro-galaxy/fastqe-success.png){:width="620px"}
@@ -198,27 +284,9 @@ We will now look at the output dataset called *FastQE on data 1*.
 
     ![history-share](../../fig/bact/03-intro-galaxy/history-share.png)
 
-    Try to create a link for your history and share it with yourself.
+    In the main panel, click **Make History accessible**. 
+    It creates an url, that you can share !
 
-    ![history-share-panel](../../fig/bact/03-intro-galaxy/history-share-panel.png)
-
-## Convert your analysis history into a workflow
-
-Galaxy records every tool you run and the parameters used. You can convert this history into a workflow to reuse later.
-
-!!! example "Extract workflow"
-    1. Clean up your history: remove any failed (red) jobs
-    2. Click (**History options**) → **Extract workflow**
-
-    ![extract-workflow](../../fig/bact/03-intro-galaxy/extract-workflow.png)
-
-    3. Select the steps to include
-    4. Replace the workflow name (e.g., `FASTQ Emoji Workflow`)
-    5. Rename the workflow input (e.g., `FASTQ reads`)
-
-    ![workflow-rename](../../fig/bact/03-intro-galaxy/workflow-rename.png)
-
-    6. Click **Create Workflow**
 
 ## Create a new history
 
@@ -246,8 +314,7 @@ Because we already uploaded the forward reads form DRR187559 (DRR187559_1), we a
 
 !!! comment
     This is not the only way to view your histories in Galaxy:
-    1. An exhaustive list is available in the **My Histories** tab
-    2. You can quickly switch to another history using **History options**
+    1. You can also click on **Datasets**, click on the needed file, and click **Copy to current history**
 
 # Conclusion
 
@@ -257,6 +324,24 @@ Well done! You have completed the short introduction to Galaxy:
 * Uploaded a file
 * Used a tool
 * Viewed results
+
+## Bonus: Convert your analysis history into a workflow
+
+Galaxy records every tool you run and the parameters used. You can convert this history into a workflow to reuse later.
+
+!!! example "Extract workflow"
+    1. Clean up your history: remove any failed (red) jobs
+    2. Click (**History options**) → **Extract workflow**
+
+    ![extract-workflow](../../fig/bact/03-intro-galaxy/extract-workflow.png)
+
+    3. Select the steps to include
+    4. Replace the workflow name (e.g., `FASTQ Emoji Workflow`)
+    5. Rename the workflow input (e.g., `FASTQ reads`)
+
+    ![workflow-rename](../../fig/bact/03-intro-galaxy/workflow-rename.png)
+
+    6. Click **Create Workflow**
 
 !!! Success "Key Points"
     - The Galaxy interface has an activity bar on the left, a tool (or other activated)
@@ -272,3 +357,5 @@ Well done! You have completed the short introduction to Galaxy:
     - View all your histories and move files between them. Switch to a different history.
     - Log out of your Galaxy server. When you log back in (to the same server), your histories
     will all be there.
+
+

@@ -3,11 +3,6 @@ title: Bacterial Genome Assembly Tutorial
 ---
 
 # Bacterial Genome Assembly
-
-!!! info "Lesson overview"
-    **Teaching:** 15 min  
-    **Exercises:** 20 min  
-
     **Questions**
     - Why do bacterial genomes need to be assembled?
     - What is the difference between reads, contigs, and scaffolds?

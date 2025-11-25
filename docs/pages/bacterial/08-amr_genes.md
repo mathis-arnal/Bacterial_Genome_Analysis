@@ -1,9 +1,6 @@
 # AMR Gene Detection Using Abricate
 
 !!! info "Lesson overview"
-    **Teaching:** 15 min  
-    **Exercises:** 20 min  
-
     **Questions**
     - What is AMR gene detection and why is it important?  
     - How does Abricate identify antimicrobial resistance genes?  

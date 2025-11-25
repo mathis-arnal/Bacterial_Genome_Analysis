@@ -17,9 +17,6 @@ keypoints:
 ---
 
 !!! info "Lesson overview"
-    **Teaching:** 15 min  
-    **Exercises:** 15 min  
-
     **Questions**
     - How can we get rid of sequence data that does not meet our quality standards?
 
@@ -267,7 +264,10 @@ Rename it **Trimmed DRR187559**.
         did pretty well, though, and its performance is good enough for our workflow.
 
         Coverage: You look at the Total Bases in **Basic Statistics**, and you divide it by the expected genome size.
-        The results is: TO DO 
+        Coverage = (Total bases R1 + Total bases R2) / Genome size
+        Coverage = (58.3 + 68.2) / 2.8 ≈ **45× coverage**
+
+This is **good coverage** for bacterial genome assembly
 
 
 

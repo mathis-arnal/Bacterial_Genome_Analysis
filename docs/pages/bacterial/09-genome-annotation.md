@@ -1,9 +1,6 @@
 # Genome Annotation using Bakta
 
 !!! info "Lesson overview"
-    **Teaching:** 20 min  
-    **Exercises:** 25 min  
-
     **Questions**
     - What is genome annotation?
     - Why is annotation important after assembly?
