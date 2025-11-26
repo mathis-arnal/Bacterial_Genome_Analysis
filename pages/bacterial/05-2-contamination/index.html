@@ -878,37 +878,32 @@ Discuss with your neighbour about the composition. </p>
 </div>
 <h2 id="how-does-it-work">How does it work ?<a class="headerlink" href="#how-does-it-work" title="Permanent link">#</a></h2>
 <p>To find out which microorganisms are present, we will compare the reads of the sample to a reference database, i.e. sequences of known microorganisms stored in a database, using <a href="https://link.springer.com/article/10.1186/s13059-019-1891-0">Kraken2</a>.</p>
-<p>!!! "Discussion: Taxonomic level of assignment"</p>
+<div class="admonition question">
+<p class="admonition-title">Discussion: Taxonomic level of assignment</p>
 <p>What do you think is harder to assign, a species (like <em>E. coli</em>) or a phylum (like Proteobacteria)?</p>
-<p>??? "See a Discussion"</p>
+<details>
+<summary>See a Discussion</summary>
 <p>Assigning a species is generally much harder than assigning a phylum. Here’s why:</p>
-<pre><code>  **Sequence similarity**
-
-  At the phylum level, organisms are very different from each other. Even short reads often contain enough signal to confidently place them in a broad category like Proteobacteria.
-
-  At the species level, differences can be very small. For example, E. coli shares a huge portion of its genome with Shigella or other Escherichia species. Short reads might not capture unique sequences, making it difficult to distinguish between closely related species.
-
-  **Database coverage**
-
-  All taxonomic mapping  tools rely on reference databases. Some species are underrepresented or missing, while higher-level taxa are well-covered. This makes phylum assignments more robust.
-
-  **Genomic variability**
-
-  Within a species, there can be large genomic diversity (e.g., different E. coli strains). This intra-species variation can confuse classifiers and lead to ambiguous assignments.
-
-  **Conclusion**
-
-  Phyla are defined by broader evolutionary signals, so natural variability within them doesn’t affect classification as much.
-  In short: Assigning E. coli (species) is harder than assigning Proteobacteria (phylum) because species-level differences are subtler, databases may be incomplete, and intra-species variability can obscure signals.
-</code></pre>
+<p><strong>Sequence similarity</strong></p>
+<p>At the phylum level, organisms are very different from each other. Even short reads often contain enough signal to confidently place them in a broad category like Proteobacteria.</p>
+<p>At the species level, differences can be very small. For example, E. coli shares a huge portion of its genome with Shigella or other Escherichia species. Short reads might not capture unique sequences, making it difficult to distinguish between closely related species.</p>
+<p><strong>Database coverage</strong></p>
+<p>All taxonomic mapping  tools rely on reference databases. Some species are underrepresented or missing, while higher-level taxa are well-covered. This makes phylum assignments more robust.</p>
+<p><strong>Genomic variability</strong></p>
+<p>Within a species, there can be large genomic diversity (e.g., different E. coli strains). This intra-species variation can confuse classifiers and lead to ambiguous assignments.</p>
+<p><strong>Conclusion</strong></p>
+<p>Phyla are defined by broader evolutionary signals, so natural variability within them doesn’t affect classification as much.
+In short: Assigning E. coli (species) is harder than assigning Proteobacteria (phylum) because species-level differences are subtler, databases may be incomplete, and intra-species variability can obscure signals.</p>
+</details>
+</div>
 <h1 id="how-does-kraken-work">How does Kraken work:<a class="headerlink" href="#how-does-kraken-work" title="Permanent link">#</a></h1>
-<p>In the k-mer approach for taxonomy classification, we use a database containing DNA sequences of genomes whose taxonomy we already know. On a computer, the genome sequences are broken into short pieces of length (k) (called (k)-mers), usually 30bp.</p>
-<p>Kraken examines the (k)-mers within the query sequence, searches for them in the database, looks for where these are placed within the taxonomy tree inside the database, makes the classification with the most probable position, then maps (k)-mers to the lowest common ancestor (LCA) of all genomes known to contain the given (k)-mer.</p>
+<p>In the k-mer approach for taxonomy classification, we use a database containing DNA sequences of genomes whose taxonomy we already know. On a computer, the genome sequences are broken into short pieces of length k (called k-mers), usually 30bp.</p>
+<p>Kraken examines the k-mers within the query sequence, searches for them in the database, looks for where these are placed within the taxonomy tree inside the database, makes the classification with the most probable position, then maps k-mers to the lowest common ancestor (LCA) of all genomes known to contain the given k-mer.</p>
 <p><img alt="kmers-kraken-algorithm" src="../../../fig/bact/05-2-contamination/kmers-kraken.jpg" /></p>
 <p>Kraken2 uses a compact hash table, a probabilistic data structure that allows for faster queries and lower memory requirements. It applies a spaced seed mask of s spaces to the minimizer and calculates a compact hash code, which is then used as a search query in its compact hash table; the lowest common ancestor (LCA) taxon associated with the compact hash code is then assigned to the k-mer.</p>
 <p>You can find more information about the Kraken2 algorithm in the paper Improved metagenomic analysis with Kraken 2.</p>
 <p>For this tutorial, we will use the PlusPF database which contains the Standard (archaea, bacteria, viral, plasmid, human, UniVec_Core), protozoa and fungi data.</p>
-<h2 id="kraken-reference-dataset-pluspf">Kraken Reference dataset : PlusPF<a class="headerlink" href="#kraken-reference-dataset-pluspf" title="Permanent link">#</a></h2>
+<h2 id="kraken-reference-dataset-standard">Kraken Reference dataset : Standard<a class="headerlink" href="#kraken-reference-dataset-standard" title="Permanent link">#</a></h2>
 <p>A Kraken dataset is essentially a collection of reference sequences (genomes or proteins) that the software uses to classify sequencing reads.
 The process to build it involves:</p>
 <ol>
@@ -919,8 +914,8 @@ The process to build it involves:</p>
 <p>Breaking sequences into k-mers – Each reference sequence is split into short, fixed-length DNA fragments called k-mers (commonly 35 bp).</p>
 </li>
 </ol>
-<p>In our study, we will use the Prebuild dataset PlusPF
-For this tutorial, we will use the PlusPF database which contains the Standard (archaea, bacteria, viral, plasmid, human, UniVec_Core), protozoa and fungi data. The PlusPF Kraken2 database uses a k-mer size of <strong>35</strong>. </p>
+<p>In our study, we will use the Prebuild dataset Standard. 
+For this tutorial, we will use the PlusPF database which contains the Standard (archaea, bacteria, viral, plasmid, human, UniVec_Core). The PlusPF Kraken2 database uses a k-mer size of <strong>35</strong>. </p>
 <table>
 <thead>
 <tr>
@@ -967,6 +962,15 @@ For this tutorial, we will use the PlusPF database which contains the Standard (
 </tr>
 </tbody>
 </table>
+<div class="admonition question">
+<p class="admonition-title">Exercice: Run Kraken2 on Galaxy</p>
+<p>1: Search the tool <strong>Kraken2</strong>. 
+2. Select paired reads, and the collection <strong>Trimmed DRR187559</strong>.
+3. In <em>Minimum Base Quality</em>, select <strong>20</strong>. 
+3. In <em>Select a Kraken2 Database</em>, select <strong>Prebuilt Refseq indexes: Standard-Full (archaea, bacteria, viral, plasmid, human,UniVec_Core) (Version: 2022-06-07 - Downloaded: 2022-07-06T094102Z)</strong>. 
+4. In <em>Create Report</em>, click <strong>Yes</strong> for <em>Print a report with aggregrate counts/clade to file</em>.</p>
+</div>
+<p>The default confidence threshold of 0.0 will result in the most sensitive classification, while higher thresholds will increase precision at the cost of sensitivity, and we want to detect any contamination (even low-level).</p>
 <h2 id="kraken2-output-overview">Kraken2 Output Overview<a class="headerlink" href="#kraken2-output-overview" title="Permanent link">#</a></h2>
 <p>Kraken2 generates <strong>two output files per dataset</strong> (e.g., one per sample):
 - Classification table
@@ -1016,10 +1020,20 @@ For this tutorial, we will use the PlusPF database which contains the Standard (
 <p>Krakentools (Lu et al. 2017) is a suite of tools to work on Kraken outputs. It include a tool designed to translate results of the Kraken metagenomic classifier to the full representation of NCBI taxonomy. The output of this tool can be directly visualized by the Krona tool</p>
 <div class="admonition question">
 <p class="admonition-title">Exercice: Convert Kraken report file</p>
+<ol>
+<li>In the Tool, type : <strong>Krakentools: Convert kraken report file to krona text file</strong> </li>
+<li>Kraken report file, select <strong>Kraken2 on collection X: Report</strong></li>
+<li>Click, Run tools </li>
+</ol>
 </div>
-<p>Let’s now run Krona</p>
+<p>Let’s now run Krona !</p>
 <div class="admonition question">
 <p class="admonition-title">Generate Krona visualisation</p>
+<ol>
+<li>In the Tool, type <strong>Krona pie chart from taxonomic profile</strong> </li>
+<li><em>Input file</em>: output of Krakentools</li>
+<li>Click <em>Run Tool</em></li>
+</ol>
 </div>
 
 

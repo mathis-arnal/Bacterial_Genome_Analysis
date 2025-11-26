@@ -826,21 +826,45 @@ The process of stitching reads together into longer sequences is called <strong>
 <li><strong>Contaminations</strong> in the sample  </li>
 </ul>
 <p>Despite these challenges, bacterial genomes (~1–7 Mb) are typically easier to assemble than metagenomes because they come from <strong>one organism</strong> and generally have <strong>uniform coverage</strong>.</p>
-<hr />
-<h1 id="what-is-being-assembled">What is Being Assembled?<a class="headerlink" href="#what-is-being-assembled" title="Permanent link">#</a></h1>
+<h1 id="the-type-of-assembly">The type of assembly<a class="headerlink" href="#the-type-of-assembly" title="Permanent link">#</a></h1>
+<p><img alt="de-novo-and-reference" src="../../fig/bact/06-assembly/de-novo-and-reference.png&quot;" /></p>
+<h2 id="reference-based-assembly-mapping">Reference-Based Assembly (Mapping)<a class="headerlink" href="#reference-based-assembly-mapping" title="Permanent link">#</a></h2>
+<p>Reference-based assembly aligns sequencing reads to an existing reference genome. This approach:
+- <strong>Requires</strong> a high-quality reference genome from the same or closely related species
+- Is <strong>faster and computationally lighter</strong> than de novo assembly
+- Works well for <strong>variant detection</strong>, SNP calling, and comparative genomics
+- <strong>Limitations</strong>: Cannot detect novel sequences, large structural variations, or genomic regions absent from the reference</p>
+<h2 id="de-novo-assembly">De Novo Assembly<a class="headerlink" href="#de-novo-assembly" title="Permanent link">#</a></h2>
+<p>De novo assembly reconstructs the genome from scratch without using a reference. This approach:
+- Builds consensus sequences by finding <strong>overlaps between reads</strong>
+- Is <strong>essential</strong> when no reference genome exists or when studying novel organisms
+- Can detect <strong>structural variations, insertions, deletions</strong>, and novel genetic elements
+- <strong>Limitations</strong>: More computationally intensive, may produce fragmented assemblies (multiple contigs instead of complete chromosomes)</p>
+<div class="admonition question">
+<p class="admonition-title">Which Assembly to choose ?</p>
+</div>
+<p>Read the <a href="https://journals.asm.org/doi/10.1128/mra.01212-19">referenced paper</a> and answer the following questions:
+    1. What kind off assembly has been chosen in the paper ? 
+    2. Discuss with your neighbor, about this choice. </p>
+<pre><code>??? "Answer"
+    While reference-based assembly is faster, de novo assembly was essential for this study because the authors wanted to:
+        - Capture the complete and unique genomic content of each strain
+        - Identify novel resistance mechanisms and virulence factors specific to Japanese MRSA
+        - Create high-quality reference genomes for these clinical isolates
+        - Understand genomic diversity without bias from an existing reference
+</code></pre>
+<h1 id="how-do-de-nevo-assemblers-work">How Do DE NEVO Assemblers Work?<a class="headerlink" href="#how-do-de-nevo-assemblers-work" title="Permanent link">#</a></h1>
 <h2 id="reads-contigs-scaffolds">Reads → Contigs → Scaffolds<a class="headerlink" href="#reads-contigs-scaffolds" title="Permanent link">#</a></h2>
-<p>During assembly, the algorithm steps are typically:</p>
+<p>During de novo assembly, the algorithm steps are typically:</p>
 <ol>
 <li><strong>Reads</strong> (raw sequencing fragments)  </li>
 <li><strong>Contigs</strong>: overlapping reads merged into longer continuous sequences  </li>
-<li><strong>Scaffolds</strong>: contigs ordered and oriented using paired-end information  </li>
-<li>(Optional) <strong>Chromosome</strong> or near-complete genome</li>
+<li><strong>Scaffolds</strong>: contigs ordered and oriented using paired-end information  (Mainly useuful for visualization)</li>
 </ol>
 <p>The figure below shows the hierarchy:</p>
-<hr />
-<h1 id="how-do-assemblers-work">How Do Assemblers Work?<a class="headerlink" href="#how-do-assemblers-work" title="Permanent link">#</a></h1>
+<p><img alt="de-novo-assembly-overview" src="../../fig/bact/06-assembly/de-novo-assembly-overview.png&quot;" /></p>
 <p>There are several strategies to assemble genomes. Most modern short-read assemblers use <strong>De Bruijn Graphs</strong>, but it is useful to know all three families of algorithms.</p>
-<p><img alt="assembly-algorithms" src="../../fig/bact/06-assembly/assembly_algorithms.png&quot;" /></p>
+<p><img alt="assembly-algorithms" src="../../fig/bact/06-assembly/assembly-algorithms.png&quot;" /></p>
 <h3 id="1-greedy-extension"><strong>1. Greedy Extension</strong><a class="headerlink" href="#1-greedy-extension" title="Permanent link">#</a></h3>
 <ul>
 <li>Start from a read, extend it by finding the next read with the highest overlap.  </li>
@@ -911,16 +935,12 @@ Smaller k values (e.g., 21–33–55) are more sensitive and help assemble low-c
 <li>In the Galaxy tools panel, search for <strong>SPAdes</strong>.  </li>
 <li>Click <strong>SPAdes genome assembler</strong>.</li>
 </ol>
-<p><a href="../fig/galaxy/spades_tool.png">
-  <img src="../fig/galaxy/spades_tool.png" width="620px" alt="SPAdes tool in Galaxy" />
-</a></p>
-<hr />
 <h2 id="tool-parameters">Tool parameters<a class="headerlink" href="#tool-parameters" title="Permanent link">#</a></h2>
 <h3 id="1-input-data">1. Input Data<a class="headerlink" href="#1-input-data" title="Permanent link">#</a></h3>
 <p>Choose:</p>
 <ul>
 <li><strong>Paired-end: list of dataset pairs</strong>  </li>
-<li>Ensure the correct R1/R2 files are selected.</li>
+<li>Ensure the correct trimmed R1/R2 files are selected.</li>
 </ul>
 <h3 id="2-options-to-select">2. Options to select<a class="headerlink" href="#2-options-to-select" title="Permanent link">#</a></h3>
 <ul>
@@ -1048,13 +1068,13 @@ In <strong>Estimated reference genome size (in bp) for computing NGx statistics<
 - What is you GC content?</p>
 <details>
 <summary>Answer</summary>
-</details>
 <ul>
 <li>31 contigs, meaning the chromosome is separated over multiple contigs. These contigs can also contain (parts of) plasmids.</li>
 <li>2904652 (Total length (&gt;= 0 bp)). Not far from the estimated genome size found in paper, which is 2.8 Mb.</li>
 <li>The GC content for our assembly was 32.76%. For comparison, in the paper GC% is  around 32.89%.</li>
 <li>Conclusion: The total length and the GC content of the assembly are coherent with expectations.</li>
 </ul>
+</details>
 </div>
 <h2 id="quast-graphs">QUAST Graphs<a class="headerlink" href="#quast-graphs" title="Permanent link">#</a></h2>
 <p>You can think of QUAST graphs as adding depth and context to the QUAST summary table.
@@ -1416,8 +1436,8 @@ Look at this Examples of Bandage:
 What do you think of the assembly of our sample, <strong>DRR187559</strong> ? Is it useful? Is it good enough?</p>
 <details>
 <summary>Answer</summary>
-</details>
 <p>This is a very messy assembly, with a lot of potential paths through the sequence. We cannot feel confident in the output FASTA file (as it is much smaller than the expected 2.9Mbp). In real life we might consider doing a hybrid assembly with Nanopore or other long read data to help resolve these issues.</p>
+</details>
 </div>
 <h3 id="example-interpretations">Example interpretations:<a class="headerlink" href="#example-interpretations" title="Permanent link">#</a></h3>
 <table>

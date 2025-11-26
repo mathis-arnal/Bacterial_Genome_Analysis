@@ -904,7 +904,7 @@
 <li>Go to the <strong>History</strong> panel (on the right)</li>
 <li>
 <p>Click ✏️ (<strong>Edit</strong>) next to the history name (which by default is "Unnamed history")</p>
-<p><img alt="Screenshot of the galaxy interface with the history name being edited, it currently reads &quot;Unnamed history&quot;, the default value. An input box is below it." src="../../fig/bact/03-intro-galaxy/rename_history.png" /></p>
+<p><img alt="Screenshot of the galaxy interface with the history name being edited, it currently reads &quot;Unnamed history&quot;, the default value. An input box is below it." src="../../../fig/bact/03-intro-galaxy/rename-history.png" /></p>
 </li>
 <li>
 <p>Type in a new name, for example, "Galaxy Tutorial"</p>
@@ -965,19 +965,19 @@ format from NCBI SRA)</li>
 </ol>
 </div>
 <p>The parameter <strong>@$ac.$sn/$ri length=$rl</strong>  will produce headers like:
-@DRR187559.1/1 length=164
-@DRR187559.2/1 length=70
+@DRR187559.1/1 length=164 
+@DRR187559.2/1 length=70 
 Where:
-$ac = accession (DRR187559)
-$sn = spot number (read number)
-$ri = read index (1 for forward, 2 for reverse)
-$rl = read length</p>
-<p>This tool will run and 4 new output datasets will appear at the top of your history panel :
-- Pair-end data (fasterq-dump)
-- Single-end data (fasterq-dump)
-- Other data (fasterq-dump)
-- fasterq-dump log</p>
-<h2 id="output">OUTPUT<a class="headerlink" href="#output" title="Permanent link">#</a></h2>
+- $ac = accession (DRR187559)
+- $sn = spot number (read number)
+- $ri = read index (1 for forward, 2 for reverse)
+- $rl = read length</p>
+<p>This tool will run and 4 new output datasets will appear at the top of your history panel : 
+- Pair-end data (fasterq-dump) 
+- Single-end data (fasterq-dump) 
+- Other data (fasterq-dump) 
+- fasterq-dump log </p>
+<h3 id="output">OUTPUT<a class="headerlink" href="#output" title="Permanent link">#</a></h3>
 <p>Your uploaded file is now in your current history.
 When the file has uploaded to Galaxy, it will turn green.</p>
 <p>After this you will see your first history item (called a "dataset") in Galaxy's right panel. It will go through
@@ -996,25 +996,23 @@ The contents of the file will be displayed in the central Galaxy panel. </li>
 </ol>
 <details>
 <summary>Answer</summary>
-</details>
 <ul>
 <li>spots read      : 451,782 </li>
 <li>reads read      : 903,564 
 We have paired reads, so this run has two reads per spot, hence : <strong>N reads = 2* N spots</strong>. </li>
 <li>We have 451.8k spots in the metadata, same as in the log file, Good News !</li>
 </ul>
+</details>
 </div>
 <h3 id="reads-retrieved-from-ncbi">Reads retrieved from NCBI<a class="headerlink" href="#reads-retrieved-from-ncbi" title="Permanent link">#</a></h3>
 <p>Our <strong>Single-end data (fasterq-dump)</strong> file and <strong>Other data (fasterq-dump)</strong> file should be empty, as there is only pair-end data in this run. 
 You can delete them by click on the 🗑️ (bin) icon.
 We will only use <strong>Pair-end data (fasterq-dump)</strong>.</p>
-<div class="admonition question">
-<p class="admonition-title">View forward reads</p>
-<p>Next to the <strong>Pair-end data (fasterq-dump)</strong> in the history : 
-1. click the ✏️ (pencil) icon to rename the file to <strong>DRR187559</strong>. Click <strong>Save</strong>.
-2. Click on the file, inside you have a pair with 2 datasets, click on it. 
-3. Click the 👁️ (eye) icon next forward, to look at the file content.</p>
-</div>
+<p>!!!  "View forward reads"
+    Next to the <strong>Pair-end data (fasterq-dump)</strong> in the history :<br />
+    1. click the ✏️ (pencil) icon to rename the file to <strong>DRR187559</strong>. Click <strong>Save</strong>. 
+    2. Click on the file, inside you have a pair with 2 datasets, click on it.<br />
+    3. Click the 👁️ (eye) icon next forward, to look at the file content. </p>
 <p>The contents of the file will be displayed in the central Galaxy panel. If the dataset is large, you will see a warning message which explains that only the first megabyte is shown.</p>
 <p>This file contains DNA sequencing reads from a bacteria, in FASTQ format:</p>
 <p><img alt="preview of a fastq file showing the 4 line structure described in fig caption. 3 reads are shown." src="../../../fig/bact/03-intro-galaxy/fastq-ncbi.png" title="A FastQ file has four lines per record: the record identifier (@mutant-no_snps.gff-24960/), the sequence (AATG…), the plus character (+), and then the quality scores for the sequence (5??A…)." width="620px" /></p>
@@ -1026,26 +1024,28 @@ We will only use <strong>Pair-end data (fasterq-dump)</strong>.</p>
 <p>The name of the first read is <strong>@DRR187559.1/1</strong>. The length is this read is <strong>164</strong>.</p>
 </details>
 </div>
-<h2 id="use-a-tool">Use a tool<a class="headerlink" href="#use-a-tool" title="Permanent link">#</a></h2>
-<p>Let's look at the quality of the reads in this file.</p>
-<ol>
-<li>Type <strong>FastQE</strong> in the tools panel search box (top)</li>
-<li>Click the tool (<strong>FASTQE</strong> visualize fastqfiles with emoji's)</li>
-</ol>
-<p><img alt="fastqe click on the tool" src="../../../fig/bact/03-intro-galaxy/fastqe-click.png" /></p>
-<p>The tool will be displayed in the central Galaxy panel.</p>
+<h1 id="use-a-tool-fastqe">Use a tool: FastQE<a class="headerlink" href="#use-a-tool-fastqe" title="Permanent link">#</a></h1>
+<p>The quality symbol in <strong>FASTQ Format</strong> can be hard to interpret, that's why we are going to use our first tool to have a better understanding of the data: <strong>FastQE</strong>.
+ FastQE turns ASCII characters into emojis that are easy to interpret.</p>
+<p>!!! question "Exercice: Run FastQE tool"
+    1. Type <strong>FastQE</strong> in the tools panel search box (top)
+    2. Click the tool (<strong>FASTQE</strong> visualize fastqfiles with emoji's)</p>
+<pre><code>![fastqe click on the tool]( ../../fig/bact/03-intro-galaxy/fastqe-click.png)
+
+The tool will be displayed in the central Galaxy panel.
+</code></pre>
 <p>What is happening in <strong>"Raw read data from your current history"</strong> ?</p>
 <p>We cannot use our dataset as there it is in the wrong format !
-First, we need to Flatten the collection.  </p>
-<ol>
-<li>Type <strong>Flatten Collection</strong> in the tools panel search box (top)</li>
-<li>Click the tool (<strong>Flatten Collection</strong>)  </li>
-<li>Read the description :
-    "This tool takes nested collections such as a list of lists or a list of dataset pairs and produces a flat list from the inputs. It effectively "flattens" the hierarchy"</li>
-<li>Select <strong>DRR187559</strong> <em>Input Collection</em>. </li>
-<li>Click <em>Run Tool</em></li>
-<li>Rename <strong>data 13 and data 12 (flattened)</strong> to <strong>flattened DRR187559</strong>. </li>
-</ol>
+First, we need to <strong>Flatten the collection</strong>.  </p>
+<p>!!! question "Exercice: Flatten the collection"
+    1. Type <strong>Flatten Collection</strong> in the tools panel search box (top)
+    2. Click the tool (<strong>Flatten Collection</strong>)<br />
+    3. Read the description :
+        "This tool takes nested collections such as a list of lists or a list of dataset pairs and produces a flat list from the inputs. It effectively "flattens" the hierarchy"
+    4. Select <strong>DRR187559</strong> <em>Input Collection</em>. 
+    5. Click <em>Run Tool</em>
+    6. Rename <strong>data 13 and data 12 (flattened)</strong> to <strong>flattened DRR187559</strong>. </p>
+<p>Now that the data is at the good format, we can continue the workshop:     </p>
 <div class="admonition question">
 <p class="admonition-title">Try FastQE again !</p>
 <ol>
@@ -1057,7 +1057,8 @@ First, we need to Flatten the collection.  </p>
 <li>Click <strong>Run Tool</strong></li>
 </ol>
 </div>
-<p>Let's look at the quality of the reads in this file.
+<p>Now it works ! 
+Let's look at the quality of the reads in this file.
 This tool will run and two one new output datasets will appear at the top of your history panel.</p>
 <p><img alt="fastqe sucess" src="../../../fig/bact/03-intro-galaxy/fastqe-success.png" width="620px" /></p>
 <h2 id="view-results">View results<a class="headerlink" href="#view-results" title="Permanent link">#</a></h2>

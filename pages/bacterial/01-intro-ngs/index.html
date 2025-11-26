@@ -985,9 +985,6 @@ Sequencing (determining of DNA/RNA nucleotide sequence) is used all over the wor
 - Sequencing‑by‑synthesis: Fluorescent reversible terminator nucleotides are incorporated one base per cycle; after each incorporation the flow cell is imaged to record the signal from each cluster.
 - Paired‑end sequencing: After completing the first read, chemistry is used to enable sequencing of the fragment's opposite end.
 - Base calling and QC: Images are processed to call bases and assign Phred quality scores; data are output as demultiplexed <code>FASTQ</code> files when samples were multiplexed.</p>
-<p>Strengths and limitations:
-- Strengths: Very high throughput, low per‑base cost, robust ecosystem of library kits and analysis tools, and high accuracy for short reads.
-- Limitations: Short reads make resolving large repeats and complex structural variants harder; some systematic errors (substitutions) increase toward read ends; library prep biases can skew representation.</p>
 <h2 id="principle-of-illumina-sequencing">Principle of Illumina Sequencing<a class="headerlink" href="#principle-of-illumina-sequencing" title="Permanent link">#</a></h2>
 <p>Illumina sequencing works on the principle of sequencing by synthesis (SBS). This involves identifying DNA bases as they are added to a growing DNA strand. Fluorescently-labeled reversible terminator nucleotides are used and the fluorescence emitted from each added nucleotide is captured. Each of the four DNA bases is labelled with a unique fluorescent dye, allowing the sequencing system to detect which nucleotide has been added during each cycle. The system captures images of these signals which are then used to determine the exact sequence of the DNA fragment. </p>
 <p>Illumina sequencing also uses bridge amplification. In this process, DNA molecules with ligated adapters are used as templates for repeated amplification on a solid surface like a glass slide. The slide is coated with oligonucleotides complementary to the adapters, which allows the DNA to form clusters of each fragment. This amplification process creates millions of these clusters on the slide. The clusters enhance the signal and make it easier to detect and differentiate between DNA bases by color. </p>
@@ -997,8 +994,25 @@ Sequencing (determining of DNA/RNA nucleotide sequence) is used all over the wor
 <p><img alt="illumina-steps" src="../../../fig/bact/01-intro-ngs/illumina-steps.png" /></p>
 <p>Here is a <a href="https://www.youtube.com/watch?v=CZeN-IgjYCo&amp;list=PLVzmZbeKfT3NhNEmSqZ4s43H-AYtH4CCQ&amp;index=13">quick video introducing Illumina sequencing</a>.   </p>
 <h3 id="0-nucleic-acid-extraction">0. Nucleic Acid Extraction<a class="headerlink" href="#0-nucleic-acid-extraction" title="Permanent link">#</a></h3>
-<p>The first step in Illumina sequencing is isolating the genetic material from samples of interest.DNA extraction is a method to purify DNA by using physical and/or chemical methods from a sample separating DNA from cell membranes, proteins, and other cellular components. The extraction process is important because the quality of the nucleic acids extracted will directly affect the sequencing results. </p>
-<p>The quality and yield of DNA are assessed by spectrophotometry or by gel electrophoresis</p>
+<p>The first step in Illumina sequencing is isolating the genetic material from samples of interest. DNA extraction is a method to purify DNA by using physical and/or chemical methods from a sample separating DNA from cell membranes, proteins, and other cellular components. The extraction process is important because the quality of the nucleic acids extracted will directly affect the sequencing results:</p>
+<p><img alt="dna-extraction" src="../../../fig/bact/01-intro-ngs/dna-extraction.png" /></p>
+<p>The quality and yield of DNA are assessed by spectrophotometry or by gel electrophoresis:</p>
+<p><img alt="dna-qc" src="../../../fig/bact/01-intro-ngs/dna-qc.png" /></p>
+<div class="admonition question">
+<p class="admonition-title">Exercise: DNA extraction</p>
+<p>Read the <a href="https://journals.asm.org/doi/10.1128/mra.01212-19">referenced paper</a> and answer the following questions:</p>
+<ol>
+<li>What is the culture environnement ?</li>
+<li>What is the DNA extraction protocol ? </li>
+</ol>
+<details>
+<summary>Solution</summary>
+<ol>
+<li>Evidence from the paper: "Eight MRSA strains were incubated for 15 h at 37°C in Trypticase soy medium"</li>
+<li>Evidence from the paper: "The bacterial cells were lysed with lysostaphin and lysozyme, and then the genomic DNA was extracted by the phenol-chloroform extraction method."</li>
+</ol>
+</details>
+</div>
 <h3 id="1-library-preparation">1. Library Preparation<a class="headerlink" href="#1-library-preparation" title="Permanent link">#</a></h3>
 <p>This is the step where you go from your DNA extract to a Illumina Library Preparation. 
 Some Library Prep Kit integrate DNA extraction protocols, like the most common one: <a href="https://www.illumina.com/products/by-type/sequencing-kits/library-prep-kits/illumina-dna-prep.html">Illumina DNA Prep</a>.</p>
@@ -1060,7 +1074,6 @@ The kit enables <strong>Sequencing by Synthesis (SBS)</strong>, where nucleotide
 <p>Once the sequencing is completed, the sequences obtained are processed and analyzed using bioinformatics tools.
 Don't worry, we will go through some during this workshop !</p>
 <h3 id="strength-and-limitations-of-illumina-sequencing">Strength and limitations of Illumina Sequencing<a class="headerlink" href="#strength-and-limitations-of-illumina-sequencing" title="Permanent link">#</a></h3>
-<h3 id="strengths-and-limitations-of-illumina-sequencing">Strengths and Limitations of Illumina Sequencing<a class="headerlink" href="#strengths-and-limitations-of-illumina-sequencing" title="Permanent link">#</a></h3>
 <p><strong>Strengths:</strong></p>
 <ul>
 <li><strong>High accuracy</strong>: Raw base quality &gt;99% (Q30), providing highly reliable sequence data</li>
@@ -1068,8 +1081,6 @@ Don't worry, we will go through some during this workshop !</p>
 <li><strong>High throughput</strong>: Can generate hundreds of gigabases to terabases of data per run (depending on the platform)</li>
 <li><strong>Well-established protocols</strong>: Extensive library preparation kits and validated workflows available</li>
 <li><strong>Mature bioinformatics tools</strong>: Large ecosystem of analysis software and pipelines specifically designed for short-read data</li>
-<li><strong>Reproducibility</strong>: Highly consistent results between runs and across different laboratories</li>
-<li><strong>Versatile applications</strong>: Suitable for RNA-seq, ChIP-seq, variant calling, metagenomics, and many other applications</li>
 <li><strong>Multiplexing capability</strong>: Can sequence many samples simultaneously using barcoding strategies</li>
 </ul>
 <p><strong>Limitations:</strong></p>
@@ -1077,12 +1088,29 @@ Don't worry, we will go through some during this workshop !</p>
 <li><strong>Short read length</strong>: Typically 150-300 bp, limiting ability to resolve complex genomic regions</li>
 <li><strong>Repetitive regions</strong>: Difficulty assembling or mapping reads in repetitive sequences longer than the read length</li>
 <li><strong>Structural variants</strong>: Poor detection of large insertions, deletions, inversions, and complex rearrangements</li>
-<li><strong>GC bias</strong>: Amplification during library preparation can introduce bias in GC-rich or GC-poor regions</li>
-<li><strong>PCR duplicates</strong>: Amplification steps create duplicate reads that must be identified and removed</li>
-<li><strong>De novo assembly limitations</strong>: Short reads produce fragmented assemblies with many contigs/scaffolds</li>
 <li><strong>Long preparation time</strong>: Library preparation and sequencing runs can take several days to complete</li>
 </ul>
-<h2 id="other-sequencing-technology-nanopore-sequencing">Other Sequencing Technology: Nanopore Sequencing<a class="headerlink" href="#other-sequencing-technology-nanopore-sequencing" title="Permanent link">#</a></h2>
+<h2 id="strength-of-paired-end-reads">Strength of paired-end reads<a class="headerlink" href="#strength-of-paired-end-reads" title="Permanent link">#</a></h2>
+<h2 id="process-paired-end-data">Process paired-end data<a class="headerlink" href="#process-paired-end-data" title="Permanent link">#</a></h2>
+<p>With paired-end sequencing, the fragments are sequenced from both sides. This approach results in two reads per fragment, with the first read in forward orientation and the second read in reverse-complement orientation. With this technique, we have the advantage to get more information about each DNA fragment compared to reads sequenced by only single-end sequencing:</p>
+<div class="highlight"><pre><span></span><code>------&gt;                       [single-end]
+
+----------------------------- [fragment]
+
+------&gt;               &lt;------ [paired-end]
+</code></pre></div>
+<p>The distance between both reads is known and therefore is additional information that can improve <strong>read mapping</strong>. </p>
+<p>Example: Resolve ambiguous mappings
+MRSA contains multiple copies of IS256 (~1.3 kb transposable element). 
+Let's say there are 5 identical copies scattered across the genome.
+Without paired-end: 
+Read 1 from IS256: Could map to ANY of the 5 copies = ambiguous </p>
+<p>With paired-end: 
+Read 1: Maps to all 5 IS256 copies
+Read 2: Maps uniquely to region adjacent to copy #3</p>
+<p>Result: Read 1 must be from copy #3 (only one within insert size range)</p>
+<h1 id="long-read-sequencing">LONG READ SEQUENCING<a class="headerlink" href="#long-read-sequencing" title="Permanent link">#</a></h1>
+<h2 id="nanopore-sequencing">Nanopore Sequencing<a class="headerlink" href="#nanopore-sequencing" title="Permanent link">#</a></h2>
 <p>Nanopore Sequencing  needs a different preparation kit.  </p>
 <p>All Oxford Nanopore sequencing devices use flow cells which contain an array of tiny holes — nanopores — embedded in an electro-resistant membrane. Each nanopore corresponds to its own electrode connected to a channel and sensor chip, which measures the electric current that flows through the nanopore. When a molecule passes through a nanopore, the current is disrupted to produce a characteristic ‘squiggle’. The squiggle is then decoded using basecalling algorithms to determine the DNA or RNA sequence in real time.</p>
 <p><img alt="nanopore-gif" src="../../../fig/bact/01-intro-ngs/nanopore-sequencing-animation-2.gif" /></p>
@@ -1108,11 +1136,19 @@ Don't worry, we will go through some during this workshop !</p>
 <li><strong>Computational requirements</strong>: Basecalling, especially high-accuracy modes, requires significant computational resources</li>
 <li><strong>Throughput variability</strong>: Output can vary between flow cells and depends on DNA quality and library preparation</li>
 </ul>
-<p>ADD A PART ON LONG READ </p>
 <h2 id="comparison-and-summary">Comparison and Summary<a class="headerlink" href="#comparison-and-summary" title="Permanent link">#</a></h2>
 <p>Here is a <strong>Comparison between Nanopore Sequencing and Illumina Sequencing</strong> :</p>
 <p><img alt="Comparison-Nanopore-Illumina" src="../../../fig/bact/01-intro-ngs/Comparison-Nanopore-Illumina.png" /></p>
-<h2 id="combination-of-short-and-long-read-sequencing-hybrid-assembly">Combination of Short and Long read Sequencing : Hybrid Assembly<a class="headerlink" href="#combination-of-short-and-long-read-sequencing-hybrid-assembly" title="Permanent link">#</a></h2>
+<h2 id="pacbio-technology">PacBio Technology<a class="headerlink" href="#pacbio-technology" title="Permanent link">#</a></h2>
+<p>HiFi sequencing is a single-molecule, real-time sequencing technology (SMRT) that provides incredible single-molecule read accuracy across long reads of tens of kilobases in length or more. HiFi reads are generated by combining information from multiple observations of a single DNA molecule, resulting in over 99% accuracy of individual HiFi reads(<a href="https://www.pacb.com/technology/hifi-sequencing/how-it-works/">PacBio Website</a>)</p>
+<p><img alt="pacbio-reads" src="../../../fig/bact/01-intro-ngs/pacbio-reads.png" /></p>
+<p>Here is a comparison between Nanopore and PacBio: </p>
+<p><img alt="Comparison-Nanopore-Pacbio" src="../../../fig/bact/01-intro-ngs/Comparison-Nanopore-Pacbio.png" /></p>
+<h2 id="which-long-reads-sequencer-should-i-choose">Which long reads sequencer should I choose ?<a class="headerlink" href="#which-long-reads-sequencer-should-i-choose" title="Permanent link">#</a></h2>
+<p>The answer depends on your project goals:
+- Choose Oxford Nanopore if you need portability, real-time results, or ultra-long reads.
+- Choose PacBio if your priority is extremely high accuracy and structural variant detection.</p>
+<h1 id="combination-of-short-and-long-read-sequencing-hybrid-assembly">Combination of Short and Long read Sequencing : Hybrid Assembly<a class="headerlink" href="#combination-of-short-and-long-read-sequencing-hybrid-assembly" title="Permanent link">#</a></h1>
 <p>Short reads and long reads have different strengths and limitations, which make them complementary. By combining both technologies in a hybrid assembly approach, researchers can leverage the advantages of each:</p>
 <ul>
 <li><strong>Long reads</strong> (Nanopore/PacBio) provide the scaffolding and resolve complex structural regions, repetitive elements, and large-scale genomic features</li>
@@ -1120,10 +1156,6 @@ Don't worry, we will go through some during this workshop !</p>
 </ul>
 <p>This hybrid strategy is particularly valuable for de novo genome assembly, structural variant detection, and resolving complex genomic regions where either technology alone would be insufficient. We will see later applications in the workshop.</p>
 <p><img alt="hybrid-assembly" src="../../../fig/bact/01-intro-ngs/hybrid-assembly.png" /></p>
-<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">#</a></h2>
-<ul>
-<li><a href="https://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf">Illumina technology overview</a></li>
-</ul>
 
 
 

@@ -615,39 +615,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#process-paired-end-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Process paired-end data
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#upload-the-reads" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Upload the reads
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#create-a-paired-collection-of-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Create a paired collection of data
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#assessing-quality-using-fastqc" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -929,68 +896,19 @@
 <h1 id="running-fastqc">Running FastQC<a class="headerlink" href="#running-fastqc" title="Permanent link">#</a></h1>
 <p>During sequencing, errors are introduced, such as incorrect nucleotides being called. These are due to the technical limitations of each sequencing platform. Sequencing errors might bias the analysis and can lead to a misinterpretation of the data. Adapters may also be present if the reads are longer than the fragments sequenced and trimming these may improve the number of reads mapped. Sequence quality control is therefore an essential first step in any analysis.</p>
 <p>Before doing any assembly, the first questions we should ask about the input reads include:</p>
-<p>What is the coverage of my genome?
-How good are my reads?
-Do I need to ask/perform for a new sequencing run?
-Is it suitable for the analysis I need to do?</p>
-<h2 id="process-paired-end-data">Process paired-end data<a class="headerlink" href="#process-paired-end-data" title="Permanent link">#</a></h2>
-<p>With paired-end sequencing, the fragments are sequenced from both sides. This approach results in two reads per fragment, with the first read in forward orientation and the second read in reverse-complement orientation. With this technique, we have the advantage to get more information about each DNA fragment compared to reads sequenced by only single-end sequencing:</p>
-<div class="highlight"><pre><span></span><code>------&gt;                       [single-end]
-
------------------------------ [fragment]
-
-------&gt;               &lt;------ [paired-end]
-</code></pre></div>
-<p>The distance between both reads is known and therefore is additional information that can improve read mapping.</p>
+<ul>
+<li>What is the coverage of my genome? </li>
+<li>How good are my reads? </li>
+<li>Do I need to ask/perform for a new sequencing run? </li>
+<li>Is it suitable for the analysis I need to do? </li>
+</ul>
 <p>Paired-end sequencing generates 2 FASTQ files:</p>
 <ul>
 <li>One file with the sequences corresponding to <strong>forward orientation of all the fragments</strong></li>
 <li>One file with the sequences corresponding to <strong>reverse orientation of all the fragments</strong></li>
 </ul>
-<p>Usually we recognize these two files which belong to one sample by the name which has the same identifier for the reads but a different extension, e.g. JC1A_R1.fastq for the forward reads and JC1A_R2.fastq for the reverse reads. It can also be _f or _1 for the forward reads and _r or _2 for the reverse reads.</p>
-<h2 id="upload-the-reads">Upload the reads<a class="headerlink" href="#upload-the-reads" title="Permanent link">#</a></h2>
-<p>We will now assess the quality of the reads that we downloaded.
-In the previous tutorial, we have uploaded the forward reads from <strong>DRR187559</strong>, but we also need to upload the reverse reads from DRR187559.</p>
-<div class="admonition example">
-<p class="admonition-title">Upload a file from URL</p>
-<ol>
-<li>
-<p>At the top of the <strong>Activity Bar</strong>, click the  <strong>Upload</strong> activity</p>
-<p><img alt="upload data button shown in the galaxy interface" src="../../../fig/bact/04-read-QC/upload-data.png" /></p>
-<p>This brings up a box:</p>
-</li>
-<li>
-<p>Click <strong>Choose Local File</strong> or Drop the files </p>
-</li>
-<li>Paste in the reverse read  file from the DRR187559 sample:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>DRR187559_2.fastqsanger.bz2
-</code></pre></div>
-<ol>
-<li>Click <strong>Start</strong></li>
-<li>Click <strong>Close</strong></li>
-</ol>
-</div>
-<h2 id="create-a-paired-collection-of-data">Create a paired collection of data<a class="headerlink" href="#create-a-paired-collection-of-data" title="Permanent link">#</a></h2>
-<p>Because we work with paired reads , we will create a paired collection of data to make it easier for the next analysis.
-By group all of our data into one collection, we will have a distinct result for fastqc for the whole collection, instead of having many files in the history.</p>
-<div class="admonition example">
-<p class="admonition-title">Creating a paired collection</p>
-<p>1) Click on  <strong>Select Items</strong> at the top of the history panel</p>
-<p><img alt="select-items" src="../../../fig/bact/04-read-QC/select-items.png" /></p>
-<p>2) Check all the datasets in your history you would like to include. In our case : </p>
-<pre><code>- DRR187559_1.fastqsanger.bz2
-- DRR187559_2.fastqsanger.bz2
-</code></pre>
-<p>3) Click n of N selected and choose <strong>Advanced Build List</strong></p>
-<p><img alt="select-advanced-build" src="../../../fig/bact/04-read-QC/select-advanced-build.png" /></p>
-<p>4) You are in collection building wizard. Choose <strong>List of Paired Datasets</strong> and click ‘Next’ button at the right bottom corner:</p>
-<p><img alt="choose-list-builder" src="../../../fig/bact/04-read-QC/choose-list-builder.png" /></p>
-<p>5) Check and configure auto-pairing. In our case, reads have suffix  _1 and _2. Click on ‘Next’ at the bottom.</p>
-<p>6) Check the result of the auto-pairing, and enter a name for the collection (<strong>DRR187559</strong>) 
-  <img alt="pair-name" src="../../../fig/bact/04-read-QC/pair-name.png" /></p>
-<p>7) Your collection should now appear on the side !</p>
-</div>
+<p>In our our 
+Usually we recognize these two files which belong to one sample by the name which has the same identifier for the reads but a different extension, e.g. JC1A_R1.fastq for the forward reads and JC1A_R2.fastq for the reverse reads. It can also be _f or _1 for the forward reads and _r or _2 for the reverse reads.</p>
 <h2 id="assessing-quality-using-fastqc">Assessing quality using FastQC<a class="headerlink" href="#assessing-quality-using-fastqc" title="Permanent link">#</a></h2>
 <p>FastQC has several features that can give you a quick impression of any problems your
 data may have, so you can consider these issues before moving forward with your
@@ -1039,10 +957,11 @@ This helps you understand if you have enough data to assemble confdently.</p>
 <p>Discuss your results with a neighbor. </p>
 <details>
 <summary>Solution</summary>
-<p>You look at the Total Bases in <strong>Basic Statistics</strong>, and you divide it by the expected genome size.
-Based on [this paper] (https://journals.asm.org/doi/10.1128/genomea.00800-15), S. aureus has a genome size of approximately 2.8 Mb.
-86.2 Mb / 2.8Mb = 30,78.
-A coverage of 30x is good for assembly.</p>
+<p>You look at the Total Bases in <strong>Basic Statistics</strong> for you forward and reverse reads, you add them, and you divide it by the expected genome size. 
+We can approximate that Total Bases for the reverse reads is the same as the forward.
+Based on <a href="https://journals.asm.org/doi/10.1128/genomea.00800-15">this paper</a>, S. aureus has a genome size of approximately 2.8 Mb. 
+(86.2 Mb * 2) / 2.8Mb = ~61.6x.
+A coverage of ~61.6x is good for assembly.</p>
 </details>
 </div>
 <p>And then, the "Per Base Quality graph": </p>
