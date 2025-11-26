@@ -48,8 +48,7 @@ A>>1AFC>DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHH
 
 ### Line 1: @ header: 
 
-The first line contains important metadata.
-Depending on the sequencing technology 
+The first line contains metadata information : 
 - Instrument name (MISEQ)
 - Run ID 5LAB244
 - Flowcell coordinates

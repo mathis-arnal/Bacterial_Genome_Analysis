@@ -27,86 +27,21 @@ During sequencing, errors are introduced, such as incorrect nucleotides being ca
 
 Before doing any assembly, the first questions we should ask about the input reads include:
 
-What is the coverage of my genome?
-How good are my reads?
-Do I need to ask/perform for a new sequencing run?
-Is it suitable for the analysis I need to do?
+- What is the coverage of my genome? 
+- How good are my reads? 
+- Do I need to ask/perform for a new sequencing run? 
+- Is it suitable for the analysis I need to do? 
 
 
-## Process paired-end data
-
-With paired-end sequencing, the fragments are sequenced from both sides. This approach results in two reads per fragment, with the first read in forward orientation and the second read in reverse-complement orientation. With this technique, we have the advantage to get more information about each DNA fragment compared to reads sequenced by only single-end sequencing:
-
-```
------->                       [single-end]
-
------------------------------ [fragment]
-
------->               <------ [paired-end]
-```
-
-The distance between both reads is known and therefore is additional information that can improve read mapping.
 
 Paired-end sequencing generates 2 FASTQ files:
 
 - One file with the sequences corresponding to **forward orientation of all the fragments**
 - One file with the sequences corresponding to **reverse orientation of all the fragments**
 
+
+In our our 
 Usually we recognize these two files which belong to one sample by the name which has the same identifier for the reads but a different extension, e.g. JC1A_R1.fastq for the forward reads and JC1A_R2.fastq for the reverse reads. It can also be _f or _1 for the forward reads and _r or _2 for the reverse reads.
-
-## Upload the reads
-
-We will now assess the quality of the reads that we downloaded.
-In the previous tutorial, we have uploaded the forward reads from **DRR187559**, but we also need to upload the reverse reads from DRR187559.
-
-!!! example "Upload a file from URL"
-    1. At the top of the **Activity Bar**, click the  **Upload** activity
-
-        ![upload data button shown in the galaxy interface]( ../../fig/bact/04-read-QC/upload-data.png)
-
-        This brings up a box:
-
-    3. Click **Choose Local File** or Drop the files 
-    4. Paste in the reverse read  file from the DRR187559 sample:
-
-    ```
-    DRR187559_2.fastqsanger.bz2
-    ```
-
-    5. Click **Start**
-    6. Click **Close**
-
-## Create a paired collection of data
-
-Because we work with paired reads , we will create a paired collection of data to make it easier for the next analysis.
-By group all of our data into one collection, we will have a distinct result for fastqc for the whole collection, instead of having many files in the history.
-
-!!! Example "Creating a paired collection"
-
-      1) Click on  **Select Items** at the top of the history panel
-
-      ![select-items]( ../../fig/bact/04-read-QC/select-items.png)
-
-      2) Check all the datasets in your history you would like to include. In our case : 
-
-        - DRR187559_1.fastqsanger.bz2
-        - DRR187559_2.fastqsanger.bz2
-
-      3) Click n of N selected and choose **Advanced Build List**
-
-      ![select-advanced-build]( ../../fig/bact/04-read-QC/select-advanced-build.png)
-
-      4) You are in collection building wizard. Choose **List of Paired Datasets** and click ‘Next’ button at the right bottom corner:
-      
-      ![choose-list-builder]( ../../fig/bact/04-read-QC/choose-list-builder.png)
-
-      5) Check and configure auto-pairing. In our case, reads have suffix  _1 and _2. Click on ‘Next’ at the bottom.
-
-      6) Check the result of the auto-pairing, and enter a name for the collection (**DRR187559**) 
-      ![pair-name]( ../../fig/bact/04-read-QC/pair-name.png)
-
-      7) Your collection should now appear on the side !
-
 
 ## Assessing quality using FastQC
 
@@ -172,10 +107,11 @@ We first have a fastqc summary :
     Discuss your results with a neighbor. 
  
     ??? "Solution"
-        You look at the Total Bases in **Basic Statistics**, and you divide it by the expected genome size.
-        Based on [this paper] (https://journals.asm.org/doi/10.1128/genomea.00800-15), S. aureus has a genome size of approximately 2.8 Mb.
-        86.2 Mb / 2.8Mb = 30,78.
-        A coverage of 30x is good for assembly.
+        You look at the Total Bases in **Basic Statistics** for you forward and reverse reads, you add them, and you divide it by the expected genome size. 
+        We can approximate that Total Bases for the reverse reads is the same as the forward.
+        Based on [this paper](https://journals.asm.org/doi/10.1128/genomea.00800-15), S. aureus has a genome size of approximately 2.8 Mb. 
+        (86.2 Mb * 2) / 2.8Mb = ~61.6x.
+        A coverage of ~61.6x is good for assembly.
 
 
 And then, the "Per Base Quality graph": 

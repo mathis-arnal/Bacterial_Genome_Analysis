@@ -19,6 +19,8 @@ title: Bacterial Genome Assembly Tutorial
 
 # Introduction
 
+
+
 Modern sequencing technologies generate **millions of short DNA fragments (reads)**, but not complete chromosomes.  
 For bacterial genomics, our goal is to reconstruct the full genome of a bacterial isolate from these fragments.  
 The process of stitching reads together into longer sequences is called **de novo assembly**.
@@ -38,30 +40,59 @@ Unlike real puzzles, genome assembly is complicated by:
 
 Despite these challenges, bacterial genomes (~1–7 Mb) are typically easier to assemble than metagenomes because they come from **one organism** and generally have **uniform coverage**.
 
----
+# The type of assembly
 
-# What is Being Assembled?
+![de-novo-and-reference](../../fig/bact/06-assembly/de-novo-and-reference.png")
+
+## Reference-Based Assembly (Mapping)
+
+Reference-based assembly aligns sequencing reads to an existing reference genome. This approach:
+- **Requires** a high-quality reference genome from the same or closely related species
+- Is **faster and computationally lighter** than de novo assembly
+- Works well for **variant detection**, SNP calling, and comparative genomics
+- **Limitations**: Cannot detect novel sequences, large structural variations, or genomic regions absent from the reference
+
+
+## De Novo Assembly
+
+De novo assembly reconstructs the genome from scratch without using a reference. This approach:
+- Builds consensus sequences by finding **overlaps between reads**
+- Is **essential** when no reference genome exists or when studying novel organisms
+- Can detect **structural variations, insertions, deletions**, and novel genetic elements
+- **Limitations**: More computationally intensive, may produce fragmented assemblies (multiple contigs instead of complete chromosomes)
+
+
+
+!!! question "Which Assembly to choose ?"
+ Read the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19) and answer the following questions:
+    1. What kind off assembly has been chosen in the paper ? 
+    2. Discuss with your neighbor, about this choice. 
+
+    ??? "Answer"
+        While reference-based assembly is faster, de novo assembly was essential for this study because the authors wanted to:
+            - Capture the complete and unique genomic content of each strain
+            - Identify novel resistance mechanisms and virulence factors specific to Japanese MRSA
+            - Create high-quality reference genomes for these clinical isolates
+            - Understand genomic diversity without bias from an existing reference
+
+
+# How Do DE NEVO Assemblers Work?
 
 ## Reads → Contigs → Scaffolds
 
-During assembly, the algorithm steps are typically:
+During de novo assembly, the algorithm steps are typically:
 
 1. **Reads** (raw sequencing fragments)  
 2. **Contigs**: overlapping reads merged into longer continuous sequences  
-3. **Scaffolds**: contigs ordered and oriented using paired-end information  
-4. (Optional) **Chromosome** or near-complete genome
+3. **Scaffolds**: contigs ordered and oriented using paired-end information  (Mainly useuful for visualization)
 
 The figure below shows the hierarchy:
 
-
----
-
-# How Do Assemblers Work?
+![de-novo-assembly-overview](../../fig/bact/06-assembly/de-novo-assembly-overview.png")
 
 There are several strategies to assemble genomes. Most modern short-read assemblers use **De Bruijn Graphs**, but it is useful to know all three families of algorithms.
 
-![assembly-algorithms](../../fig/bact/06-assembly/assembly_algorithms.png")
-
+![assembly-algorithms](../../fig/bact/06-assembly/assembly-algorithms.png")
 
 ### **1. Greedy Extension**
 - Start from a read, extend it by finding the next read with the highest overlap.  
@@ -142,11 +173,6 @@ Use the **History Multiview** panel.
 1. In the Galaxy tools panel, search for **SPAdes**.  
 2. Click **SPAdes genome assembler**.
 
-<a href="../fig/galaxy/spades_tool.png">
-  <img src="../fig/galaxy/spades_tool.png" width="620px" alt="SPAdes tool in Galaxy" />
-</a>
-
----
 
 ## Tool parameters
 
@@ -154,7 +180,7 @@ Use the **History Multiview** panel.
 Choose:
 
 - **Paired-end: list of dataset pairs**  
-- Ensure the correct R1/R2 files are selected.
+- Ensure the correct trimmed R1/R2 files are selected.
 
 ### 2. Options to select  
 
@@ -255,10 +281,10 @@ QUAST produces a summary table and plots showing the assembly quality.
     - What is you GC content?
 
     ??? "Answer"
-    - 31 contigs, meaning the chromosome is separated over multiple contigs. These contigs can also contain (parts of) plasmids.
-    - 2904652 (Total length (>= 0 bp)). Not far from the estimated genome size found in paper, which is 2.8 Mb.
-    - The GC content for our assembly was 32.76%. For comparison, in the paper GC% is  around 32.89%.
-    - Conclusion: The total length and the GC content of the assembly are coherent with expectations.
+        - 31 contigs, meaning the chromosome is separated over multiple contigs. These contigs can also contain (parts of) plasmids.
+        - 2904652 (Total length (>= 0 bp)). Not far from the estimated genome size found in paper, which is 2.8 Mb.
+        - The GC content for our assembly was 32.76%. For comparison, in the paper GC% is  around 32.89%.
+        - Conclusion: The total length and the GC content of the assembly are coherent with expectations.
 
 ## QUAST Graphs
 
@@ -528,7 +554,7 @@ In **Graphical Fragment Assembly**, select :
 
     ???  "Answer"
         
-      This is a very messy assembly, with a lot of potential paths through the sequence. We cannot feel confident in the output FASTA file (as it is much smaller than the expected 2.9Mbp). In real life we might consider doing a hybrid assembly with Nanopore or other long read data to help resolve these issues.
+        This is a very messy assembly, with a lot of potential paths through the sequence. We cannot feel confident in the output FASTA file (as it is much smaller than the expected 2.9Mbp). In real life we might consider doing a hybrid assembly with Nanopore or other long read data to help resolve these issues.
 
 ### Example interpretations:
 

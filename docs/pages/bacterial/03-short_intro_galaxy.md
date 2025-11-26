@@ -87,7 +87,7 @@ Your "History" is in the panel at the right. It is a record of the actions you h
     1. Go to the **History** panel (on the right)
     2. Click ✏️ (**Edit**) next to the history name (which by default is "Unnamed history")
 
-        ![Screenshot of the galaxy interface with the history name being edited, it currently reads "Unnamed history", the default value. An input box is below it.]( ../../fig/bact/03-intro-galaxy/rename_history.png)
+        ![Screenshot of the galaxy interface with the history name being edited, it currently reads "Unnamed history", the default value. An input box is below it.]( ../../fig/bact/03-intro-galaxy/rename-history.png)
 
     3. Type in a new name, for example, "Galaxy Tutorial"
     4. Click **Save**
@@ -145,21 +145,21 @@ There are tools that allows to upload directly sequences using the accession num
     4. Click **Run Tool**
 
 The parameter **@$ac.$sn/$ri length=$rl**  will produce headers like:
-@DRR187559.1/1 length=164
-@DRR187559.2/1 length=70
+@DRR187559.1/1 length=164 
+@DRR187559.2/1 length=70 
 Where:
-$ac = accession (DRR187559)
-$sn = spot number (read number)
-$ri = read index (1 for forward, 2 for reverse)
-$rl = read length
+- $ac = accession (DRR187559)
+- $sn = spot number (read number)
+- $ri = read index (1 for forward, 2 for reverse)
+- $rl = read length
 
-This tool will run and 4 new output datasets will appear at the top of your history panel :
-- Pair-end data (fasterq-dump)
-- Single-end data (fasterq-dump)
-- Other data (fasterq-dump)
-- fasterq-dump log
+This tool will run and 4 new output datasets will appear at the top of your history panel : 
+- Pair-end data (fasterq-dump) 
+- Single-end data (fasterq-dump) 
+- Other data (fasterq-dump) 
+- fasterq-dump log 
 
-## OUTPUT 
+### OUTPUT 
 Your uploaded file is now in your current history.
 When the file has uploaded to Galaxy, it will turn green.
 
@@ -180,10 +180,10 @@ First, we wil look at the **fasterq-dump log** file.
 
 
     ??? "Answer"
-    - spots read      : 451,782 
-    - reads read      : 903,564 
-    We have paired reads, so this run has two reads per spot, hence : **N reads = 2* N spots**. 
-    - We have 451.8k spots in the metadata, same as in the log file, Good News !
+        - spots read      : 451,782 
+        - reads read      : 903,564 
+        We have paired reads, so this run has two reads per spot, hence : **N reads = 2* N spots**. 
+        - We have 451.8k spots in the metadata, same as in the log file, Good News !
 
 ### Reads retrieved from NCBI 
 
@@ -192,11 +192,11 @@ You can delete them by click on the 🗑️ (bin) icon.
 We will only use **Pair-end data (fasterq-dump)**.
 
 
-!!! question "View forward reads"
-    Next to the **Pair-end data (fasterq-dump)** in the history : 
-    1. click the ✏️ (pencil) icon to rename the file to **DRR187559**. Click **Save**.
-    2. Click on the file, inside you have a pair with 2 datasets, click on it. 
-    3. Click the 👁️ (eye) icon next forward, to look at the file content.
+!!!  "View forward reads"
+    Next to the **Pair-end data (fasterq-dump)** in the history :  
+    1. click the ✏️ (pencil) icon to rename the file to **DRR187559**. Click **Save**. 
+    2. Click on the file, inside you have a pair with 2 datasets, click on it.  
+    3. Click the 👁️ (eye) icon next forward, to look at the file content. 
 
 The contents of the file will be displayed in the central Galaxy panel. If the dataset is large, you will see a warning message which explains that only the first megabyte is shown.
 
@@ -211,29 +211,34 @@ This file contains DNA sequencing reads from a bacteria, in FASTQ format:
     ??? "Answer" 
         The name of the first read is **@DRR187559.1/1**. The length is this read is **164**.
 
-## Use a tool
+# Use a tool: FastQE
 
-Let's look at the quality of the reads in this file.
+ The quality symbol in **FASTQ Format** can be hard to interpret, that's why we are going to use our first tool to have a better understanding of the data: **FastQE**.
+ FastQE turns ASCII characters into emojis that are easy to interpret.
 
-1. Type **FastQE** in the tools panel search box (top)
-2. Click the tool (**FASTQE** visualize fastqfiles with emoji's)
+ !!! question "Exercice: Run FastQE tool"
+    1. Type **FastQE** in the tools panel search box (top)
+    2. Click the tool (**FASTQE** visualize fastqfiles with emoji's)
 
-![fastqe click on the tool]( ../../fig/bact/03-intro-galaxy/fastqe-click.png)
+    ![fastqe click on the tool]( ../../fig/bact/03-intro-galaxy/fastqe-click.png)
 
-The tool will be displayed in the central Galaxy panel.
+    The tool will be displayed in the central Galaxy panel.
 
 What is happening in **"Raw read data from your current history"** ?
 
 We cannot use our dataset as there it is in the wrong format !
-First, we need to Flatten the collection.  
+First, we need to **Flatten the collection**.  
 
-1. Type **Flatten Collection** in the tools panel search box (top)
-2. Click the tool (**Flatten Collection**)  
-3. Read the description :
-    "This tool takes nested collections such as a list of lists or a list of dataset pairs and produces a flat list from the inputs. It effectively "flattens" the hierarchy"
-4. Select **DRR187559** *Input Collection*. 
-5. Click *Run Tool*
-6. Rename **data 13 and data 12 (flattened)** to **flattened DRR187559**. 
+ !!! question "Exercice: Flatten the collection"
+    1. Type **Flatten Collection** in the tools panel search box (top)
+    2. Click the tool (**Flatten Collection**)  
+    3. Read the description :
+        "This tool takes nested collections such as a list of lists or a list of dataset pairs and produces a flat list from the inputs. It effectively "flattens" the hierarchy"
+    4. Select **DRR187559** *Input Collection*. 
+    5. Click *Run Tool*
+    6. Rename **data 13 and data 12 (flattened)** to **flattened DRR187559**. 
+
+Now that the data is at the good format, we can continue the workshop:     
 
 !!! question "Try FastQE again !" 
     1. Type **FastQE** in the tools panel search box (top)
@@ -244,7 +249,7 @@ First, we need to Flatten the collection.
     4. Click **Run Tool**
 
 
-
+Now it works ! 
 Let's look at the quality of the reads in this file.
 This tool will run and two one new output datasets will appear at the top of your history panel.
 

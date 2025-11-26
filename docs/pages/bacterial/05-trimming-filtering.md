@@ -38,43 +38,38 @@ Illumina sequencing data can contain:
 | **Very short reads** | After trimming, some reads are too short to be useful | Adds noise |
 
 
-To accomplish this, we will use a program called
-[Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic). This 
-useful tool filters poor quality reads and trims poor quality bases 
-from the specified samples.
+To accomplish this, we will use a program called [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic). 
+This useful tool filters poor quality reads and trims poor quality bases from the specified samples.
 Think of it like a “car wash” for raw sequencing reads 🚿 — it removes everything dirty or low-quality that could confuse later steps.
 It “cleans” the data before any downstream analysis (assembly, mapping, classification, etc.).
 
 # Trimmomatic options
 
 Trimmomatic has a variety of options to accomplish its task. 
-We  will follow a classic stepwise cleaning process:
-1. Remove adapters
-2. Remove bad-quality bases at the ends
-3. Remove bad-quality sections in the middle
-4. Throw away reads that are now too short 
+We  will follow a classic stepwise cleaning process: 
+1. Remove adapters 
+2. Remove bad-quality bases at the ends 
+3. Remove bad-quality sections in the middle 
+4. Throw away reads that are now too short  
 
-Understanding the steps you are using to
-clean your data is essential. We will use only a few options and trimming steps in our
-analysis. For more information about the Trimmomatic arguments
-and options, see [the Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
+Understanding the steps you are using to clean your data is essential. We will use only a few options and trimming steps in our analysis. For more information about the Trimmomatic arguments and options, see [the Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf). 
 
 ![trimming-diagram](../../fig/bact/05-trimming/trimming_diagram.png)
 
 ## 1. Remove adapters
 
 Before removing adapters, we need to know which one you used !
-Choosing the correct adapter sequence to trim depends on how your Illumina library was prepared. Knowing the sequencing platform determines expected adapter kit. In our case, we know that the data has been sequenced with Illumina MiSeq (Check the header of the reads). TruSeq is the most common, it is the standard Illumina DNA/RNA libraries, Hence, we will choose **TruSeq3**.
+Choosing the correct adapter sequence to trim depends on how your Illumina library was prepared. Knowing the sequencing platform determines expected adapter kit. In our case, by looking at the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19), we know that the kit used **Nextera DNA library prep kit**. TruSeq is the most common, it is the standard Illumina DNA/RNA libraries, Hence, we will choose **Nextera (paired end)**.
 
 ## 2. Remove bad-quality bases at the ends
 
 As you saw in the fastQC HTML files, often the first and last bases are lower quality. Removing them improves overall read reliability.
-We will use :
-LEADING:<quality> → Remove low quality bases from the beginning. As long as a base has a value below this
-threshold <quality> the base is removed and the next base will be investigated
+We will use : 
+LEADING:**quality** → Remove low quality bases from the beginning. As long as a base has a value below this 
+threshold **quality** the base is removed and the next base will be investigated 
 
-TRAILING:<quality> → Remove low quality bases from the end. As long as a base has a value below this threshold
-<quality> the base is removed and the next base (which as trimmomatic is starting from the 3‟ prime end
+TRAILING:**quality** → Remove low quality bases from the end. As long as a base has a value below this threshold
+**quality** the base is removed and the next base (which as trimmomatic is starting from the 3‟ prime end
 would be base preceding the just removed base) will be investigated.
 
 We will use a **threshold of 20**, so **LEADING:20** and **TRAILING:20**.
@@ -82,13 +77,16 @@ We will use a **threshold of 20**, so **LEADING:20** and **TRAILING:20**.
 ## 3. Remove bad-quality sections in the middle
 
 To Remove bad-quality sections in the middle, we will use a Sliding window.  
-We will use the default parameter, **SLIDINGWINDOW:4:20**.  
+We will use the default parameter, **SLIDINGWINDOW:4:20**. 
+
 What does **SLIDINGWINDOW:4:20** mean ?
 
 
-4 is for the size of the window, and 20 is for the minimum average quality.
-Trimmomatic slides a window of 4 bases along each read, from left to right ( from 5' to 3'). It calculates the average quality score of those 4 bases.If that average quality drops below 20, Trimmomatic cuts off (trims) the read from that position onward — meaning it removes everything to the right, not just that small window.   
+4 is for the size of the window, and 20 is for the minimum average quality. 
+Trimmomatic slides a window of 4 bases along each read, from left to right ( from 5' to 3'). It calculates the average quality score of those 4 bases.
+ If that average quality drops below 20, Trimmomatic cuts off (trims) the read from that position onward — meaning it removes everything to the right, not just that small window.   
 
+Example: 
 If the window at positions 32–36 drops below a quality of 20:
 
 - Trimmomatic does not remove only those 4 bases.  
@@ -118,70 +116,71 @@ Based on the process we discussed earlier, we are going to use this steps :
 | `MINLEN`  |  Drop an entire read if it is below a specified length. |  
 
 
-We are going to run Trimmomatic on our collection **CCB_Study**
+We are going to run Trimmomatic on our collection **DRR187559**
 
 ### Create a new history 
 First, let's create a new history, and name it "Trimming and Filtering"
 
 ![new-history-trimmomatic]( ../../fig/bact/05-trimming/new-history-trimmomatic.png)
 
-Then using the History Multiview, we can move the collection from the previous analysis (FastQC) to the new history (CCB_Study).
+Then using the History Multiview, we can move the collection from the previous analysis (FastQC) to the new history (Trimming and Filtering).
 
 
-### Run Trimmomatic
+!!! question "Exercice: Run Trimmomatic"
 
-Then, we can type "Trimmomatic" inside the "Tools" .  
-While using FastQC, we saw that Universal adapters were present in our samples.
+    Type "Trimmomatic" inside the "Tools", and click on it.
 
-#### STEP 1: Choose the Adapter sequences to use
+    #### STEP 1: Choose the Adapter sequences to use
 
-When you prepare an Illumina library using the Nextera DNA library prep kit, the adapters used are *Nextera adapters*.
-As we said earlier, we have used TruSeq3 adapters during our library.  
-First, click **Yes** for **Perform initial ILLUMINACLIP step?**.  
-In our case, for **Adapter sequences to use** we will choose **Nextera (paired end)** .  
-Keep the default parameters  for the adapters trimming (2:30:10).
+    When you prepare an Illumina library using the Nextera DNA library prep kit, the adapters used are *Nextera adapters*.
+    First, click **Yes** for **Perform initial ILLUMINACLIP step?**.  
+    In our case, for **Adapter sequences to use** we will choose **Nextera (paired end)** .  
+    Keep the default parameters  for the adapters trimming (2:30:10).
 
-#### STEP 2: Remove bad-quality bases at the ends
+    #### STEP 2: Remove bad-quality bases at the ends
 
-In **1: Trimmomatic Operation**, select the option   
-**Cut bases off the start of a read, if below a threshold quality (LEADING)**  
-Set the **Minimum quality required to keep a base**  at **20**.  
+    In **1: Trimmomatic Operation**, select the option   
+    **Cut bases off the start of a read, if below a threshold quality (LEADING)**  
+    Set the **Minimum quality required to keep a base**  at **20**.  
 
-Click on the button **Insert Trimmomatic Operation**.  
-It will add a window named **2: Trimmomatic Operation**.  
-This is the second step in our cleaning process.  
-Select **Cut bases off the end of a read, if below a threshold quality (TRAILING)**  
-Set the **Minimum quality required to keep a base**  at **20**.  
+    Click on the button **Insert Trimmomatic Operation**.  
+    It will add a window named **2: Trimmomatic Operation**.  
+    This is the second step in our cleaning process.  
+    Select **Cut bases off the end of a read, if below a threshold quality (TRAILING)**  
+    Set the **Minimum quality required to keep a base**  at **20**.  
 
-#### STEP 3: Choose the trimming sliding window
+    #### STEP 3: Choose the trimming sliding window
 
-Click again on the button **Insert Trimmomatic Operation**.  
-It will add a window named **3: Trimmomatic Operation**.  
-Select **Sliding window trimming (SLIDINGWINDOW)**.  
-Keep the default parameters :
+    Click again on the button **Insert Trimmomatic Operation**.  
+    It will add a window named **3: Trimmomatic Operation**.  
+    Select **Sliding window trimming (SLIDINGWINDOW)**.  
+    Keep the default parameters :
 
-- Number of bases to average across : 4
-- Average quality required : 20
+    - Number of bases to average across : 4
+    - Average quality required : 20
 
-#### STEP 4: Choose the minimun length of READS
+    #### STEP 4: Choose the minimun length of READS
 
-MINLEN:100 is a good tradeoff: long enough for SPAdes, not too strict to keep most of the reads.
+    MINLEN:100 is a good tradeoff: long enough for SPAdes, not too strict to keep most of the reads.
 
-Click again on the button **Insert Trimmomatic Operation**.  
-It will add a window named **4: Trimmomatic Operation**.  
-Select **Drop reads below a specified length (MINLEN)**.  
-Set  **Minimum length of reads to be kept** to **100**.  
+    Click again on the button **Insert Trimmomatic Operation**.  
+    It will add a window named **4: Trimmomatic Operation**.  
+    Select **Drop reads below a specified length (MINLEN)**.  
+    Set  **Minimum length of reads to be kept** to **100**.  
 
-#### Keep the log 
+    #### Keep the log 
 
-For the button **Output trimmomatic log messages?**, type **yes**.
+    For the button **Output trimmomatic log messages?**, type **yes**.
 
 
-It is a useful step, as we are going to look at this log to see the results of the process.
+    It is a useful step, as we are going to look at this log to see the results of the process.
 
-#### Run the tools 
+    #### Run the tools 
 
-Once you have selected all the good parameters, you can click on "Run".
+    Once you have selected all the good parameters, you can click on "Run".
+
+### Output
+
 This command will take a few minutes to run, and you will see the ouput in your history.
 It has created 3 files :
 
@@ -193,7 +192,6 @@ It has created 3 files :
 
 ## Log File
 First, Open the file **Trimmomatic on collection X (log file)**
-
 
 
 !!! question "Exercise  1: Should the output fastqfile file be smaller or bigger than the input file ?"
@@ -223,18 +221,19 @@ First, Open the file **Trimmomatic on collection X (log file)**
 
 ## FASTQ FILE OUTPUTS
 
-Now let's have a look at the 2 other outputs : 
-- Trimmomatic on collection X: paired  
+Now let's have a look at the 2 other outputs :
+
+- Trimmomatic on collection X: paired   
 - Trimmomatic on collection X: unpaired  
 
 ### What the two Trimmomatic outputs are
-paired: Contains reads where both mates survived trimming. 
-Usually a paired dataset/collection with two files per sample: forward_paired and reverse_paired. 
-Use these for any downstream tool that expects paired‑end input (mappers, pair‑aware assemblers). 
-Order is preserved so mate 1 and mate 2 still correspond. 
+paired: Contains reads where both mates survived trimming.  
+Usually a paired dataset/collection with two files per sample: forward_paired and reverse_paired.  
+Use these for any downstream tool that expects paired‑end input (mappers, pair‑aware assemblers).  
+Order is preserved so mate 1 and mate 2 still correspond.  
 
-unpaired: Contains reads whose mate was discarded but the read itself passed trimming. 
-Typically a single‑end dataset/collection (one file per sample) holding these leftover reads. 
+unpaired: Contains reads whose mate was discarded but the read itself passed trimming.  
+Typically a single‑end dataset/collection (one file per sample) holding these leftover reads.  
 These reads cannot be used as mates but can be used as single‑end input (e.g., single‑end mapping or as extra reads in assemblers). 
 
 
@@ -244,10 +243,10 @@ If one mate is discarded (too short/too low quality) but the other passes → th
 If both mates are discarded → neither appears in outputs.   
 
 ## Conclusion 
-We have just successfully run Trimmomatic on our data collection !
-From now on, we will only keep the paired collection  **Trimmomatic on collection X: paired**.
-Hence, we dropped 24% (100% - 73.52%) of the reads. 
-Rename it **Trimmed DRR187559**.
+We have just successfully run Trimmomatic on our data collection ! 
+From now on, we will only keep the paired collection  **Trimmomatic on collection X: paired**. 
+Hence, we dropped 24% (100% - 73.52%) of the reads.  
+Rename it **Trimmed DRR187559**. 
 
 !!! question "Bonus Exercise: Quality test after trimming"
 
@@ -257,7 +256,7 @@ Rename it **Trimmed DRR187559**.
     What is the new coverage after trimming ?
 
     ??? succes "Answer"
-        After trimming and filtering, our overall quality is much higher, 
+        After trimming and filtering, our overall quality is higher, 
         we have a distribution of sequence lengths, and more samples pass 
         adapter content. However, quality trimming is not perfect, and some
         programs are better at removing some sequences than others. Trimmomatic 
@@ -268,7 +267,6 @@ Rename it **Trimmed DRR187559**.
         Coverage = (58.3 + 68.2) / 2.8 ≈ **45× coverage**
 
 This is **good coverage** for bacterial genome assembly
-
 
 
 !!! Success "Key Points"
