@@ -1,0 +1,1231 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Workshop on Metagenomic">
+      
+      
+        <meta name="author" content="Mathis Arnal">
+      
+      
+        <link rel="canonical" href="https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/01-intro-ngs/">
+      
+      
+        <link rel="prev" href="../../course-information/schedule/">
+      
+      
+        <link rel="next" href="../02-fastq-desc/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>What is Next Generation Sequencing ? - Bacterial Genome Analysis Workshop, using Galaxy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-next-generation-sequencing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.md" title="Bacterial Genome Analysis Workshop, using Galaxy" class="md-header__button md-logo" aria-label="Bacterial Genome Analysis Workshop, using Galaxy" data-md-component="logo">
+      
+  <img src="../../images/IRD.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bacterial Genome Analysis Workshop, using Galaxy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              What is Next Generation Sequencing ?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mathis-arnal/Bacterial_Genome_Analysis
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../course-information/schedule/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Schedule
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bacterial Genome Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.md" title="Bacterial Genome Analysis Workshop, using Galaxy" class="md-nav__button md-logo" aria-label="Bacterial Genome Analysis Workshop, using Galaxy" data-md-component="logo">
+      
+  <img src="../../images/IRD.png" alt="logo">
+
+    </a>
+    Bacterial Genome Analysis Workshop, using Galaxy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mathis-arnal/Bacterial_Genome_Analysis
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-information/schedule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schedule
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bacterial Genome Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bacterial Genome Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is Next Generation Sequencing ?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is Next Generation Sequencing ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-next-generation-sequencing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction to Next-Generation Sequencing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-sanger-vs-next-generation-sequencing-ngs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison: Sanger vs Next-Generation Sequencing (NGS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-fastq-desc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a fastq file ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-short_intro_galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Short intro to Galaxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assessing-read-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assessing Read Quality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-trimming-filtering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trimming and Filtering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-2-contamination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contamination Checking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-mlst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi Locus Sequence typing (MLST)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-amr-genes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identification of AMR genes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-genome-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genome Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/edit/main/docs/pages/bacterial/01-intro-ngs.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/raw/main/docs/pages/bacterial/01-intro-ngs.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="introduction-to-next-generation-sequencing">Introduction to Next Generation Sequencing<a class="headerlink" href="#introduction-to-next-generation-sequencing" title="Permanent link">#</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Lesson overview</p>
+<p><strong>Questions</strong></p>
+<ul>
+<li>What is Next-Generation Sequencing (NGS)?</li>
+<li>How does Illumina sequencing work?</li>
+<li>What are the differences between short-read and long-read sequencing technologies?</li>
+<li>When should you use Illumina vs Nanopore sequencing?</li>
+</ul>
+<p><strong>Objectives</strong></p>
+<ul>
+<li>Understand the principles of Next-Generation Sequencing.</li>
+<li>Learn how Illumina sequencing-by-synthesis works.</li>
+<li>Understand the process of Nanopore sequencing.</li>
+<li>Compare the strengths and limitations of Illumina and Nanopore technologies.</li>
+<li>Learn about hybrid assembly approaches combining short and long reads.</li>
+</ul>
+</div>
+<h2 id="data-used">Data Used<a class="headerlink" href="#data-used" title="Permanent link">#</a></h2>
+<p>In this training we will build an assembly of a bacterial genome, from data produced in this paper: 
+<a href="https://journals.asm.org/doi/10.1128/mra.01212-19">Hikichi, M., M. Nagao, K. Murase, C. Aikawa, T. Nozawa et al., 2019 Complete Genome Sequences of Eight Methicillin-Resistant Staphylococcus aureus Strains Isolated from Patients in Japan</a></p>
+<p>Methicillin-resistant Staphylococcus aureus (MRSA) is a major pathogen causing nosocomial infections, and the clinical manifestations of MRSA range from asymptomatic colonization of the nasal mucosa to soft tissue infection to fulminant invasive disease. Here, we will analyze one of the eight MRSA strains isolated from patients in Japan : sample <strong>KUN1163</strong>.</p>
+<h2 id="introduction-to-next-generation-sequencing_1">Introduction to Next-Generation Sequencing<a class="headerlink" href="#introduction-to-next-generation-sequencing_1" title="Permanent link">#</a></h2>
+<p>Next‑Generation Sequencing (NGS) describes high‑throughput technologies that perform massively parallel sequencing, producing millions to billions of short reads per run. It is not the sames uses as  <strong>Sanger sequencing</strong>. NGS dramatically reduced cost and time per base, enabling population-scale, clinical, and environmental genomics.
+Sequencing (determining of DNA/RNA nucleotide sequence) is used all over the world for all kinds of analysis. The product of these sequencers are reads, which are sequences of detected nucleotides. Depending on the technique these have specific lengths (30-500bp) or using Oxford Nanopore Technologies sequencing have much longer variable lengths.</p>
+<h2 id="comparison-sanger-vs-next-generation-sequencing-ngs">Comparison: Sanger vs Next-Generation Sequencing (NGS)<a class="headerlink" href="#comparison-sanger-vs-next-generation-sequencing-ngs" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Sanger Sequencing</th>
+<th>NGS (Illumina)</th>
+<th>NGS (Nanopore)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Read length</strong></td>
+<td>800-1000 bp</td>
+<td>150-300 bp</td>
+<td>10 kb - &gt;2 Mb</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>1 sequence per reaction</td>
+<td>Millions to billions of reads</td>
+<td>Thousands to millions of reads</td>
+</tr>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td>~99.9%</td>
+<td>&gt;99% (Q30+)</td>
+<td>92-98% (improving)</td>
+</tr>
+<tr>
+<td><strong>Run time</strong></td>
+<td>1-3 hours</td>
+<td>Hours to days</td>
+<td>Minutes to days (real-time)</td>
+</tr>
+<tr>
+<td><strong>Cost per base</strong></td>
+<td>High (~$500-2400/Mb)</td>
+<td>Very low (~$0.01-0.10/Mb)</td>
+<td>Moderate (~$0.10-1/Mb)</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Targeted sequencing, validation, single genes</td>
+<td>Whole genomes, transcriptomes, variants, metagenomics</td>
+<td>De novo assembly, structural variants, long repeats</td>
+</tr>
+<tr>
+<td><strong>Sample type</strong></td>
+<td>Pure DNA, PCR products, plasmids</td>
+<td>Any DNA/RNA (requires library prep)</td>
+<td>Native DNA/RNA</td>
+</tr>
+<tr>
+<td><strong>Amplification required</strong></td>
+<td>Yes (PCR product)</td>
+<td>Yes (library prep)</td>
+<td>Optional (direct sequencing possible)</td>
+</tr>
+<tr>
+<td><strong>Data per run</strong></td>
+<td>~1 kb</td>
+<td>1 Gb - 6 Tb (platform dependent)</td>
+<td>10 Gb - 10 Tb (platform dependent)</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Poor (one-by-one)</td>
+<td>Excellent (massively parallel)</td>
+<td>Good (parallel sequencing)</td>
+</tr>
+<tr>
+<td><strong>Main limitation</strong></td>
+<td>Very low throughput</td>
+<td>Short reads</td>
+<td>Higher error rate</td>
+</tr>
+</tbody>
+</table>
+<p>Key concepts:
+- Sequencing libraries: DNA or cDNA is fragmented and adapters are ligated so fragments can be amplified and read by the sequencer.
+- Read: A single sequence produced by the instrument (commonly 50–300 bp for short‑read platforms).
+- Paired‑end reads: Both ends of a DNA fragment are sequenced, improving mapping, assembly, and detection of insertions/deletions.
+- Coverage (depth): Average count of reads covering each base; higher coverage increases confidence for variant calling and assemblies.
+- Quality scores: Per‑base confidence values (Phred scale) recorded in <code>FASTQ</code> files.</p>
+<p>Typical NGS workflow steps: library preparation, cluster or bead generation, sequencing reactions, base calling, demultiplexing (if multiplexed), and downstream QC and analysis.</p>
+<h1 id="illumina-sequencing-sequencingbysynthesis">Illumina Sequencing (Sequencing‑by‑Synthesis)<a class="headerlink" href="#illumina-sequencing-sequencingbysynthesis" title="Permanent link">#</a></h1>
+<p>Most of the information described are based on  a presnetation from <a href="https://microbenotes.com/illumina-sequencing/">Microbe Notes</a>.</p>
+<p>Illumina sequencing is one of the most widely used next-generation sequencing (NGS) technology that uses sequencing by synthesis to detect individual DNA bases as they are added to a growing strand.</p>
+<p>How it works (brief):
+- Library preparation: DNA is fragmented and adapters (including sample indices) are ligated.
+- Cluster generation: Fragments bind to complementary oligonucleotides on the flow cell and are amplified by bridge amplification, forming clusters of identical copies.
+- Sequencing‑by‑synthesis: Fluorescent reversible terminator nucleotides are incorporated one base per cycle; after each incorporation the flow cell is imaged to record the signal from each cluster.
+- Paired‑end sequencing: After completing the first read, chemistry is used to enable sequencing of the fragment's opposite end.
+- Base calling and QC: Images are processed to call bases and assign Phred quality scores; data are output as demultiplexed <code>FASTQ</code> files when samples were multiplexed.</p>
+<p>Strengths and limitations:
+- Strengths: Very high throughput, low per‑base cost, robust ecosystem of library kits and analysis tools, and high accuracy for short reads.
+- Limitations: Short reads make resolving large repeats and complex structural variants harder; some systematic errors (substitutions) increase toward read ends; library prep biases can skew representation.</p>
+<h2 id="principle-of-illumina-sequencing">Principle of Illumina Sequencing<a class="headerlink" href="#principle-of-illumina-sequencing" title="Permanent link">#</a></h2>
+<p>Illumina sequencing works on the principle of sequencing by synthesis (SBS). This involves identifying DNA bases as they are added to a growing DNA strand. Fluorescently-labeled reversible terminator nucleotides are used and the fluorescence emitted from each added nucleotide is captured. Each of the four DNA bases is labelled with a unique fluorescent dye, allowing the sequencing system to detect which nucleotide has been added during each cycle. The system captures images of these signals which are then used to determine the exact sequence of the DNA fragment. </p>
+<p>Illumina sequencing also uses bridge amplification. In this process, DNA molecules with ligated adapters are used as templates for repeated amplification on a solid surface like a glass slide. The slide is coated with oligonucleotides complementary to the adapters, which allows the DNA to form clusters of each fragment. This amplification process creates millions of these clusters on the slide. The clusters enhance the signal and make it easier to detect and differentiate between DNA bases by color. </p>
+<p>During sequencing, nucleotides with a unique fluorescent label are added, incorporated, and detected in real time. These nucleotides also act as temporary terminators of DNA synthesis, ensuring that only one base is added at a time which reduces errors and provides high accuracy in reading the sequence. Once imaged, the terminator is cleaved and the next base is added. This cycle is repeated until the entire DNA fragment has been sequenced.</p>
+<p><img alt="illumina-sequencers" src="../../../fig/bact/01-intro-ngs/illumina-sequencers.png" /></p>
+<h2 id="stepsprocess-of-illumina-sequencing">Steps/Process of Illumina Sequencing<a class="headerlink" href="#stepsprocess-of-illumina-sequencing" title="Permanent link">#</a></h2>
+<p><img alt="illumina-steps" src="../../../fig/bact/01-intro-ngs/illumina-steps.png" /></p>
+<p>Here is a <a href="https://www.youtube.com/watch?v=CZeN-IgjYCo&amp;list=PLVzmZbeKfT3NhNEmSqZ4s43H-AYtH4CCQ&amp;index=13">quick video introducing Illumina sequencing</a>.   </p>
+<h3 id="0-nucleic-acid-extraction">0. Nucleic Acid Extraction<a class="headerlink" href="#0-nucleic-acid-extraction" title="Permanent link">#</a></h3>
+<p>The first step in Illumina sequencing is isolating the genetic material from samples of interest.DNA extraction is a method to purify DNA by using physical and/or chemical methods from a sample separating DNA from cell membranes, proteins, and other cellular components. The extraction process is important because the quality of the nucleic acids extracted will directly affect the sequencing results. </p>
+<p>The quality and yield of DNA are assessed by spectrophotometry or by gel electrophoresis</p>
+<h3 id="1-library-preparation">1. Library Preparation<a class="headerlink" href="#1-library-preparation" title="Permanent link">#</a></h3>
+<p>This is the step where you go from your DNA extract to a Illumina Library Preparation. 
+Some Library Prep Kit integrate DNA extraction protocols, like the most common one: <a href="https://www.illumina.com/products/by-type/sequencing-kits/library-prep-kits/illumina-dna-prep.html">Illumina DNA Prep</a>.</p>
+<p>After nucleic acids are isolated, they are prepared for sequencing by creating a library which is a collection of adapter-ligated DNA fragments that can be read by the sequencer. The process starts with DNA fragmentation, where the sample is broken into smaller fragments using methods like mechanical shearing, enzymatic digestion, or transposon-based fragmentation. These fragments undergo end repair and A-tailing to prepare for the attachment of short specific DNA sequences called adapters to both ends of the fragments. These adapters contain sequences that help bind the DNA to the sequencing flow cell. They also include barcode sequences that allow multiple samples to be sequenced simultaneously and distinguished later in the analysis.</p>
+<p>The common workflow looks like this :</p>
+<p><img alt="libray-prep-workflow" src="../../../fig/bact/01-intro-ngs/library-prep-workflow.jpg" /></p>
+<p>You are lost in which preparation kit to use ? There is a <a href="https://www.illumina.com/library-prep-array-kit-selector.html">Illumina Library Prep and Array Kit Selector</a> on Illumina website. </p>
+<div class="admonition question">
+<p class="admonition-title">Exercise: Library Kit</p>
+<p>Read the <a href="https://journals.asm.org/doi/10.1128/mra.01212-19">referenced paper</a> and answer the following:</p>
+<ol>
+<li>Which library preparation kit was used for these data? </li>
+<li>Have a look at the <a href="https://www.illumina.com/products/by-type/sequencing-kits/library-prep-kits/nextera-xt-dna.html">Data Sheet from the DNA Library Preparation Kit</a>.What is a benefit from using this prep kit ? </li>
+</ol>
+<details>
+<summary>Solution</summary>
+<ol>
+<li>Evidence from the paper: "An Illumina short-read library was prepared using a Nextera DNA library prep kit".</li>
+<li>It is fast: "Offers a 90-min workflow to prepare DNA libraries for small genomes, PCR amplicons, plasmids, and cDNA sequencing, with a low DNA input requirement. "</li>
+</ol>
+</details>
+</div>
+<p>At the end, the DNA library should look like this :</p>
+<p><img alt="libray-prep" src="../../../fig/bact/01-intro-ngs/library-preparation.jpg" /></p>
+<p>Now that we have the DNA library ready, we start using the <strong>sequencing machine</strong>. </p>
+<h3 id="2-dna-library-bridge-amplification-cluster-generation-by-bridge-amplification">2. DNA Library bridge amplification ( Cluster Generation by Bridge Amplification)<a class="headerlink" href="#2-dna-library-bridge-amplification-cluster-generation-by-bridge-amplification" title="Permanent link">#</a></h3>
+<p>The DNA library is loaded onto a flow cell containing small lanes where amplification and sequencing occurs. The DNA fragments bind to complementary primers attached to the solid surface of the flow cell and undergo bridge amplification. In bridge PCR, each DNA strand bends over to form a bridge on a chip. Forward and reverse primers on the chip help the DNA form these bridges. Each bridge is amplified, creating many clusters at each spot. The process of cluster generation finishes when each DNA spot on the chip has enough copies to produce a strong, clear signal. </p>
+<h3 id="3-dna-library-sequencing-sequencing-by-synthesis-sbs">3. DNA Library Sequencing ( Sequencing by Synthesis (SBS) )<a class="headerlink" href="#3-dna-library-sequencing-sequencing-by-synthesis-sbs" title="Permanent link">#</a></h3>
+<p>Once clusters are generated, the SBS process begins.
+Once clusters are generated on the flow cell, the sequencing process begins using a <strong>reagent kit</strong> that contains all the chemical components needed for sequencing. It is <strong>pre-filled cartridge</strong> containing modified fluorescent nucleotides, DNA polymerase, washing buffers, and cleavage enzymes. 
+The kit enables <strong>Sequencing by Synthesis (SBS)</strong>, where nucleotides are added one at a time to each DNA cluster. Each nucleotide carries a unique fluorescent marker (different colors for A, T, G, C) and a reversible terminator that prevents the addition of more than one base per cycle. 
+- <strong>The specific color emitted allows the system to identify the nucleotide</strong> : After each nucleotide incorporation, the flow cell is imaged by a camera that captures the fluorescent signal from millions of clusters simultaneously. The fluorophore and terminator are then chemically cleaved off, allowing the next nucleotide to be added.</p>
+<p><strong>Repeat of the cycle</strong>: This cycle repeats X times for the first read (forward direction), then the complementary strand is synthesized and sequenced for another X cycles (reverse direction). The number of cycles depends on the reagent kit.  The entire sequencing run takes approximately dozens of hours and can generate up to dozens of Gb of data.</p>
+<p>Fluorescently labeled nucleotides are added one by one to the growing DNA strand and each nucleotide emits a fluorescence as it attaches. The specific color emitted allows the system to identify the nucleotide. The sequence of each DNA fragment is determined over multiple cycles.</p>
+<p>The reagent kit comptability depends on the Illumina Platform used. In our paper, the platform is MiSeq.
+ On the <a href="https://www.illumina.com/content/dam/illumina/gcs/assembled-assets/marketing-literature/miseq-system-data-sheet-m-gl-00006/miseq-data-sheet-m-gl-00006.pdf">MiSeq System Specification Sheet</a>, you can find the list of the Reagent kit compatible with MiSeq platform:</p>
+<p><img alt="miseq-illumina-kits" src="../../../fig/bact/01-intro-ngs/miseq-illumina-kits.png" /></p>
+<p>The choose of the kit will have an impact on the output, the quality score and the run time.
+ Here is a quick comparison of them :</p>
+<p><img alt="illumina-kits-comparison" src="../../../fig/bact/01-intro-ngs/illumina-kits-comparison.png" /></p>
+<div class="admonition question">
+<p class="admonition-title">Exercise: Reagent Kit</p>
+<p>Read the <a href="https://journals.asm.org/doi/10.1128/mra.01212-19">referenced paper</a> and answer the following:</p>
+<ol>
+<li>Which sequencing reagent kit and sequencing platform were used for these data?</li>
+<li>How many cycles ? </li>
+<li>Based on the reagent kit and platform, what is the maximum theoretical read length per read ? You can have a look at <a href="https://www.illumina.com/content/dam/illumina/gcs/assembled-assets/marketing-literature/miseq-system-data-sheet-m-gl-00006/miseq-data-sheet-m-gl-00006.pdf">Table1 from MiSeq System Specification Sheet</a> </li>
+</ol>
+<details>
+<summary>Solution</summary>
+<ol>
+<li>Evidence from the paper: "paired-end reads were generated using a MiSeq reagent kit (v3-600) on the MiSeq platform (Illumina)."</li>
+<li>600 cycles </li>
+<li>"paired-end reads were generated using a MiSeq reagent kit (v3-600). <a href="https://www.illumina.com/content/dam/illumina/gcs/assembled-assets/marketing-literature/miseq-system-data-sheet-m-gl-00006/miseq-data-sheet-m-gl-00006.pdf">Looking at the Table1 from MiSeq System Specification Sheet</a>, the maximum theoretical read length is 300 bp per read and the layout is paired‑end (2 × 300 bp). </li>
+</ol>
+</details>
+</div>
+<h3 id="4-data-analysis">4. Data Analysis<a class="headerlink" href="#4-data-analysis" title="Permanent link">#</a></h3>
+<p>Once the sequencing is completed, the sequences obtained are processed and analyzed using bioinformatics tools.
+Don't worry, we will go through some during this workshop !</p>
+<h3 id="strength-and-limitations-of-illumina-sequencing">Strength and limitations of Illumina Sequencing<a class="headerlink" href="#strength-and-limitations-of-illumina-sequencing" title="Permanent link">#</a></h3>
+<h3 id="strengths-and-limitations-of-illumina-sequencing">Strengths and Limitations of Illumina Sequencing<a class="headerlink" href="#strengths-and-limitations-of-illumina-sequencing" title="Permanent link">#</a></h3>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li><strong>High accuracy</strong>: Raw base quality &gt;99% (Q30), providing highly reliable sequence data</li>
+<li><strong>Cost-effective</strong>: Lowest cost per gigabase among sequencing technologies. </li>
+<li><strong>High throughput</strong>: Can generate hundreds of gigabases to terabases of data per run (depending on the platform)</li>
+<li><strong>Well-established protocols</strong>: Extensive library preparation kits and validated workflows available</li>
+<li><strong>Mature bioinformatics tools</strong>: Large ecosystem of analysis software and pipelines specifically designed for short-read data</li>
+<li><strong>Reproducibility</strong>: Highly consistent results between runs and across different laboratories</li>
+<li><strong>Versatile applications</strong>: Suitable for RNA-seq, ChIP-seq, variant calling, metagenomics, and many other applications</li>
+<li><strong>Multiplexing capability</strong>: Can sequence many samples simultaneously using barcoding strategies</li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li><strong>Short read length</strong>: Typically 150-300 bp, limiting ability to resolve complex genomic regions</li>
+<li><strong>Repetitive regions</strong>: Difficulty assembling or mapping reads in repetitive sequences longer than the read length</li>
+<li><strong>Structural variants</strong>: Poor detection of large insertions, deletions, inversions, and complex rearrangements</li>
+<li><strong>GC bias</strong>: Amplification during library preparation can introduce bias in GC-rich or GC-poor regions</li>
+<li><strong>PCR duplicates</strong>: Amplification steps create duplicate reads that must be identified and removed</li>
+<li><strong>De novo assembly limitations</strong>: Short reads produce fragmented assemblies with many contigs/scaffolds</li>
+<li><strong>Long preparation time</strong>: Library preparation and sequencing runs can take several days to complete</li>
+</ul>
+<h2 id="other-sequencing-technology-nanopore-sequencing">Other Sequencing Technology: Nanopore Sequencing<a class="headerlink" href="#other-sequencing-technology-nanopore-sequencing" title="Permanent link">#</a></h2>
+<p>Nanopore Sequencing  needs a different preparation kit.  </p>
+<p>All Oxford Nanopore sequencing devices use flow cells which contain an array of tiny holes — nanopores — embedded in an electro-resistant membrane. Each nanopore corresponds to its own electrode connected to a channel and sensor chip, which measures the electric current that flows through the nanopore. When a molecule passes through a nanopore, the current is disrupted to produce a characteristic ‘squiggle’. The squiggle is then decoded using basecalling algorithms to determine the DNA or RNA sequence in real time.</p>
+<p><img alt="nanopore-gif" src="../../../fig/bact/01-intro-ngs/nanopore-sequencing-animation-2.gif" /></p>
+<p>You can think of the current as water flowing through a pipe. When an object enters the pipe, the flow of water is disrupted, just as DNA disrupts the current as it passes through the nanopore. Each nucleotide (A,T,C,G) creates a different current disrupting, that can be decoded using basecalling algorithms to determine the DNA or RNA sequence in real time.</p>
+<h3 id="strength-and-limitations-of-nanopore-sequencing">Strength and limitations of Nanopore Sequencing<a class="headerlink" href="#strength-and-limitations-of-nanopore-sequencing" title="Permanent link">#</a></h3>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li><strong>Ultra-long reads</strong>: Can generate reads exceeding 100 kb, with some reaching over 2 Mb in length, enabling better resolution of complex genomic regions</li>
+<li><strong>Real-time sequencing</strong>: Data analysis can begin immediately as sequencing progresses, allowing for rapid decision-making and adaptive sampling</li>
+<li><strong>Direct RNA sequencing</strong>: Can sequence native RNA molecules without reverse transcription, preserving modification information</li>
+<li><strong>Portability</strong>: Devices like the MinION are handheld and USB-powered, enabling fieldwork and point-of-care applications</li>
+<li><strong>No amplification bias</strong>: Can sequence native DNA directly without PCR amplification</li>
+<li><strong>Rapid library preparation</strong>: Sample-to-sequence time can be as short as 10 minutes</li>
+<li><strong>Scalable throughput</strong>: Platform options range from portable MinION to high-throughput PromethION</li>
+<li><strong>Multiplexing capability</strong>: Can sequence many samples simultaneously using barcoding strategies</li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li><strong>Higher error rate</strong>: Raw accuracy typically ranges from 92-98%, lower than Illumina's &gt;99% accuracy (though improving with newer chemistry and algorithms)</li>
+<li><strong>Homopolymer errors</strong>: Struggles with accurately determining the length of repeated nucleotides (e.g., AAAAA)</li>
+<li><strong>Higher cost per base</strong>: More expensive per gigabase compared to short-read sequencing</li>
+<li><strong>Pore degradation</strong>: Nanopores can degrade over time during sequencing runs, reducing throughput</li>
+<li><strong>Computational requirements</strong>: Basecalling, especially high-accuracy modes, requires significant computational resources</li>
+<li><strong>Throughput variability</strong>: Output can vary between flow cells and depends on DNA quality and library preparation</li>
+</ul>
+<p>ADD A PART ON LONG READ </p>
+<h2 id="comparison-and-summary">Comparison and Summary<a class="headerlink" href="#comparison-and-summary" title="Permanent link">#</a></h2>
+<p>Here is a <strong>Comparison between Nanopore Sequencing and Illumina Sequencing</strong> :</p>
+<p><img alt="Comparison-Nanopore-Illumina" src="../../../fig/bact/01-intro-ngs/Comparison-Nanopore-Illumina.png" /></p>
+<h2 id="combination-of-short-and-long-read-sequencing-hybrid-assembly">Combination of Short and Long read Sequencing : Hybrid Assembly<a class="headerlink" href="#combination-of-short-and-long-read-sequencing-hybrid-assembly" title="Permanent link">#</a></h2>
+<p>Short reads and long reads have different strengths and limitations, which make them complementary. By combining both technologies in a hybrid assembly approach, researchers can leverage the advantages of each:</p>
+<ul>
+<li><strong>Long reads</strong> (Nanopore/PacBio) provide the scaffolding and resolve complex structural regions, repetitive elements, and large-scale genomic features</li>
+<li><strong>Short reads</strong> (Illumina) polish the assembly and correct errors, providing high-accuracy base calls</li>
+</ul>
+<p>This hybrid strategy is particularly valuable for de novo genome assembly, structural variant detection, and resolving complex genomic regions where either technology alone would be insufficient. We will see later applications in the workshop.</p>
+<p><img alt="hybrid-assembly" src="../../../fig/bact/01-intro-ngs/hybrid-assembly.png" /></p>
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf">Illumina technology overview</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../course-information/schedule/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Schedule">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Schedule
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02-fastq-desc/" class="md-footer__link md-footer__link--next" aria-label="Next: What is a fastq file ?">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                What is a fastq file ?
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>

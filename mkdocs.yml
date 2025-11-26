@@ -82,14 +82,13 @@ extra:
   homepage: index.md # Page displayed when clicking the logo
   history_buttons: false
   institute: SouthGreen
-  repo: https://github.com/Juke34/workshop-reproducible-research
+  repo: https://github.com/mathis-arnal/Bacterial_Genome_Analysis
   color_table_header: "#333a99"
 
 nav:
   - Home: index.md
   - Schedule: pages/course-information/schedule.md
-  # - Lectures: pages/course-information/lectures.md
-  # - Setup: pages/course-information/pre-course-setup.md
+
   - Bacterial Genome Analysis:
       - What is Next Generation Sequencing ?: pages/bacterial/01-intro-ngs.md
       - What is a fastq file ?: pages/bacterial/02-fastq-desc.md
@@ -101,9 +100,3 @@ nav:
       - Multi Locus Sequence typing (MLST): pages/bacterial/07-mlst.md
       - Identification of AMR genes: pages/bacterial/08-amr-genes.md
       - Genome Annotation: pages/bacterial/09-genome-annotation.md
-
-        # - Galaxy:
-        #   - Short intro to Galaxy: pages/galaxy/00-short_intro_galaxy.md
-          # - Taxonomic profiling: pages/galaxy/02-taxonomy-galaxy.md          
-        # - Introduction: pages/introduction/introduction.md
-        # - Data Management: pages/data-management/data-management.md

@@ -12,9 +12,13 @@
         <meta name="author" content="Mathis Arnal">
       
       
-        <link rel="canonical" href="https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/course-information/code-of-conduct/">
+        <link rel="canonical" href="https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/02-fastq-desc/">
       
       
+        <link rel="prev" href="../01-intro-ngs/">
+      
+      
+        <link rel="next" href="../03-short_intro_galaxy/">
       
       
         
@@ -25,7 +29,7 @@
     
     
       
-        <title>SouthGreen Training Code of Conduct - Bacterial Genome Analysis Workshop, using Galaxy</title>
+        <title>What is a fastq file ? - Bacterial Genome Analysis Workshop, using Galaxy</title>
       
     
     
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#southgreen-training-code-of-conduct" class="md-skip">
+        <a href="#what-is-the-output-of-next-generation-sequencing" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SouthGreen Training Code of Conduct
+              What is a fastq file ?
             
           </span>
         </div>
@@ -246,7 +250,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../schedule/" class="md-tabs__link">
+      <a href="../../course-information/schedule/" class="md-tabs__link">
         
   
   
@@ -263,11 +267,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../bacterial/01-intro-ngs/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-intro-ngs/" class="md-tabs__link">
           
   
   
@@ -361,7 +367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../schedule/" class="md-nav__link">
+      <a href="../../course-information/schedule/" class="md-nav__link">
         
   
   
@@ -385,8 +391,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -414,17 +422,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -442,7 +453,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -460,7 +471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/01-intro-ngs/" class="md-nav__link">
+      <a href="../01-intro-ngs/" class="md-nav__link">
         
   
   
@@ -485,10 +496,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../bacterial/02-fastq-desc/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a fastq file ?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -504,6 +540,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-output-of-next-generation-sequencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is the output of Next Generation Sequencing ?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is the output of Next Generation Sequencing ?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics-of-ngs-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key characteristics of NGS output:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details-on-the-fastq-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Details on the FASTQ format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Details on the FASTQ format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#line-1-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Line 1: @ header:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-quality-scores-phred-scores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding Quality Scores (Phred scores):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bioinformatic-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bioinformatic workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assessing-read-quality-using-fastqe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assessing read quality using FASTqe
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -516,7 +659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/03-short_intro_galaxy/" class="md-nav__link">
+      <a href="../03-short_intro_galaxy/" class="md-nav__link">
         
   
   
@@ -544,7 +687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/04-assessing-read-quality/" class="md-nav__link">
+      <a href="../04-assessing-read-quality/" class="md-nav__link">
         
   
   
@@ -572,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/05-trimming-filtering/" class="md-nav__link">
+      <a href="../05-trimming-filtering/" class="md-nav__link">
         
   
   
@@ -600,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/05-2-contamination/" class="md-nav__link">
+      <a href="../05-2-contamination/" class="md-nav__link">
         
   
   
@@ -628,7 +771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/06-assembly/" class="md-nav__link">
+      <a href="../06-assembly/" class="md-nav__link">
         
   
   
@@ -656,7 +799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/07-mlst/" class="md-nav__link">
+      <a href="../07-mlst/" class="md-nav__link">
         
   
   
@@ -684,7 +827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/08-amr-genes/" class="md-nav__link">
+      <a href="../08-amr-genes/" class="md-nav__link">
         
   
   
@@ -712,7 +855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bacterial/09-genome-annotation/" class="md-nav__link">
+      <a href="../09-genome-annotation/" class="md-nav__link">
         
   
   
@@ -757,7 +900,7 @@
 
 
   
-    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/edit/main/docs/pages/course-information/code-of-conduct.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/edit/main/docs/pages/bacterial/02-fastq-desc.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -766,41 +909,132 @@
     
       
     
-    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/raw/main/docs/pages/course-information/code-of-conduct.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/raw/main/docs/pages/bacterial/02-fastq-desc.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="southgreen-training-code-of-conduct">SouthGreen Training Code of Conduct<a class="headerlink" href="#southgreen-training-code-of-conduct" title="Permanent link">#</a></h1>
-<p>Training is one of the core values of SouthGreen, and benefits from the contributions
-of the entire scientific community. We value the involvement of everyone in the
-community. We are committed to creating a friendly and respectful place for
-learning, teaching and contributing. All participants in our events and
-communications are expected to show respect and courtesy to others.</p>
-<p>To make clear what is expected, everyone participating in SouthGreen courses
-is required to conform to the Code of Conduct. This Code of Conduct applies to
-all spaces managed by SouthGreen including, but not limited to, courses, email lists,
-and online forums such as Studium, GitHub, Slack, Twitter and LinkedIn. Course
-organizers and teachers are expected to assist with the enforcement of the Code
-of Conduct.</p>
-<p>We are dedicated to providing a welcoming and supportive environment for all
-people, regardless of background or identity. By participating in this event,
-participants accept to abide by the SouthGreen Code of Conduct and accept the
-procedures by which any Code of Conduct incidents are resolved. Any form of
-behaviour to exclude, intimidate, or cause discomfort is a violation of the
-Code of Conduct. In order to foster a positive and professional learning
-environment we encourage the following kinds of behaviours in all platforms and
-training events:</p>
+  <h1>What is a fastq file ?</h1>
+
+<hr />
+<div class="admonition info">
+<p class="admonition-title">Lesson overview</p>
+<p><strong>Questions</strong>
+- What is the output of Next Generation Sequencing ?</p>
+<p><strong>Objectives</strong>
+- Explain how a FASTQ file encodes per-base quality scores.</p>
+</div>
+<h2 id="what-is-the-output-of-next-generation-sequencing">What is the output of Next Generation Sequencing ?<a class="headerlink" href="#what-is-the-output-of-next-generation-sequencing" title="Permanent link">#</a></h2>
+<p>The primary output of Next Generation Sequencing is a <strong>FASTQ file</strong>, which contains both the DNA sequences (reads) and their associated quality scores. This format is the universal standard for storing raw sequencing data <strong>across all NGS platforms</strong>.</p>
+<p><strong>WARNING</strong>: even if it's the same format doesn't mean that the downstream analyses will be the same.
+Long read and Short reads have specific bioinformatic tools due to their specificity (short vs long reads, paired vs single reads)</p>
+<h3 id="key-characteristics-of-ngs-output">Key characteristics of NGS output:<a class="headerlink" href="#key-characteristics-of-ngs-output" title="Permanent link">#</a></h3>
 <ul>
-<li>Use welcoming and inclusive language</li>
-<li>Be respectful of different viewpoints and experiences</li>
-<li>Gracefully accept constructive criticism</li>
-<li>Focus on what is best to all those involved in this training event</li>
-<li>Show courtesy and respect towards everyone involved in this training event</li>
+<li><strong>Millions of reads</strong>: A single sequencing run generates millions to billions of short DNA sequences</li>
+<li><strong>Paired-end files</strong>: For paired-end sequencing, data comes in two files (R1/R2 or _1/_2), representing forward and reverse reads from the same DNA fragment</li>
+<li><strong>Large file sizes</strong>: FASTQ files are typically compressed (.gz, .bz2) due to their size</li>
+<li><strong>Quality information</strong>: Each base includes a confidence score</li>
 </ul>
-<p>For an extended description please see the <a href="https://elixir-europe.org/events/code-of-conduct">ELIXIR Code of Conduct</a>.</p>
+<h2 id="details-on-the-fastq-format">Details on the FASTQ format<a class="headerlink" href="#details-on-the-fastq-format" title="Permanent link">#</a></h2>
+<p>Although it looks complicated (and it is), we can understand the <a href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a> format with a little decoding. Some rules about the format include the following:  </p>
+<table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Always begins with '@' followed by the information about the read</td>
+</tr>
+<tr>
+<td>2</td>
+<td>The actual DNA sequence</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Always begins with a '+' and sometimes contains the same info as in line 1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Has a string of characters which represent the quality scores; must have same number of characters as line 2</td>
+</tr>
+</tbody>
+</table>
+<p>We can view the first complete read in one of the files from our dataset using <code>head</code> to look at
+the first four lines. But we have to decompress one of the files first.</p>
+<p class="output"><div class="highlight"><pre><span></span><code>@MISEQ-LAB244-W7:156:000000000-A80CV:1:1101:12622:2006 1:N:0:CTCAGA
+CCCGTTCCTCGGGCGTGCAGTCGGGCTTGCGGTCTGCCATGTCGTGTTCGGCGTCGGTGGTGCCGATCAGGGTGAAATCCGTCTCGTAGGGGATCGCGAAGATGATCCGCCCGTCCGTGCCCTGAAAGAAATAGCACTTGTCAGATCGGAAGAGCACACGTCTGAACTCCAGTCACCTCAGAATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAGCAAACCTCTCACTCCCTCTACTCTACTCCCTT                                        
++                                                                                                
+A&gt;&gt;1AFC&gt;DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHHGGHHHHGGGGGGGGGGGGGGGGHHHHHHHGGGGGGGGHGGHHHHHHHHGFHHFFGHHHHHGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFFFFFFFFFFFFFFFFFFFFBFFFF@F@FFFFFFFFFFBBFF?@;@#################################### 
+</code></pre></div></p>
+<h3 id="line-1-header">Line 1: @ header:<a class="headerlink" href="#line-1-header" title="Permanent link">#</a></h3>
+<p>The first line contains important metadata.
+Depending on the sequencing technology 
+- Instrument name (MISEQ)
+- Run ID 5LAB244
+- Flowcell coordinates
+- Read number (1 or 2 for paired-end)
+- Filter flag (Y/N)
+- Index/barcode sequence</p>
+<h3 id="understanding-quality-scores-phred-scores">Understanding Quality Scores (Phred scores):<a class="headerlink" href="#understanding-quality-scores-phred-scores" title="Permanent link">#</a></h3>
+<p>Line 4 shows the quality of each nucleotide in the read. Quality is interpreted as the probability of an incorrect base call (e.g., 1 in 10) or, equivalently, the base call accuracy (e.g., 90%). Each nucleotide's numerical score's value is converted into a character code where every single character represents a quality score for an individual nucleotide. This conversion allows the alignment of each individual nucleotide with its quality score. For example, in the line above, the quality score line is: </p>
+<div class="highlight"><pre><span></span><code>A&gt;&gt;1AFC&gt;DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHHGGHHHHGGGGGGGGGGGGGGGGHHHHHHHGGGGGGGGHGGHHHHHHHHGFHHFFGHHHHHGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFFFFFFFFFFFFFFFFFFFFBFFFF@F@FFFFFFFFFFBBFF?@;@#################################### 
+</code></pre></div>
+<p>The numerical value assigned to each character depends on the 
+sequencing platform that generated the reads. The sequencing machine used to generate our data 
+uses the standard Sanger quality PHRED score encoding, using Illumina version 1.8 onwards.
+Each character is assigned a quality score between 0 and 41, as shown in 
+the chart below.</p>
+<div class="highlight"><pre><span></span><code>Quality encoding: !&quot;#$%&amp;&#39;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJ
+                   |         |         |         |         |
+Quality score:    01........11........21........31........41                                
+</code></pre></div>
+<p>Quality scores represent the probability that a base call is incorrect:</p>
+<ul>
+<li><strong>Q10</strong>: 90% accuracy (1 in 10 chance of error)</li>
+<li><strong>Q20</strong>: 99% accuracy (1 in 100 chance of error)  </li>
+<li><strong>Q30</strong>: 99.9% accuracy (1 in 1,000 chance of error)</li>
+<li><strong>Q40</strong>: 99.99% accuracy (1 in 10,000 chance of error)</li>
+</ul>
+<p>The quality score Q relates to error probability P by: <strong>Q = -10 × log₁₀(P)</strong></p>
+<p>Most analyses require Q20 or Q30 minimum quality.</p>
+<p>In this <a href="https://drive5.com/usearch/manual/quality_score.html">link</a>, you can find more information 
+about quality scores.</p>
+<p>Looking back at the read: </p>
+<div class="highlight"><pre><span></span><code>@MISEQ-LAB244-W7:156:000000000-A80CV:1:1101:12622:2006 1:N:0:CTCAGA
+CCCGTTCCTCGGGCGTGCAGTCGGGCTTGCGGTCTGCCATGTCGTGTTCGGCGTCGGTGGTGCCGATCAGGGTGAAATCCGTCTCGTAGGGGATCGCGAAGATGATCCGCCCGTCCGTGCCCTGAAAGAAATAGCACTTGTCAGATCGGAAGAGCACACGTCTGAACTCCAGTCACCTCAGAATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAGCAAACCTCTCACTCCCTCTACTCTACTCCCTT                                        
++                                                                                                
+A&gt;&gt;1AFC&gt;DD111A0E0001BGEC0AEGCCGEGGFHGHHGHGHHGGHHHGGGGGGGGGGGGGHHGEGGGHHHHGHHGHHHGGHHHHGGGGGGGGGGGGGGGGHHHHHHHGGGGGGGGHGGHHHHHHHHGFHHFFGHHHHHGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFFFFFFFFFFFFFFFFFFFFBFFFF@F@FFFFFFFFFFBBFF?@;@#################################### 
+</code></pre></div>
+<p>We can now see that there is a range of quality scores but that the end of the sequence is
+very poor (<code>#</code> = a quality score of 2). </p>
+<h2 id="bioinformatic-workflows">Bioinformatic workflows<a class="headerlink" href="#bioinformatic-workflows" title="Permanent link">#</a></h2>
+<p>When working with high-throughput sequencing data, the <strong>fastq</strong> reads you get off the sequencer must pass
+through several different tools to generate your final desired output. The execution of this set of
+tools in a specified order is commonly referred to as a <strong>workflow</strong> or a <strong>pipeline</strong>. </p>
+<p>An example of a ILLUMINA bacterial genome analysis workflow is provided below:</p>
+<p><img alt="bact_analysis_workflow" src="../../../fig/bact/02-fastq-desc/bact_analysis_workflow.png" /></p>
+<p>For this workshop, we will only do a subset of this workflow : </p>
+<ol>
+<li>Quality control - Assessing quality using FastQC and Trimming and/or filtering reads.</li>
+<li>Assembly of bacterial genome and Quality Checking of the Assembly</li>
+<li>Bacterial Characterization: <strong>Multi Locus Sequence Typing (MLST)</strong>, <strong>Anti-Microbial Resistance (AMR)</strong> and <strong>Genome Annotation</strong></li>
+</ol>
+<p>These workflows in bioinformatics adopt a <strong>plug-and-play approach</strong> in that the output of one tool can be easily
+used as input to another tool without any extensive configuration. Having standards for data formats is what 
+makes this feasible. Standards ensure that data is stored in a way that is generally accepted and agreed upon 
+within the community. Therefore, the tools used to analyze data at different workflow stages are built, assuming that the data will be provided in a specific format. 
+You just discovered the <strong>FASTQ Format</strong> !  Throughout the workshop we will encounter many other data file formats.      </p>
+<h2 id="assessing-read-quality-using-fastqe">Assessing read quality using FASTqe<a class="headerlink" href="#assessing-read-quality-using-fastqe" title="Permanent link">#</a></h2>
+<p>The quality symbol in <strong>FASTQ Format</strong> can be hard to interpret, that's why we are going to use our first tool to have a better understanding of the data: <strong>FastQE</strong>.
+ FastQE turns ASCII characters into emojis that are easy to interpret.</p>
+<p><img alt="fastqe-overview" src="../../../fig/bact/02-fastq-desc/fastqe-overview.png" /></p>
+<p>We are going to use a Bioinformatic tool named <strong>Galaxy</strong>.s</p>
 
 
 
@@ -831,6 +1065,44 @@ training events:</p>
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../01-intro-ngs/" class="md-footer__link md-footer__link--prev" aria-label="Previous: What is Next Generation Sequencing ?">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                What is Next Generation Sequencing ?
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03-short_intro_galaxy/" class="md-footer__link md-footer__link--next" aria-label="Next: Short intro to Galaxy">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Short intro to Galaxy
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">

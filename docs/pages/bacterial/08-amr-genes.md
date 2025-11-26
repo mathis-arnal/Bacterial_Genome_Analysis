@@ -28,7 +28,6 @@ Detecting AMR genes in bacterial genomes helps:
 
 [**Abricate**](https://github.com/tseemann/abricate) is a popular bioinformatics tool that screens genome assemblies for known AMR, virulence, and plasmid genes using curated databases, using **BLAST**. 
 
----
 
 # How Abricate Works
 
