@@ -113,29 +113,36 @@ With your reads, you will want to upload them locally (from your computer).
 
 ### Upload the files from SRA
 
-In our case, it is different ! 
-The raw reads we are interested in are available in the SRA.
-the raw reads sample **KUN1163**  is available in the run [DRR187559]
+In our case, it is different !  
+In the **Data availability** part of [the paper](https://journals.asm.org/doi/10.1128/mra.01212-19), it is written: 
+
+"The raw Illumina and MinION read data can be found in the DDBJ Sequence Read Archive/NCBI SRA under accession number DRA008776."
+
+Indeed, if you dug into the SRA (Sequence Read Archive) the raw reads sample **KUN1163**  is available in the run [DRR187559](https://www.ncbi.nlm.nih.gov/sra?LinkName=biosample_sra&from_uid=12510460)
+
+### Galaxy Tool 
 
 There are tools that allows to upload directly sequences using the accession number !
 
-1. Type **fastq sra** in the tools panel search box (top)
-2. Click the tool (**Faster Download and Extract Reads in FASTQ**
-format from NCBI SRA)
+!!! question "Exercice: Upload the FASTQ from SRA to Galaxy"
 
-![fastq SRA click on the tool]( ../../fig/bact/03-intro-galaxy/fastqsra-click.png)
+    1. Type **fastq sra** in the tools panel search box (top)
+    2. Click the tool (**Faster Download and Extract Reads in FASTQ**
+    format from NCBI SRA)
 
-The tool will be displayed in the central Galaxy panel.
+    ![fastq SRA click on the tool]( ../../fig/bact/03-intro-galaxy/fastqsra-click.png)
 
-3. Select the following parameters:
-    -  *select input type*: SRR accession
-    - **Accession** : **DRR187559**
-    - In **Advanced Options**, define format specification for sequence, type:
-        '''
-        @$ac.$sn/$ri length=$rl
-        '''
-    - No change in the other parameters
-4. Click **Run Tool**
+    The tool will be displayed in the central Galaxy panel.
+
+    3. Select the following parameters:
+        -  *select input type*: SRR accession
+        - **Accession** : **DRR187559**
+        - In **Advanced Options**, define format specification for sequence, type:
+            '''
+            @$ac.$sn/$ri length=$rl
+            '''
+        - No change in the other parameters
+    4. Click **Run Tool**
 
 The parameter **@$ac.$sn/$ri length=$rl**  will produce headers like:
 @DRR187559.1/1 length=164

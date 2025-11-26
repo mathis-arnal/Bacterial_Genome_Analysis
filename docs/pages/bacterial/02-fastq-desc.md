@@ -15,30 +15,6 @@ The primary output of Next Generation Sequencing is a **FASTQ file**, which cont
 Long read and Short reads have specific bioinformatic tools due to their specificity (short vs long reads, paired vs single reads)
 
 
-## Data Used 
-
-In this training we will build an assembly of a bacterial genome, from data produced in this paper: 
-[Hikichi, M., M. Nagao, K. Murase, C. Aikawa, T. Nozawa et al., 2019 Complete Genome Sequences of Eight Methicillin-Resistant Staphylococcus aureus Strains Isolated from Patients in Japan](https://journals.asm.org/doi/10.1128/mra.01212-19)
-
-Methicillin-resistant Staphylococcus aureus (MRSA) is a major pathogen causing nosocomial infections, and the clinical manifestations of MRSA range from asymptomatic colonization of the nasal mucosa to soft tissue infection to fulminant invasive disease. Here, we will analyze one of the eight MRSA strains isolated from patients in Japan : sample **KUN1163**.
-
-In the **Data availability** part, it is written: 
-
-"The raw Illumina and MinION read data can be found in the DDBJ Sequence Read Archive/NCBI SRA under accession number DRA008776."
-
-More Precisely, If you dug into the SRA (Sequence Read Archive) the raw reads sample **KUN1163**  is available in the run [DRR187559](https://www.ncbi.nlm.nih.gov/sra?LinkName=biosample_sra&from_uid=12510460)
-
-
-!!! question "Exercise: Library & read length"
-    Read the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19) and answer the following:
-
-    1. Which library preparation kit, sequencing reagent kit, and sequencing platform were used for these data? Provide the exact phrasing from the paper that supports your answer.
-    2. Based on the reagent kit and platform, what is the maximum theoretical read length per read ? You can have a look at [Table1 from MiSeq System Specification Sheet](https://www.illumina.com/content/dam/illumina/gcs/assembled-assets/marketing-literature/miseq-system-data-sheet-m-gl-00006/miseq-data-sheet-m-gl-00006.pdf) 
-
-    ??? "Solution"
-        1. Evidence from the paper: "An Illumina short-read library was prepared using a Nextera DNA library prep kit, and paired-end reads were generated using a MiSeq reagent kit (v3-600) on the MiSeq platform (Illumina)."
-        2. "paired-end reads were generated using a MiSeq reagent kit (v3-600). [Looking at the Table1 from MiSeq System Specification Sheet](https://www.illumina.com/content/dam/illumina/gcs/assembled-assets/marketing-literature/miseq-system-data-sheet-m-gl-00006/miseq-data-sheet-m-gl-00006.pdf), the maximum theoretical read length is 300 bp per read and the layout is paired‑end (2 × 300 bp). 
-
 ### Key characteristics of NGS output:
 
 - **Millions of reads**: A single sequencing run generates millions to billions of short DNA sequences

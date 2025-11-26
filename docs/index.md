@@ -1,23 +1,22 @@
 # Bacterial Genome Analysis Overview
 
-![](images/achievement-agreement-arms-1068523.jpg)
+This course will present the fundamentals of bacterial genome analysis using Galaxy. 
 
-# Course overview
+# Data
 
-This course will present the fundamentals of bacterial genome analysis.
-We mainly based on this [workflow](https://github.com/aatxaerandio/Galaxy_Workflow_for_Genomic_Analysis)
-All the information are found in [Tutorial](pages/metagenomic/00-meta_introduction.md).
+In this training we will build an assembly of a bacterial genome, from data produced in this paper: 
+[Hikichi, M., M. Nagao, K. Murase, C. Aikawa, T. Nozawa et al., 2019 Complete Genome Sequences of Eight Methicillin-Resistant Staphylococcus aureus Strains Isolated from Patients in Japan](https://journals.asm.org/doi/10.1128/mra.01212-19)
 
+"Methicillin-resistant Staphylococcus aureus (MRSA) is a major pathogen causing nosocomial infections, and the clinical manifestations of MRSA range from asymptomatic colonization of the nasal mucosa to soft tissue infection to fulminant invasive disease. Here, we will analyze one of the eight MRSA strains isolated from patients in Japan : sample **KUN1163**. "
 
-https://training.galaxyproject.org/training-material/topics/assembly/tutorials/mrsa-illumina/tutorial.html
-https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html
+# Galaxy Tutorials
 
-# Setup 
+Many Bioinformatic Tutorial can be found on the [Galaxy Training Website](https://training.galaxyproject.org/). 
+This training is mainly based on 3 Galaxy Tutorials:
 
-The data used in this workshop are available on Zenodo. Please read the Zenodo page linked below for information about the data and access to the data files. Because this workshop works with real data, be aware that file sizes for the data are large. (1 Gb)
-
-PUT A LINK OF THE DATA
-
+- [Contamination Checking](https://training.galaxyproject.org/training-material/topics/ecology/tutorials/bacterial-isolate-species-contamination-checking/tutorial.html#species-extraction) 
+- [Quality Control, Trimming and Assembly Tutorial](https://training.galaxyproject.org/training-material/topics/assembly/tutorials/mrsa-illumina/tutorial.html) 
+- [Assembly Annotation](https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html) 
 
 # Schedule
 

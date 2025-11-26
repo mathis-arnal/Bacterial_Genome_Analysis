@@ -59,8 +59,6 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed
   - attr_list
-  - mdx_math:
-      enable_dollar_delimiter: true # Allows using $...$ for inline equations
   - tables
   - toc:
       permalink: '#'
@@ -98,8 +96,9 @@ nav:
       - Short intro to Galaxy: pages/bacterial/03-short_intro_galaxy.md
       - Assessing Read Quality: pages/bacterial/04-assessing-read-quality.md
       - Trimming and Filtering: pages/bacterial/05-trimming-filtering.md
+      - Contamination Checking: pages/bacterial/05-2-contamination.md
       - Assembly: pages/bacterial/06-assembly.md
-      - Multi Locus Sequence typing: pages/bacterial/07-mlst.md
+      - Multi Locus Sequence typing (MLST): pages/bacterial/07-mlst.md
       - Identification of AMR genes: pages/bacterial/08-amr-genes.md
       - Genome Annotation: pages/bacterial/09-genome-annotation.md
 
