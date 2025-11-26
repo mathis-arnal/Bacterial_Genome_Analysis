@@ -1,0 +1,1103 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Workshop on Metagenomic">
+      
+      
+        <meta name="author" content="Mathis Arnal">
+      
+      
+        <link rel="canonical" href="https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/07-mlst/">
+      
+      
+        <link rel="prev" href="../06-assembly/">
+      
+      
+        <link rel="next" href="../08-amr-genes/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Multi Locus Sequence typing (MLST) - Bacterial Genome Analysis Workshop, using Galaxy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multi-locus-sequence-typing-mlst" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.md" title="Bacterial Genome Analysis Workshop, using Galaxy" class="md-header__button md-logo" aria-label="Bacterial Genome Analysis Workshop, using Galaxy" data-md-component="logo">
+      
+  <img src="../../images/IRD.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bacterial Genome Analysis Workshop, using Galaxy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multi Locus Sequence typing (MLST)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mathis-arnal/Bacterial_Genome_Analysis
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../course-information/schedule/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Schedule
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-intro-ngs/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bacterial Genome Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.md" title="Bacterial Genome Analysis Workshop, using Galaxy" class="md-nav__button md-logo" aria-label="Bacterial Genome Analysis Workshop, using Galaxy" data-md-component="logo">
+      
+  <img src="../../images/IRD.png" alt="logo">
+
+    </a>
+    Bacterial Genome Analysis Workshop, using Galaxy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mathis-arnal/Bacterial_Genome_Analysis
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-information/schedule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schedule
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bacterial Genome Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bacterial Genome Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-intro-ngs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is Next Generation Sequencing ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-fastq-desc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a fastq file ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-short_intro_galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Short intro to Galaxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assessing-read-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assessing Read Quality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-trimming-filtering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trimming and Filtering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-2-contamination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contamination Checking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi Locus Sequence typing (MLST)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-amr-genes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identification of AMR genes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-genome-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genome Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/edit/main/docs/pages/bacterial/07-mlst.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/mathis-arnal/Bacterial_Genome_Analysis.git/raw/main/docs/pages/bacterial/07-mlst.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="multi-locus-sequence-typing-mlst">Multi Locus Sequence Typing (MLST)<a class="headerlink" href="#multi-locus-sequence-typing-mlst" title="Permanent link">#</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Lesson overview</p>
+<p><strong>Questions</strong>
+- What is MLST?
+- Why do we use MLST for bacterial typing?
+- How is an ST (Sequence Type) assigned?
+- How do we run MLST on Galaxy?</p>
+<p><strong>Objectives</strong>
+- Understand the concept of MLST and allelic profiling.<br />
+- Learn how MLST identifies strains using housekeeping genes.<br />
+- Perform MLST on an assembled bacterial genome using Galaxy.<br />
+- Interpret MLST results and sequence types.</p>
+</div>
+<hr />
+<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h1>
+<p><strong>Multi Locus Sequence Typing (MLST)</strong> is a genotyping method used to characterize bacteria based on the sequences of a small number of <strong>housekeeping genes</strong> (usually 6–8).</p>
+<p>MLST provides:</p>
+<ul>
+<li>A standardized, portable typing system  </li>
+<li>A way to compare strains across labs and studies  </li>
+<li>A stable, evolutionary signal (housekeeping genes evolve slowly)  </li>
+<li>Epidemiological and phylogenetic insight  </li>
+</ul>
+<p>Once the genes are sequenced, each unique allele is assigned a number.<br />
+The combination of allele numbers defines the <strong>Sequence Type (ST)</strong>.</p>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th>Gene</th>
+<th>allelic number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arcC</td>
+<td>3</td>
+</tr>
+<tr>
+<td>aroE</td>
+<td>2</td>
+</tr>
+<tr>
+<td>glpF</td>
+<td>1</td>
+</tr>
+<tr>
+<td>gmk</td>
+<td>4</td>
+</tr>
+<tr>
+<td>pta</td>
+<td>3</td>
+</tr>
+<tr>
+<td>tpi</td>
+<td>1</td>
+</tr>
+<tr>
+<td>yqiL</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>This gives the strain its <strong>Sequence Type (ST)</strong> — e.g. <strong>ST5</strong>.</p>
+<hr />
+<h1 id="why-mlst">Why MLST?<a class="headerlink" href="#why-mlst" title="Permanent link">#</a></h1>
+<p>MLST is used because it is:</p>
+<ul>
+<li><strong>Highly reproducible</strong>  </li>
+<li><strong>Species-specific</strong>  </li>
+<li><strong>Standardized worldwide</strong>  </li>
+<li><strong>Useful for outbreak investigations</strong>  </li>
+<li><strong>Good for long-term epidemiology (clonal complexes, lineages)</strong>  </li>
+</ul>
+<p>While whole-genome sequencing provides higher resolution, MLST remains valuable because:</p>
+<ul>
+<li>It is simple and widely understood  </li>
+<li>It provides stable identifiers (e.g., “ST398”)  </li>
+<li>Databases exist for thousands of species  </li>
+</ul>
+<hr />
+<h1 id="how-mlst-works">How MLST Works<a class="headerlink" href="#how-mlst-works" title="Permanent link">#</a></h1>
+<p><a href="../fig/mlst_scheme.png">
+  <img src="../fig/mlst_scheme.png" width="800px" alt="Diagram of MLST workflow" />
+</a></p>
+<h3 id="step-1-choose-housekeeping-genes">Step 1 — Choose housekeeping genes<a class="headerlink" href="#step-1-choose-housekeeping-genes" title="Permanent link">#</a></h3>
+<p>Each species has its own MLST scheme.<br />
+For example:</p>
+<p><strong>S. aureus MLST genes:</strong><br />
+arcC, aroE, glpF, gmk, pta, tpi, yqiL</p>
+<h3 id="step-2-determine-the-allele-for-each-gene">Step 2 — Determine the allele for each gene<a class="headerlink" href="#step-2-determine-the-allele-for-each-gene" title="Permanent link">#</a></h3>
+<p>The sequence is compared against a curated database (e.g. <strong>PubMLST</strong>).</p>
+<h3 id="step-3-combine-the-alleles-assign-an-st">Step 3 — Combine the alleles → Assign an ST<a class="headerlink" href="#step-3-combine-the-alleles-assign-an-st" title="Permanent link">#</a></h3>
+<p>The allelic profile is matched to a known Sequence Type.</p>
+<p>If the allele combination is new, it may be assigned a <strong>new ST</strong>.</p>
+<hr />
+<h1 id="mlst-from-wgs-data">MLST from WGS data<a class="headerlink" href="#mlst-from-wgs-data" title="Permanent link">#</a></h1>
+<p>MLST is mainly performed on contigs.</p>
+<p>Modern tools such as <strong>mlst</strong> search for known alleles in your genome assembly.</p>
+<hr />
+<h1 id="running-mlst-on-galaxy">Running MLST on Galaxy<a class="headerlink" href="#running-mlst-on-galaxy" title="Permanent link">#</a></h1>
+<h2 id="input">Input<a class="headerlink" href="#input" title="Permanent link">#</a></h2>
+<p>You need:</p>
+<ul>
+<li>Your <strong>assembled genome</strong>, the contigs assembled with SPAdes (<strong>SPAdes on data 2 and data 1: Contigs</strong>)</li>
+</ul>
+<hr />
+<h2 id="create-a-new-history">Create A new history<a class="headerlink" href="#create-a-new-history" title="Permanent link">#</a></h2>
+<p>Let's create a new history to do the MLST </p>
+<div class="admonition example">
+<p class="admonition-title">New history</p>
+<ol>
+<li>Create a new history</li>
+<li>Rename it, e.g., <strong>MLST</strong></li>
+<li>In <strong>History Multiview</strong>, drag and drop  the assembly scaffolds: <strong>SPAdes on data 2 and data 1: Contigs</strong> from the history <strong>Assembly</strong> to our empty history <strong>MLST</strong>.</li>
+</ol>
+</div>
+<h2 id="open-the-mlst-tool">Open the MLST tool<a class="headerlink" href="#open-the-mlst-tool" title="Permanent link">#</a></h2>
+<ol>
+<li>In Galaxy, search for <strong>mlst</strong> in the tool panel.  </li>
+<li>Click <strong>"MLST – Scan contig files against PubMLST typing schemes"</strong>.</li>
+</ol>
+<p><a href="../fig/galaxy/mlst_tool.png">
+  <img src="../fig/galaxy/mlst_tool.png" width="650px" alt="MLST tool in Galaxy" />
+</a></p>
+<hr />
+<h2 id="configure-parameters">Configure parameters<a class="headerlink" href="#configure-parameters" title="Permanent link">#</a></h2>
+<ol>
+<li>
+<p><strong>FASTA file</strong>:<br />
+   Select the <code>contigs.fasta</code> output from SPAdes.</p>
+</li>
+<li>
+<p><strong>Scheme</strong>:<br />
+   Leave <strong>"Auto-detect"</strong> (recommended).<br />
+   MLST will automatically detect the species and apply the correct scheme.</p>
+</li>
+<li>
+<p>Leave other parameters as default.</p>
+</li>
+<li>
+<p>Click <strong>Run Tool</strong>.</p>
+</li>
+</ol>
+<hr />
+<h1 id="understanding-the-mlst-output">Understanding the MLST Output<a class="headerlink" href="#understanding-the-mlst-output" title="Permanent link">#</a></h1>
+<p>!!! "Question"
+    Open the file <strong>MLST on data X: report.tsv</strong>
+    What is the sequence type of the sample ?
+    ??? "Answer"
+      The Sequence type of this sample is 764.
+      It actually makes sense, because this sample has already been reported in <a href="https://pubmlst.org/bigsdb?page=info&amp;db=pubmlst_saureus_isolates&amp;set_id=1&amp;id=44585">PubMLST</a>, and attributed a ST.</p>
+<h3 id="the-important-columns">The important columns:<a class="headerlink" href="#the-important-columns" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>SCHEME</strong> — species detected  </li>
+<li><strong>ST</strong> — the sequence type  </li>
+<li><strong>Alleles</strong> — allele numbers for each gene  </li>
+</ul>
+<p>If some alleles appear as:</p>
+<ul>
+<li><code>0</code> → allele not found  </li>
+<li><code>?</code> → partial match  </li>
+<li><code>NEW</code> → allele not in the database  </li>
+</ul>
+<p>then:</p>
+<ul>
+<li>Coverage may be low  </li>
+<li>Assembly may be fragmented  </li>
+<li>The strain may contain a <em>new</em> allele (submit to PubMLST)</li>
+</ul>
+<hr />
+<h1 id="why-is-mlst-useful">Why Is MLST Useful?<a class="headerlink" href="#why-is-mlst-useful" title="Permanent link">#</a></h1>
+<p>MLST gives stable identifiers used in:</p>
+<ul>
+<li>Publications  </li>
+<li>Surveillance reports  </li>
+<li>Databases  </li>
+</ul>
+<h1 id="limitations-of-mlst">Limitations of MLST<a class="headerlink" href="#limitations-of-mlst" title="Permanent link">#</a></h1>
+<ul>
+<li>Low resolution compared to whole-genome SNP analysis  </li>
+<li>Only uses 6–8 genes (very small part of the genome)  </li>
+<li>Cannot distinguish closely related outbreak strains  </li>
+<li>Housekeeping genes evolve slowly  </li>
+</ul>
+<p>For fine-scale transmission studies, whole-genome SNP typing or cgMLST is preferred.</p>
+<hr />
+<h1 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">#</a></h1>
+<div class="admonition success">
+<p class="admonition-title">Key Points</p>
+<ul>
+<li>MLST is a widely used method for typing bacterial isolates.  </li>
+<li>It relies on sequences of 6–8 housekeeping genes.  </li>
+<li>Each gene is assigned an allele number.  </li>
+<li>The allele profile defines the Sequence Type (ST).  </li>
+<li>MLST can be computed from contigs using the Galaxy MLST tool.  </li>
+<li>Results help in identifying lineages, outbreaks, and strain relationships.</li>
+</ul>
+</div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../06-assembly/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Assembly">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Assembly
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../08-amr-genes/" class="md-footer__link md-footer__link--next" aria-label="Next: Identification of AMR genes">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Identification of AMR genes
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>
