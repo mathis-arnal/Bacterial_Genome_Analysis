@@ -111,49 +111,49 @@ Detect antimicrobial resistance genes in a bacterial genome assembly using Abric
 - Run the tool.
 - Rename the file **ABRicate on data 1 report file** TO **ABRicate RESFINDER**
 
-!!! "Question"
-    Open the file **ABRicate RESFINDER**.
-    - View the tabular results.  
-  - Identify AMR genes detected, their location, and quality metrics.  
-  - Look for genes conferring resistance to major antibiotic classes.
-    Open the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19).
-    Look at the Table 1, they have tested antibiotics and have established Antibiotic resistance (MIC [μg/ml]).
-    Compare with the Antibiotic Resistance for the sample **KUN1163**.
-    Does this results correlates with our fundings from **ResFinder** ?
-    Discuss with your neighbor.
-    
+!!! question "Discuss the AMR Results"
+      Open the file **ABRicate RESFINDER**. 
+      - View the tabular results.   
+      - Identify AMR genes detected, their location, and quality metrics.   
+      - Look for genes conferring resistance to major antibiotic classes. 
+      Open the [referenced paper](https://journals.asm.org/doi/10.1128/mra.01212-19). 
+      Look at the Table 1, they have tested antibiotics and have established Antibiotic resistance (MIC [μg/ml]). 
+      Compare with the Antibiotic Resistance for the sample **KUN1163**. 
+      Does this results correlates with our fundings from **ResFinder** ?
+      Discuss with your neighbor.
+      
+      ??? success"Answer"
 
-    ??? "Answer"
-        Phenotypic antimicrobial susceptibility testing revealed resistance to 7 antibiotic classes: **CEZ (≥64), IPM (≥32), LVFX (≥16), GM (≥32), EM (≥16), CLDM (≥16), MPIPC (≥16)**.
+          Phenotypic antimicrobial susceptibility testing revealed resistance to 7 antibiotic classes: **CEZ (≥64), IPM (≥32), LVFX (≥16), GM (≥32), EM (≥16), CLDM (≥16), MPIPC (≥16)**.
 
-        We look at the **RESISTANCE** column from the ResFinder output.
+          We look at the **RESISTANCE** column from the ResFinder output.
 
-        **β-lactam resistance** ( Imipenem(IPM)) was conferred by *mecA* (99.85% identity) located 
-        on a mobile SCCmec element (NODE_23, 18× coverage).
+          **β-lactam resistance** ( Imipenem(IPM)) was conferred by *mecA* (99.85% identity) located 
+          on a mobile SCCmec element (NODE_23, 18× coverage).
 
-        **Macrolide-lincosamide resistance** (erythromycin (EM), clindamycin(CLDM) 
-        ) was mediated by *erm(A)* (100% identity) on a high-copy plasmid 
-        (NODE_24, 30× coverage).
+          **Macrolide-lincosamide resistance** (erythromycin (EM), clindamycin(CLDM) 
+          ) was mediated by *erm(A)* (100% identity) on a high-copy plasmid 
+          (NODE_24, 30× coverage).
 
-        **Aminoglycoside resistance** (gentamicin(GM)) resulted from a 
-        bifunctional enzyme *aac(6')-aph(2'')* (100% identity) on a very high-copy 
-        plasmid (NODE_27, 134× coverage).
+          **Aminoglycoside resistance** (gentamicin(GM)) resulted from a 
+          bifunctional enzyme *aac(6')-aph(2'')* (100% identity) on a very high-copy 
+          plasmid (NODE_27, 134× coverage).
 
-        Discussion: There are 3 Antibiotics NOT Found in ResFinder: CEZ (Cefazolin), MPIPC (Oxacillin) and LVFX (Levofloxacin).
-        **Why only 4/7 antibiotics are explicitly listed:**
-        **1. mecA Limitation (CEZ, MPIPC missing):**
-        - mecA confers resistance to ALL β-lactams
-        - ResFinder lists representative examples: "Imipenem, Cefoxitin, Cefepime..."
-        - **CEZ (cefazolin)** and **MPIPC (oxacillin)** are omitted from the text list
-        - This does NOT mean susceptibility - it's a database annotation limitation
-        - **Interpretation:** mecA present → assume ALL β-lactams resistant, including CEZ and MPIPC.
-        
-        **2. LVFX (Levofloxacin) - Different mechanism:**
-        - ResFinder found NO plasmid-mediated quinolone resistance genes (qnr, aac(6')-Ib-cr)
-        - Fluoroquinolone resistance in S. aureus is usually from:
-          a) **Chromosomal point mutations** in gyrA/parC (NOT detected by gene-based tools)
-          b) **Intrinsic efflux pumps** like norA (excluded from ResFinder)
-        - ResFinder only detects acquired GENES, not mutations or intrinsic mechanisms
+          Discussion: There are 3 Antibiotics NOT Found in ResFinder: CEZ (Cefazolin), MPIPC (Oxacillin) and LVFX (Levofloxacin).
+          **Why only 4/7 antibiotics are explicitly listed:**
+          **1. mecA Limitation (CEZ, MPIPC missing):**
+          - mecA confers resistance to ALL β-lactams
+          - ResFinder lists representative examples: "Imipenem, Cefoxitin, Cefepime..."
+          - **CEZ (cefazolin)** and **MPIPC (oxacillin)** are omitted from the text list
+          - This does NOT mean susceptibility - it's a database annotation limitation
+          - **Interpretation:** mecA present → assume ALL β-lactams resistant, including CEZ and MPIPC.
+          
+          **2. LVFX (Levofloxacin) - Different mechanism:**
+          - ResFinder found NO plasmid-mediated quinolone resistance genes (qnr, aac(6')-Ib-cr)
+          - Fluoroquinolone resistance in S. aureus is usually from:
+            a) **Chromosomal point mutations** in gyrA/parC (NOT detected by gene-based tools)
+            b) **Intrinsic efflux pumps** like norA (excluded from ResFinder)
+          - ResFinder only detects acquired GENES, not mutations or intrinsic mechanisms
 
 
 ## Can We Predict Untested Antibiotics?

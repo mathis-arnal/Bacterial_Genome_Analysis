@@ -88,11 +88,11 @@ During de novo assembly, the algorithm steps are typically:
 
 The figure below shows the hierarchy:
 
-![de-novo-assembly-overview](../../fig/bact/06-assembly/de-novo-assembly-overview.png")
+![de-novo-assembly-overview](../../fig/bact/06-assembly/de-novo-assembly-overview.png)
 
 There are several strategies to assemble genomes. Most modern short-read assemblers use **De Bruijn Graphs**, but it is useful to know all three families of algorithms.
 
-![assembly-algorithms](../../fig/bact/06-assembly/assembly-algorithms.png")
+![assembly-algorithms](../../fig/bact/06-assembly/assembly-algorithms.png)  
 
 ### **1. Greedy Extension**
 - Start from a read, extend it by finding the next read with the highest overlap.  
@@ -189,7 +189,7 @@ SPAdes performs BayesHammer/Hammer error correction on the raw reads before doin
 (fixes substitutions & small indels, removes low-quality kmers), which improve assembly quality but takes longer.
 
 - in **Pipeline Options**:
-      tick **Careful: ties to reduce the number of mismatches and short indels. Only recommended for small genomes (--careful)**
+      tick **Isolate**
       Enable careful mode reduce mismatches.
 
 - **Select additional outputs**:  

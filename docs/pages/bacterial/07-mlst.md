@@ -65,9 +65,9 @@ While whole-genome sequencing provides higher resolution, MLST remains valuable 
 
 # How MLST Works
 
-<a href="../fig/mlst_scheme.png">
-  <img src="../fig/mlst_scheme.png" width="800px" alt="Diagram of MLST workflow" />
-</a>
+Looks at ta FASTA file and automatically compare it to the [PubMLST](https://pubmlst.org/) database, using the BLAST algorithm. 
+
+![mlst-workflow](../../fig/bact/07-mlst/MLST-Workflow.png)
 
 ### Step 1 — Choose housekeeping genes
 Each species has its own MLST scheme.  
