@@ -418,6 +418,8 @@
       
         
       
+        
+      
     
     
     
@@ -754,6 +756,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-galaxy-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Galaxy Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -862,9 +892,9 @@ The process of stitching reads together into longer sequences is called <strong>
 <li><strong>Scaffolds</strong>: contigs ordered and oriented using paired-end information  (Mainly useuful for visualization)</li>
 </ol>
 <p>The figure below shows the hierarchy:</p>
-<p><img alt="de-novo-assembly-overview" src="../../fig/bact/06-assembly/de-novo-assembly-overview.png&quot;" /></p>
+<p><img alt="de-novo-assembly-overview" src="../../../fig/bact/06-assembly/de-novo-assembly-overview.png" /></p>
 <p>There are several strategies to assemble genomes. Most modern short-read assemblers use <strong>De Bruijn Graphs</strong>, but it is useful to know all three families of algorithms.</p>
-<p><img alt="assembly-algorithms" src="../../fig/bact/06-assembly/assembly-algorithms.png&quot;" /></p>
+<p><img alt="assembly-algorithms" src="../../../fig/bact/06-assembly/assembly-algorithms.png" />  </p>
 <h3 id="1-greedy-extension"><strong>1. Greedy Extension</strong><a class="headerlink" href="#1-greedy-extension" title="Permanent link">#</a></h3>
 <ul>
 <li>Start from a read, extend it by finding the next read with the highest overlap.  </li>
@@ -951,7 +981,7 @@ SPAdes performs BayesHammer/Hammer error correction on the raw reads before doin
 </li>
 <li>
 <p>in <strong>Pipeline Options</strong>:
-      tick <strong>Careful: ties to reduce the number of mismatches and short indels. Only recommended for small genomes (--careful)</strong>
+      tick <strong>Isolate</strong>
       Enable careful mode reduce mismatches.</p>
 </li>
 <li>

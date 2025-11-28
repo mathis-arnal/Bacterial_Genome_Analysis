@@ -2,50 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/01-intro-ngs/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/02-fastq-desc/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/03-short_intro_galaxy/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/04-assessing-read-quality/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/05-2-contamination/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/05-trimming-filtering/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/06-assembly/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/07-mlst/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/08-amr-genes/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/09-genome-annotation/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
+    </url>
+    <url>
+         <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/bacterial/10-galaxy-tips/</loc>
+         <lastmod>2025-11-28</lastmod>
     </url>
     <url>
          <loc>https://mathis-arnal.github.io/Bacterial_Genome_Analysis/pages/course-information/schedule/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-28</lastmod>
     </url>
 </urlset>
